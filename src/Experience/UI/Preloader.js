@@ -6,7 +6,7 @@ export default class Preloader {
     this.statusElement = document.getElementById('loader-status');
 
     this.items = {
-      car: { loaded: 0, total: 3658512, ready: false }
+      car: { loaded: 0, total: 19510620, ready: false }
     };
 
     this.totalBytes = this.items.car.total;

@@ -1,17 +1,11 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 export default class Car {
   constructor(experience) {
     this.experience = experience;
     this.scene = this.experience.scene;
-
-    const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('./draco/');
-
     this.loader = new GLTFLoader();
-    this.loader.setDRACOLoader(dracoLoader);
 
     this.animations = {};
     this.state = {

@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 
 export default class Floor {
   constructor(experience) {
@@ -23,17 +22,19 @@ export default class Floor {
     this.baseMesh.receiveShadow = true;
     this.scene.add(this.baseMesh);
 
-    // 2. Real-time Planar Mirror Reflector under the car
-    const reflectorGeo = new THREE.CircleGeometry(9, 64);
-    this.groundMirror = new Reflector(reflectorGeo, {
-      clipBias: 0.003,
-      textureWidth: Math.min(window.innerWidth, 1024),
-      textureHeight: Math.min(window.innerHeight, 1024),
-      color: 0x2d323b
+    // 2. High-performance reflective showroom stage circle
+    // Ultra-smooth PBR mirror finish with zero secondary-camera rendering overhead (prevents mobile GPU freeze)
+    const mirrorGeo = new THREE.CircleGeometry(9, 64);
+    const mirrorMat = new THREE.MeshStandardMaterial({
+      color: 0x111620,
+      roughness: 0.15,
+      metalness: 0.92,
+      envMapIntensity: 1.4
     });
-
+    this.groundMirror = new THREE.Mesh(mirrorGeo, mirrorMat);
     this.groundMirror.position.set(0, 0.005, 0);
     this.groundMirror.rotation.x = -Math.PI / 2;
+    this.groundMirror.receiveShadow = true;
     this.scene.add(this.groundMirror);
   }
 }
