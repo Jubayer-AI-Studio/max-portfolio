@@ -25,12 +25,15 @@ export default class Environment {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     this.scene.add(ambientLight);
 
+    const isMobile = this.experience.sizes?.isMobile;
+    const shadowMapSize = isMobile ? 1024 : 2048;
+
     // Main Studio Softbox Overhead Light (Key Light)
     const mainLight = new THREE.DirectionalLight(0xfff5ea, 1.8);
     mainLight.position.set(2, 8, 4);
     mainLight.castShadow = true;
-    mainLight.shadow.mapSize.width = 2048;
-    mainLight.shadow.mapSize.height = 2048;
+    mainLight.shadow.mapSize.width = shadowMapSize;
+    mainLight.shadow.mapSize.height = shadowMapSize;
     mainLight.shadow.camera.near = 0.5;
     mainLight.shadow.camera.far = 25;
     mainLight.shadow.bias = -0.0001;

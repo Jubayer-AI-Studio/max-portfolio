@@ -6,17 +6,17 @@ export default class Preloader {
     this.statusElement = document.getElementById('loader-status');
 
     this.items = {
-      car: { loaded: 0, total: 43650624, ready: false }
+      car: { loaded: 0, total: 3658512, ready: false }
     };
 
     this.totalBytes = this.items.car.total;
     this.currentProgress = 0;
     this.soundPlayed = false;
 
-    // Safety fallback: Never keep user waiting longer than 3.5 seconds
+    // Safety fallback: Never keep user waiting longer than 12 seconds
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 3500);
+    }, 12000);
 
     // Initial click or touch listener to trigger audio if browser requires user gesture
     window.addEventListener('click', () => this.tryPlayAudio(), { once: true });
@@ -33,11 +33,15 @@ export default class Preloader {
   onProgress(itemKey, loaded, total) {
     if (this.items[itemKey]) {
       this.items[itemKey].loaded = loaded;
-      if (total) this.items[itemKey].total = total;
+      if (total && total > 0) {
+        this.items[itemKey].total = total;
+        this.totalBytes = total;
+      }
     }
 
     const currentLoaded = this.items.car.loaded;
-    const rawProgress = Math.min(Math.round((currentLoaded / this.totalBytes) * 100), 99);
+    const currentTotal = this.totalBytes || 3658512;
+    const rawProgress = Math.min(Math.round((currentLoaded / currentTotal) * 98), 98);
     this.currentProgress = Math.max(this.currentProgress, rawProgress);
 
     if (this.barElement) {
