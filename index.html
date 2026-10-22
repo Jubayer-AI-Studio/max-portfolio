@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAX Portfolio — Jubayer Ahmad | Full-Stack Developer • AI Specialist • AI Film Creator</title>
+  <meta name="description" content="Cinematic 3D Portfolio of Jubayer Ahmad. Full-Stack Developer, AI Specialist, and AI Film Creator.">
+  
+  <!-- PWA & Mobile Web App Manifest -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#08090C">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MAX 3D">
+  <link rel="apple-touch-icon" href="./images/jubayer.jpg">
+
+  <!-- Google Search Console Site Verification -->
+  <meta name="google-site-verification" content="GSC_VERIFICATION_TOKEN_HERE">
+
+  <!-- Open Graph & Twitter Social SEO -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jubayer Ahmad — Full-Stack Developer & AI Film Maker | MAX 3D Studio">
+  <meta property="og:description" content="Cinematic 3D Interactive Showroom & VIP Engineering Portfolio of Jubayer Ahmad.">
+  <meta property="og:image" content="./images/jubayer.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jubayer Ahmad — Full-Stack Developer & AI Film Maker">
+  <meta name="twitter:description" content="Cinematic 3D Interactive Showroom & VIP Engineering Portfolio of Jubayer Ahmad.">
+  <meta name="twitter:image" content="./images/jubayer.jpg">
+
+  <!-- Schema.org JSON-LD Structured Data for Google Search Engine -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jubayer Ahmad",
+    "alternateName": "জুবায়ের আহমদ",
+    "jobTitle": "Full-Stack Developer & AI Film Maker",
+    "knowsAbout": ["Full-Stack SaaS Development", "Next.js", "React", "TypeScript", "Node.js", "Three.js WebGL", "AI Video Automation", "Google Veo 3.1", "Python"],
+    "sameAs": [
+      "https://github.com/Jubayer-AI-Studio",
+      "https://www.youtube.com/@jubayeraispecialist",
+      "https://www.instagram.com/jubayer_ahmad_2002/"
+    ]
+  }
+  </script>
+  
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  
+  <!-- Modern Clean Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <!-- 3D Canvas -->
+  <canvas class="webgl"></canvas>
+
+  <!-- Loading Screen -->
+  <div class="loader-overlay" id="loader">
+    <div class="loader-content">
+      <div class="loader-brand">MAX PORTFOLIO</div>
+      <div class="loader-sub">JUBAYER AHMAD • CINEMATIC EXPERIENCE</div>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+      <div class="loader-status" id="loader-status">Initializing Studio Engine... 0%</div>
+    </div>
+  </div>
+
+  <!-- HUD: Top Header (Large Bold Clock & Studio Controls) -->
+  <header class="hud-header">
+    <div class="brand-minimal">
+      <div class="brand-title">MAX STUDIO</div>
+      <div class="brand-sub">MERCEDES-BENZ SLK 55 AMG</div>
+    </div>
+
+    <!-- Big Bold Cyberpunk Digital Clock HUD -->
+    <div class="hud-clock-center">
+      <div class="hud-big-clock" id="live-clock">--:--:--</div>
+      <div class="hud-clock-meta">
+        <span class="pulse-dot"></span>
+        <span>LOCAL TIME • 60 FPS ACTIVE ENGINE</span>
+      </div>
+    </div>
+
+    <!-- Top Right Controls -->
+    <div class="hud-controls">
+      <button class="hud-btn active" id="wheels-toggle" title="Toggle Live Wheel Spin">
+        <span class="icon">🏎️</span>
+        <span class="btn-text">WHEELS: SPIN</span>
+      </button>
+      <button class="hud-btn" id="turntable-toggle" title="Toggle Turntable Rotation">
+        <span class="icon">🔄</span>
+        <span class="btn-text">ROTATE 360°</span>
+      </button>
+      <button class="hud-btn hud-btn-explode" id="explode-toggle" title="Explode / Open All Car Parts & Reveal Identity Blueprint">
+        <span class="icon">✨</span>
+        <span class="btn-text">OPEN ALL PARTS</span>
+      </button>
+      <button class="hud-btn" id="audio-toggle" title="Toggle Sound">
+        <span class="icon">🔊</span>
+        <span class="btn-text">SOUND ON</span>
+      </button>
+      <button class="hud-btn reset-cam" id="reset-cam" title="Reset Camera View">
+        <span class="icon">⏮️</span>
+        <span class="btn-text">RESET VIEW</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Floating Minimal HUD Focus Pill (Shows when looking at 3D Signboard or Car Part) -->
+  <div class="hud-focus-banner" id="hud-focus-banner">
+    <div class="hud-focus-pill">
+      <span class="focus-dot"></span>
+      <span class="focus-title" id="focus-title">VIP Signboard • Jubayer Ahmad</span>
+      <button class="focus-return-btn" id="focus-return-btn">⏮ Back to Car Overview</button>
+    </div>
+  </div>
+
+  <!-- HUD: Bottom Navigation Bar -->
+  <nav class="hud-nav">
+    <div class="nav-container">
+      <button class="nav-pill active" data-target="overview">
+        <span class="dot"></span>
+        <span>Overview</span>
+      </button>
+      <button class="nav-pill" data-target="explode">
+        <span class="dot"></span>
+        <span>Open All Parts (Blueprint)</span>
+      </button>
+      <button class="nav-pill" data-target="driver">
+        <span class="dot"></span>
+        <span>About Jubayer (3D Signboard)</span>
+      </button>
+      <button class="nav-pill" data-target="hood">
+        <span class="dot"></span>
+        <span>Full-Stack Core</span>
+      </button>
+      <button class="nav-pill" data-target="dashboard">
+        <span class="dot"></span>
+        <span>AI & Film Stack</span>
+      </button>
+      <button class="nav-pill" data-target="trunk">
+        <span class="dot"></span>
+        <span>GitHub Repos (22)</span>
+      </button>
+      <button class="nav-pill" data-target="fuel">
+        <span class="dot"></span>
+        <span>Connect</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Interactive Non-Intrusive HUD Drawer (Jesse Zhou Style - Never Blocks the Car) -->
+  <div class="content-modal" id="content-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-scroll" id="modal-body">
+        <!-- Content injected dynamically via UI Controller -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript Entry Point -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

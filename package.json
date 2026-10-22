@@ -1,0 +1,20 @@
+{
+  "name": "max-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.183.0",
+    "gsap": "^3.12.5",
+    "howler": "^2.2.4",
+    "camera-controls": "^3.1.2"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
+}
