@@ -57,30 +57,93 @@ export default class Car {
         // Setup Wheel Pivots for live spinning animation
         this.setupWheelPivots();
 
-        // Enhance materials
+        // Enhance materials with authentic automotive PBR fidelity
         this.model.traverse((child) => {
           if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
 
             if (child.material) {
+              const matName = (child.material.name || '').toLowerCase();
+              const meshName = (child.name || '').toLowerCase();
+
+              // Check if mesh is part of a tire / tyre assembly
+              let isTire = false;
+              let curr = child;
+              while (curr) {
+                if (curr.name && /tyre|tire/i.test(curr.name)) {
+                  isTire = true;
+                  break;
+                }
+                curr = curr.parent;
+              }
+
+              // Base HDR reflection intensity
               child.material.envMapIntensity = 1.6;
 
-              const matName = (child.material.name || '').toLowerCase();
-              if (matName.includes('paint') || matName.includes('car') || matName.includes('body')) {
-                child.material.roughness = 0.12;
+              // 1. Realistic Vulcanized Rubber Tires (Matte, non-metallic, deep black)
+              if (isTire) {
+                child.material = child.material.clone();
+                child.material.color.setHex(0x181a1d);
+                child.material.emissive.setHex(0x000000);
+                child.material.emissiveIntensity = 0;
+                child.material.roughness = 0.92;
+                child.material.metalness = 0.02;
+                child.material.envMapIntensity = 0.2;
+              }
+
+              // 2. Genuine Automotive Lacquer Paint (Glossy clearcoat & metallic flake)
+              else if (matName.includes('carpaint') || matName.includes('paint') || matName.includes('body')) {
+                child.material.roughness = 0.14;
                 child.material.metalness = 0.85;
+                child.material.envMapIntensity = 1.9;
+                if ('clearcoat' in child.material) {
+                  child.material.clearcoat = 1.0;
+                  child.material.clearcoatRoughness = 0.06;
+                }
               }
 
-              if (matName.includes('glass') || matName.includes('window')) {
+              // 3. Polished Chrome / Mercedes Badges / Exhaust
+              else if (matName.includes('chrome') || matName.includes('badge') || matName.includes('screw')) {
+                child.material.roughness = 0.08;
+                child.material.metalness = 0.98;
+                child.material.envMapIntensity = 2.4;
+              }
+
+              // 4. Tinted Automotive Glass / Windshield
+              else if (matName.includes('glass') || matName.includes('windshield')) {
                 child.material.transparent = true;
-                child.material.opacity = 0.65;
-                child.material.roughness = 0.05;
+                child.material.opacity = 0.48;
+                child.material.roughness = 0.04;
+                child.material.metalness = 0.12;
+                child.material.envMapIntensity = 2.5;
               }
 
-              if (matName.includes('light') || matName.includes('lamp') || matName.includes('led')) {
-                child.material.emissive = new THREE.Color(0xddeeff);
-                child.material.emissiveIntensity = 0.6;
+              // 5. Drilled Brake Rotors & Machined Aluminum Rims
+              else if (matName.includes('rotor') || matName.includes('aluminum') || matName.includes('machined') || meshName.includes('rim_')) {
+                child.material.roughness = 0.18;
+                child.material.metalness = 0.92;
+                child.material.envMapIntensity = 1.8;
+              }
+
+              // 6. Interior Upholstery (Leather, Alcantara, Carpet)
+              else if (matName.includes('leather') || matName.includes('alcantara') || matName.includes('carpet') || matName.includes('fabric')) {
+                child.material.roughness = 0.85;
+                child.material.metalness = 0.05;
+                child.material.envMapIntensity = 0.5;
+              }
+
+              // 7. Carbon Fiber Trim
+              else if (matName.includes('carbonfiber')) {
+                child.material.roughness = 0.28;
+                child.material.metalness = 0.4;
+                child.material.envMapIntensity = 1.3;
+              }
+
+              // 8. Illuminated Instrument Gauge & LED Headlights (Excluding tires and rims)
+              if (!isTire && !meshName.includes('rim_') && (matName.includes('lbk_led') || matName.includes('gaugeface') || matName.includes('int_symbols_emissive') || meshName.includes('headlight') || meshName.includes('taillight'))) {
+                child.material.emissive = new THREE.Color(0xd8f0ff);
+                child.material.emissiveIntensity = 0.8;
               }
             }
           }

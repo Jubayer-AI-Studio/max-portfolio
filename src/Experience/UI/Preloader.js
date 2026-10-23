@@ -138,15 +138,15 @@ export default class Preloader {
     // Dynamic High-Energy Automotive Telemetry Status
     if (this.statusElement) {
       if (progInt < 25) {
-        this.statusElement.textContent = `🏎️ Waking Up AMG V8 Biturbo Engine... ${progInt}%`;
+        this.statusElement.textContent = `Igniting AMG V8 Biturbo Engine... ${progInt}%`;
       } else if (progInt < 50) {
-        this.statusElement.textContent = `⚡ Calibrating 60 FPS Mobile GPU Shaders... ${progInt}%`;
+        this.statusElement.textContent = `Calibrating 60 FPS Mobile GPU Shaders... ${progInt}%`;
       } else if (progInt < 75) {
-        this.statusElement.textContent = `🛣️ Accelerating on Cyber Highway (${speed} KM/H)...`;
+        this.statusElement.textContent = `Accelerating Telemetry (${speed} KM/H)...`;
       } else if (progInt < 95) {
-        this.statusElement.textContent = `🏁 Engaging Aerodynamics & Launch Control... ${progInt}%`;
+        this.statusElement.textContent = `Engaging Aerodynamics & Launch Control... ${progInt}%`;
       } else {
-        this.statusElement.textContent = `✨ Launch Control Ready • Welcome, Jubayer Ahmad!`;
+        this.statusElement.textContent = `Launch Control Ready • Welcome, Jubayer Ahmad`;
       }
     }
 
@@ -164,7 +164,7 @@ export default class Preloader {
     if (this.speedElement) this.speedElement.textContent = '260';
     if (this.gearElement) this.gearElement.textContent = 'MAX';
     if (this.statusElement) {
-      this.statusElement.textContent = '✨ Studio Online • Welcome Jubayer Ahmad!';
+      this.statusElement.textContent = 'Studio Online • Welcome, Jubayer Ahmad';
     }
 
     if (this.experience.sounds) {

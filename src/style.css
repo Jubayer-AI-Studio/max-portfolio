@@ -18,12 +18,12 @@
   --accent-amber: #FFA000;
   --accent-amber-glow: rgba(255, 160, 0, 0.30);
   
-  --text-main: #FFF9E6;
-  --text-muted: #D4C5A9;
-  --text-dim: #9E8C6C;
+  --text-main: #FFFFFF;
+  --text-muted: #E2E8F0;
+  --text-dim: #CBD5E1;
 
-  --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', 'Space Grotesk', -apple-system, sans-serif;
 }
 
 * {
@@ -105,21 +105,22 @@ html, body {
 
 .loader-brand {
   font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  color: #fff;
+  font-size: 2.3rem;
+  font-weight: 900;
+  letter-spacing: 0.20em;
+  color: #FFFFFF;
   text-shadow: 0 0 24px rgba(0, 240, 255, 0.6), 0 0 48px rgba(0, 240, 255, 0.2);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   line-height: 1.1;
 }
 
 .loader-sub {
-  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
   letter-spacing: 0.16em;
-  color: var(--accent-amber);
+  color: #FDE047;
   margin-bottom: 24px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Digital Cockpit Telemetry HUD */
@@ -352,12 +353,13 @@ html, body {
 }
 
 .loader-status {
-  font-size: 0.84rem;
-  color: #cbd5e1;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  color: #F8FAFC;
   letter-spacing: 0.04em;
   margin-bottom: 16px;
   min-height: 22px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Action Controls (Rev Engine & Quick Launch) */
@@ -620,9 +622,9 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-main);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -703,10 +705,11 @@ html, body {
 .nav-pill {
   background: transparent;
   border: none;
-  color: var(--text-muted);
-  font-family: var(--font-main);
-  font-size: 0.78rem;
-  font-weight: 600;
+  color: #E2E8F0;
+  font-family: var(--font-display);
+  font-size: 0.80rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   padding: 10px 18px;
   border-radius: 99px;
   cursor: pointer;
@@ -721,7 +724,7 @@ html, body {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--text-dim);
+  background: #94A3B8;
   transition: all 0.25s ease;
 }
 
@@ -1114,16 +1117,19 @@ html, body {
 }
 
 .info-item-title {
-  font-size: 0.95rem;
+  font-family: var(--font-display);
+  font-size: 0.96rem;
   font-weight: 700;
-  color: #FFD700;
+  color: #FDE047;
   margin-bottom: 6px;
+  letter-spacing: 0.02em;
 }
 
 .info-item-sub {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.45;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  color: #F1F5F9;
+  line-height: 1.5;
 }
 
 .tag-list {
@@ -1184,8 +1190,8 @@ html, body {
 .repo-filter-btn {
   background: rgba(255, 215, 0, 0.08);
   border: 1px solid rgba(255, 215, 0, 0.25);
-  color: #D4C5A9;
-  font-family: var(--font-main);
+  color: #E2E8F0;
+  font-family: var(--font-display);
   font-size: 0.76rem;
   font-weight: 700;
   padding: 6px 14px;
@@ -1236,6 +1242,7 @@ html, body {
 }
 
 .repo-lang-badge {
+  font-family: var(--font-display);
   font-size: 0.68rem;
   font-weight: 800;
   color: #FFD700;
@@ -1248,19 +1255,21 @@ html, body {
 }
 
 .repo-star-badge {
+  font-family: var(--font-display);
   font-size: 0.72rem;
   font-weight: 700;
   color: #FFD700;
 }
 
 .repo-title {
-  font-size: 0.95rem;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
 .repo-link {
-  color: #FFF9E6;
+  color: #FFFFFF;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -1271,9 +1280,10 @@ html, body {
 }
 
 .repo-desc {
-  font-size: 0.78rem;
-  line-height: 1.45;
-  color: #D4C5A9;
+  font-family: var(--font-main);
+  font-size: 0.80rem;
+  line-height: 1.5;
+  color: #E2E8F0;
   margin-bottom: 12px;
 }
 
@@ -1488,26 +1498,28 @@ body.signboard-focus .hotspots-container {
     font-size: 0.68rem;
   }
   .exploded-card {
-    width: 180px;
-    padding: 8px 10px;
-    border-radius: 10px;
+    width: 195px;
+    padding: 9px 12px;
+    border-radius: 12px;
   }
   .exploded-card-badge {
-    font-size: 0.55rem;
-    padding: 2px 6px;
+    font-size: 0.58rem;
+    padding: 2px 7px;
     margin-bottom: 4px;
   }
   .exploded-card-title {
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     margin-bottom: 3px;
+    color: #FFFFFF;
   }
   .exploded-card-desc {
-    font-size: 0.60rem;
-    line-height: 1.25;
-    margin-bottom: 4px;
+    font-size: 0.68rem;
+    line-height: 1.35;
+    margin-bottom: 5px;
+    color: #E2E8F0;
   }
   .exploded-card-action {
-    font-size: 0.60rem;
+    font-size: 0.66rem;
   }
 }
 
@@ -1615,10 +1627,11 @@ body.exploded-mode .hotspot-pin {
 
 .exploded-card-badge {
   display: inline-block;
-  font-size: 0.64rem;
+  font-family: var(--font-display);
+  font-size: 0.66rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 2.5px 8px;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
   border-radius: 999px;
   margin-bottom: 6px;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -1626,30 +1639,34 @@ body.exploded-mode .hotspot-pin {
 
 .exploded-card-title {
   font-family: var(--font-display);
-  font-size: 0.90rem;
+  font-size: 0.94rem;
   font-weight: 700;
-  color: #F8F4EC;
-  margin-bottom: 4px;
+  color: #FFFFFF;
+  margin-bottom: 5px;
   line-height: 1.25;
+  letter-spacing: 0.02em;
 }
 
 .exploded-card-desc {
-  font-size: 0.72rem;
-  color: #A8A29E;
-  line-height: 1.4;
+  font-family: var(--font-main);
+  font-size: 0.76rem;
+  color: #E2E8F0;
+  line-height: 1.45;
   margin-bottom: 8px;
 }
 
 .exploded-card-action {
-  font-size: 0.70rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
   font-weight: 700;
-  color: #D4A038;
+  color: #FBBF24;
   display: flex;
   align-items: center;
   gap: 4px;
+  letter-spacing: 0.04em;
   transition: color 0.2s ease;
 }
 
 .exploded-card:hover .exploded-card-action {
-  color: #FDE68A;
+  color: #FFFFFF;
 }

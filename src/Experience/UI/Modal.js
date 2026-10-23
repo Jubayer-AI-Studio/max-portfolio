@@ -274,8 +274,9 @@ export default class Modal {
     if (this.audioBtn) {
       this.audioBtn.addEventListener('click', () => {
         const muted = this.experience.sounds.toggleMute();
-        this.audioBtn.querySelector('.icon').textContent = muted ? '🔇' : '🔊';
-        this.audioBtn.querySelector('.btn-text').textContent = muted ? 'SOUND OFF' : 'SOUND ON';
+        const text = this.audioBtn.querySelector('.btn-text');
+        if (text) text.textContent = muted ? 'SOUND OFF' : 'SOUND ON';
+        this.audioBtn.classList.toggle('muted', muted);
       });
     }
 
@@ -315,9 +316,7 @@ export default class Modal {
 
       if (this.explodeBtn) {
         this.explodeBtn.classList.add('active');
-        const icon = this.explodeBtn.querySelector('.icon');
         const text = this.explodeBtn.querySelector('.btn-text');
-        if (icon) icon.textContent = '🔄';
         if (text) text.textContent = 'CLOSE ALL PARTS';
       }
 
@@ -327,7 +326,7 @@ export default class Modal {
 
       if (this.focusBanner) {
         if (this.focusTitle) {
-          this.focusTitle.textContent = '✨ Showroom Blueprint • All Vehicle Components Open';
+          this.focusTitle.textContent = 'Showroom Blueprint • All Vehicle Components Open';
         }
         this.focusBanner.classList.add('active');
       }
@@ -348,9 +347,7 @@ export default class Modal {
 
       if (this.explodeBtn) {
         this.explodeBtn.classList.remove('active');
-        const icon = this.explodeBtn.querySelector('.icon');
         const text = this.explodeBtn.querySelector('.btn-text');
-        if (icon) icon.textContent = '✨';
         if (text) text.textContent = 'OPEN ALL PARTS';
       }
 
@@ -388,9 +385,7 @@ export default class Modal {
 
     if (this.explodeBtn) {
       this.explodeBtn.classList.remove('active');
-      const icon = this.explodeBtn.querySelector('.icon');
       const text = this.explodeBtn.querySelector('.btn-text');
-      if (icon) icon.textContent = '✨';
       if (text) text.textContent = 'OPEN ALL PARTS';
     }
 
@@ -447,7 +442,7 @@ export default class Modal {
       document.body.classList.add('signboard-focus');
       if (this.focusBanner) {
         if (this.focusTitle) {
-          this.focusTitle.textContent = '★ 3D VIP Showroom Signboard • Jubayer Ahmad';
+          this.focusTitle.textContent = 'VIP Showroom Signboard • Jubayer Ahmad';
         }
         this.focusBanner.classList.add('active');
       }
@@ -485,11 +480,11 @@ export default class Modal {
     const hoodBtn = this.bodyEl.querySelector('#modal-toggle-hood-btn');
     if (hoodBtn) {
       const isCurrentlyOpen = this.experience.world.car.state.hoodOpen;
-      hoodBtn.textContent = isCurrentlyOpen ? '🚪 Close Hood' : '🚪 Open Hood';
+      hoodBtn.textContent = isCurrentlyOpen ? 'Close Hood' : 'Open Hood';
       hoodBtn.addEventListener('click', () => {
         if (this.experience.world && this.experience.world.car) {
           const isOpen = this.experience.world.car.toggleHood();
-          hoodBtn.textContent = isOpen ? '🚪 Close Hood' : '🚪 Open Hood';
+          hoodBtn.textContent = isOpen ? 'Close Hood' : 'Open Hood';
         }
       });
     }
@@ -498,11 +493,11 @@ export default class Modal {
     const doorBtn = this.bodyEl.querySelector('#modal-toggle-door-btn');
     if (doorBtn) {
       const isCurrentlyOpen = this.experience.world.car.state.doorOpen;
-      doorBtn.textContent = isCurrentlyOpen ? '🚪 Close Driver Door' : '🚪 Open Driver Door';
+      doorBtn.textContent = isCurrentlyOpen ? 'Close Driver Door' : 'Open Driver Door';
       doorBtn.addEventListener('click', () => {
         if (this.experience.world && this.experience.world.car) {
           const isOpen = this.experience.world.car.toggleDoor();
-          doorBtn.textContent = isOpen ? '🚪 Close Driver Door' : '🚪 Open Driver Door';
+          doorBtn.textContent = isOpen ? 'Close Driver Door' : 'Open Driver Door';
         }
       });
     }
@@ -511,11 +506,11 @@ export default class Modal {
     const trunkBtn = this.bodyEl.querySelector('#modal-toggle-trunk-btn');
     if (trunkBtn) {
       const isCurrentlyOpen = this.experience.world.car.state.trunkOpen;
-      trunkBtn.textContent = isCurrentlyOpen ? '🚪 Close Trunk' : '🚪 Open Trunk';
+      trunkBtn.textContent = isCurrentlyOpen ? 'Close Trunk' : 'Open Trunk';
       trunkBtn.addEventListener('click', () => {
         if (this.experience.world && this.experience.world.car) {
           const isOpen = this.experience.world.car.toggleTrunk();
-          trunkBtn.textContent = isOpen ? '🚪 Close Trunk' : '🚪 Open Trunk';
+          trunkBtn.textContent = isOpen ? 'Close Trunk' : 'Open Trunk';
         }
       });
     }
@@ -586,7 +581,7 @@ export default class Modal {
             </div>
           </div>
           <div class="modal-footer-bar" style="margin-top: 12px; padding-top: 10px; display:flex; gap:8px; flex-wrap:wrap;">
-            <button class="card-btn-door gold-btn" id="modal-toggle-hood-btn" style="font-size: 0.74rem; padding: 8px 12px;">🚪 Close Hood</button>
+            <button class="card-btn-door gold-btn" id="modal-toggle-hood-btn" style="font-size: 0.74rem; padding: 8px 12px;">Close Hood</button>
             <a href="https://github.com/Jubayer-AI-Studio" target="_blank" class="card-btn-door gold-btn" style="text-decoration:none; font-size: 0.74rem; padding: 8px 12px;">GitHub &nearr;</a>
             <button class="card-btn-close" id="modal-side-close-btn" style="font-size: 0.74rem; padding: 8px 14px;">Close</button>
           </div>
@@ -595,19 +590,19 @@ export default class Modal {
       case 'dashboard':
         return `
           <div class="modal-badge gold-badge">Cockpit & Telemetry</div>
-          <h2 class="modal-title gold-gradient-text" style="font-size: 1.25rem; margin-bottom: 8px;">AI Cinema & Intelligent Agents</h2>
+          <h2 class="modal-title gold-gradient-text" style="font-size: 1.25rem; margin-bottom: 8px;">AI Content & Intelligent Agents</h2>
           <div class="card-grid">
             <div class="info-item gold-card" style="padding: 10px 14px;">
-              <div class="info-item-title gold-text" style="font-size: 0.88rem;">🎬 Two Friends Driving Studio</div>
+              <div class="info-item-title gold-text" style="font-size: 0.88rem;">Two Friends Driving Studio</div>
               <div class="info-item-sub" style="font-size: 0.74rem;">AI Video Generation with Google Veo 3.1 & Gemini 3.7 Flash + TTS.</div>
             </div>
             <div class="info-item gold-card" style="padding: 10px 14px;">
-              <div class="info-item-title gold-text" style="font-size: 0.88rem;">🤖 Shono AI (Bangladeshi Jarvis)</div>
+              <div class="info-item-title gold-text" style="font-size: 0.88rem;">Shono AI (Bangladeshi Jarvis)</div>
               <div class="info-item-sub" style="font-size: 0.74rem;">Bangla Dialect-Aware Voice AI & Desktop Automation Assistant.</div>
             </div>
           </div>
           <div class="modal-footer-bar" style="margin-top: 12px; padding-top: 10px; display:flex; gap:8px; flex-wrap:wrap;">
-            <button class="card-btn-door gold-btn" id="modal-toggle-door-btn" style="font-size: 0.74rem; padding: 8px 12px;">🚪 Toggle Driver Door</button>
+            <button class="card-btn-door gold-btn" id="modal-toggle-door-btn" style="font-size: 0.74rem; padding: 8px 12px;">Toggle Driver Door</button>
             <a href="https://www.youtube.com/@jubayeraispecialist" target="_blank" class="card-btn-door gold-btn" style="text-decoration:none; font-size: 0.74rem; padding: 8px 12px;">YouTube Theater &nearr;</a>
             <button class="card-btn-close" id="modal-side-close-btn" style="font-size: 0.74rem; padding: 8px 14px;">Close</button>
           </div>
@@ -635,8 +630,8 @@ export default class Modal {
           </div>
 
           <div class="modal-footer-bar" style="margin-top: 12px; padding-top: 10px; display:flex; gap:8px; flex-wrap:wrap;">
-            <button class="card-btn-door gold-btn" id="modal-toggle-trunk-btn" style="font-size: 0.74rem; padding: 8px 12px;">🚪 Toggle Trunk</button>
-            <a href="https://github.com/Jubayer-AI-Studio" target="_blank" class="card-btn-door gold-btn" style="text-decoration:none; font-size: 0.74rem; padding: 8px 12px;">🚀 Visit GitHub (@Jubayer-AI-Studio)</a>
+            <button class="card-btn-door gold-btn" id="modal-toggle-trunk-btn" style="font-size: 0.74rem; padding: 8px 12px;">Toggle Trunk</button>
+            <a href="https://github.com/Jubayer-AI-Studio" target="_blank" class="card-btn-door gold-btn" style="text-decoration:none; font-size: 0.74rem; padding: 8px 12px;">Visit GitHub (@Jubayer-AI-Studio)</a>
             <button class="card-btn-close" id="modal-side-close-btn" style="font-size: 0.74rem; padding: 8px 14px;">Close Drawer</button>
           </div>
         `;
@@ -647,11 +642,11 @@ export default class Modal {
           <h2 class="modal-title gold-gradient-text" style="font-size: 1.25rem; margin-bottom: 8px;">Connect with Jubayer</h2>
           <div class="card-grid">
             <div class="info-item gold-card" style="padding: 10px 14px;">
-              <div class="info-item-title gold-text" style="font-size: 0.88rem;">📧 Email</div>
+              <div class="info-item-title gold-text" style="font-size: 0.88rem;">Email</div>
               <div class="info-item-sub"><a href="mailto:jubayerahmad2002@gmail.com" class="direct-mail-link gold-link" style="font-size: 0.85rem;">jubayerahmad2002@gmail.com</a></div>
             </div>
             <div class="info-item gold-card" style="padding: 10px 14px;">
-              <div class="info-item-title gold-text" style="font-size: 0.88rem;">🌐 Developer Profiles</div>
+              <div class="info-item-title gold-text" style="font-size: 0.88rem;">Developer Profiles</div>
               <div class="tag-list" style="margin-top: 6px;">
                 <a href="https://github.com/Jubayer-AI-Studio" target="_blank" class="social-tag github gold-social" style="font-size: 0.72rem; padding: 4px 10px;">GitHub (@Jubayer-AI-Studio)</a>
                 <a href="https://www.youtube.com/@jubayeraispecialist" target="_blank" class="social-tag youtube gold-social" style="font-size: 0.72rem; padding: 4px 10px;">YouTube (@jubayeraispecialist)</a>
@@ -660,7 +655,7 @@ export default class Modal {
             </div>
           </div>
           <div class="modal-footer-bar" style="margin-top: 12px; padding-top: 10px;">
-            <a href="mailto:jubayerahmad2002@gmail.com" class="card-btn-door gold-btn" style="text-decoration:none; font-size: 0.74rem; padding: 8px 12px;">✉️ Send Email</a>
+            <a href="mailto:jubayerahmad2002@gmail.com" class="card-btn-door gold-btn" style="text-decoration:none; font-size: 0.74rem; padding: 8px 12px;">Send Email</a>
             <button class="card-btn-close" id="modal-side-close-btn" style="font-size: 0.74rem; padding: 8px 14px;">Close</button>
           </div>
         `;

@@ -26,7 +26,7 @@ export default class Hotspots {
       },
       {
         id: 'dashboard',
-        name: 'AI & Film Stack',
+        name: 'AI & Content Stack',
         position: new THREE.Vector3(-0.5, 1.15, 0.1),
         camPos: { x: -1.6, y: 1.35, z: 0.8 },
         camTarget: { x: -0.2, y: 0.9, z: 0.1 },

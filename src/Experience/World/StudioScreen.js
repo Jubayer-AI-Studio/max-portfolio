@@ -284,11 +284,11 @@ export default class StudioScreen {
     const centerY = h * 0.5;
 
     // Line 1: Jubayer Ahmad
-    // Color: Stone 950 (#0C0A09) — The exact rich, deep dark color from nasifwrites.com ("যে গাড়টা কালার আছে")
-    ctx.fillStyle = '#0C0A09';
-    ctx.font = '800 96px "Space Grotesk", sans-serif';
+    // Color: Rich Deep Charcoal Obsidian (#0A0908) — maximum visual authority & contrast
+    ctx.fillStyle = '#0A0908';
+    ctx.font = '800 96px "Outfit", "Space Grotesk", sans-serif';
     ctx.textAlign = 'left';
-    ctx.letterSpacing = '0.02em';
+    ctx.letterSpacing = '0.01em';
     ctx.fillText('Jubayer Ahmad', textStartX, centerY - 80);
 
     // Warm Ochre Gold Divider Line (#D4A038)
@@ -296,17 +296,17 @@ export default class StudioScreen {
     ctx.fillRect(textStartX, centerY - 10, 560, 4);
 
     // Line 2: Full Stack Developer
-    // Color: Warm Honey Ochre Amber (#B45309) — High contrast, luxurious editorial warmth
-    ctx.fillStyle = '#B45309';
-    ctx.font = '700 62px "Plus Jakarta Sans", sans-serif';
+    // Color: Deep Burnt Ochre Amber (#9A3412) — High contrast, luxurious editorial warmth
+    ctx.fillStyle = '#9A3412';
+    ctx.font = '700 64px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.letterSpacing = '0.02em';
     ctx.fillText('Full Stack Developer', textStartX, centerY + 65);
 
-    // Line 3: AI Film Maker
-    // Color: Deep Emerald Forest Green (#064E3B) — Deep organic pine green from nasifwrites.com
+    // Line 3: AI Content Creator
+    // Color: Deep Emerald Forest (#064E3B) — Deep organic pine green, high contrast on parchment
     ctx.fillStyle = '#064E3B';
-    ctx.font = '700 62px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '700 64px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.letterSpacing = '0.02em';
-    ctx.fillText('AI Film Maker', textStartX, centerY + 175);
+    ctx.fillText('AI Content Creator', textStartX, centerY + 175);
   }
 }
