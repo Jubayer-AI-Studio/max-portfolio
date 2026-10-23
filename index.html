@@ -58,15 +58,95 @@
   <!-- 3D Canvas -->
   <canvas class="webgl"></canvas>
 
-  <!-- Loading Screen -->
+  <!-- Cinematic Interactive Supercar Loading Screen -->
   <div class="loader-overlay" id="loader">
     <div class="loader-content">
+      <!-- Brand & VIP Identity -->
+      <div class="loader-badge">MERCEDES-BENZ SLK 55 AMG • VIP SHOWROOM</div>
       <div class="loader-brand">MAX PORTFOLIO</div>
-      <div class="loader-sub">JUBAYER AHMAD • CINEMATIC EXPERIENCE</div>
+      <div class="loader-sub">JUBAYER AHMAD • FULL STACK & AI FILM MAKER</div>
+
+      <!-- Live Speedometer / Telemetry HUD Cluster -->
+      <div class="loader-telemetry">
+        <div class="telemetry-item">
+          <span class="telemetry-label">GEAR</span>
+          <span class="telemetry-val" id="loader-gear">1</span>
+        </div>
+        <div class="telemetry-speed-wrap">
+          <span class="telemetry-speed" id="loader-speed">000</span>
+          <span class="telemetry-unit">KM/H</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">RPM</span>
+          <span class="telemetry-val" id="loader-rpm">1.2K</span>
+        </div>
+      </div>
+
+      <!-- High-Speed Highway Car Stage -->
+      <div class="loader-car-stage">
+        <!-- Road with High-Speed Dashed Stripes -->
+        <div class="loader-road">
+          <div class="loader-road-line"></div>
+        </div>
+
+        <!-- Speeding Neon Sports Car -->
+        <div class="loader-supercar" id="loader-car-graphic">
+          <!-- Headlight Beam -->
+          <div class="car-headlight-beam"></div>
+
+          <!-- Car Silhouette SVG -->
+          <svg class="car-svg" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Aerodynamic Body -->
+            <path d="M12 36 L25 36 C27 30 33 26 40 26 C47 26 53 30 55 36 L105 36 C107 30 113 26 120 26 C127 26 133 30 135 36 L152 36 C155 36 158 33 156 29 L142 16 C138 12 128 10 118 10 L68 10 C56 10 44 14 36 21 L16 28 C12 29 10 32 12 36 Z" fill="url(#carPaintGrad)" stroke="#00f0ff" stroke-width="1.2"/>
+            <!-- Cabin Glass Roof -->
+            <path d="M52 19 L66 12 L112 12 L128 19 Z" fill="#00f0ff" fill-opacity="0.25" stroke="#00f0ff" stroke-width="0.8"/>
+            <!-- LED Headlights -->
+            <polygon points="152,28 156,29 154,32" fill="#00f0ff" filter="drop-shadow(0 0 6px #00f0ff)"/>
+            <!-- LED Tail Lights -->
+            <polygon points="12,32 14,29 12,28" fill="#ff2255" filter="drop-shadow(0 0 6px #ff2255)"/>
+            <!-- Gradients -->
+            <defs>
+              <linearGradient id="carPaintGrad" x1="0" y1="0" x2="160" y2="50" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#0a101d"/>
+                <stop offset="50%" stop-color="#1e293b"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- Front Wheel (Spinning) -->
+          <div class="car-wheel car-wheel-front">
+            <div class="wheel-rim"></div>
+          </div>
+          <!-- Rear Wheel (Spinning) -->
+          <div class="car-wheel car-wheel-rear">
+            <div class="wheel-rim"></div>
+          </div>
+
+          <!-- Exhaust Turbo Flame -->
+          <div class="car-exhaust-flame"></div>
+        </div>
+      </div>
+
+      <!-- Glowing High-Tech Loading Bar -->
       <div class="loader-bar-wrap">
         <div class="loader-bar" id="loader-bar"></div>
+        <div class="loader-bar-glow"></div>
       </div>
-      <div class="loader-status" id="loader-status">Initializing Studio Engine... 0%</div>
+
+      <!-- Live Dynamic Status Message -->
+      <div class="loader-status" id="loader-status">🏎️ Igniting AMG Twin-Turbo V8 Engine... 0%</div>
+
+      <!-- Interactive Audio / Rev Engine Trigger -->
+      <div class="loader-actions">
+        <button class="loader-sound-btn" id="loader-rev-btn" type="button" title="Rev Engine">
+          <span class="icon">🔊</span>
+          <span>TAP TO REV ENGINE (শব্দ শুনুন)</span>
+        </button>
+        <button class="loader-quick-btn" id="loader-quick-launch" type="button" style="display: none;">
+          <span>🚀 QUICK LAUNCH (সরাসরি প্রবেশ করুন)</span>
+        </button>
+      </div>
     </div>
   </div>
 
