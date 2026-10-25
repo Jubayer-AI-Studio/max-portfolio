@@ -98,10 +98,11 @@ export const GITHUB_REPOS = [
   {
     name: 'special-agent',
     category: 'ai',
-    lang: 'Python',
+    lang: 'Python / Next.js',
     stars: 2,
     url: 'https://github.com/Jubayer-AI-Studio/special-agent',
-    desc: 'Autonomous Agent Framework with terminal reasoning loops, multi-tool scheduling, and contextual workspace synthesis.'
+    liveUrl: 'https://special-agent-one.vercel.app',
+    desc: 'Autonomous Agent Framework with terminal reasoning loops, multi-tool scheduling, and contextual workspace synthesis. Live production deployment on Vercel.'
   },
   {
     name: 'auto-reels',
@@ -369,6 +370,7 @@ export default class Modal {
   resetView() {
     this.closeModal();
     document.body.classList.remove('signboard-focus');
+    document.body.classList.remove('workstation-focus');
     document.body.classList.remove('exploded-mode');
     if (this.focusBanner) {
       this.focusBanner.classList.remove('active');
@@ -389,8 +391,9 @@ export default class Modal {
       if (text) text.textContent = 'OPEN ALL PARTS';
     }
 
+    // Panoramic Sky Penthouse overview framing (Car in center, Signboard on left, Workstation on right):
     this.experience.camera.transitionTo(
-      { x: -4.5, y: 1.8, z: 4.2 },
+      { x: -4.8, y: 1.9, z: 4.4 },
       { x: 0, y: 0.65, z: 0 }
     );
     this.navPills.forEach(p => p.classList.remove('active'));
@@ -419,16 +422,23 @@ export default class Modal {
       <div class="repo-card">
         <div class="repo-card-top">
           <span class="repo-lang-badge">${repo.lang}</span>
-          ${repo.stars > 0 ? `<span class="repo-star-badge">⭐ ${repo.stars}</span>` : ''}
+          ${repo.liveUrl ? `<span class="repo-live-tag"><span class="pulse-dot"></span> LIVE VERCEL</span>` : ''}
+          ${repo.stars > 0 ? `<span class="repo-star-badge">STAR ${repo.stars}</span>` : ''}
         </div>
         <h3 class="repo-title">
-          <a href="${repo.url}" target="_blank" class="repo-link">${repo.name}</a>
+          <a href="${repo.liveUrl || repo.url}" target="_blank" class="repo-link">${repo.name}</a>
         </h3>
         <p class="repo-desc">${repo.desc}</p>
         <div class="repo-footer">
+          ${repo.liveUrl ? `
+            <a href="${repo.liveUrl}" target="_blank" class="repo-btn-live">
+              <span>Live App</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          ` : ''}
           <a href="${repo.url}" target="_blank" class="repo-btn-gold">
-            <span>View on GitHub</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span>Source Code</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
           </a>
         </div>
       </div>
@@ -436,9 +446,55 @@ export default class Modal {
   }
 
   openModal(targetId) {
-    // 1. Jesse Zhou Style: For "About Jubayer", camera zooms right into 3D Signboard!
+    // 1. For "workstation", fly camera to 3D Computer Desk & open Live Apps Drawer!
+    if (targetId === 'workstation') {
+      document.body.classList.remove('signboard-focus');
+      document.body.classList.add('workstation-focus');
+      if (this.focusBanner) {
+        if (this.focusTitle) {
+          this.focusTitle.textContent = '3D Developer Workstation • Live Projects & Social Hub';
+        }
+        this.focusBanner.classList.add('active');
+      }
+      if (this.experience.sounds) {
+        this.experience.sounds.playBloop();
+      }
+
+      this.experience.camera.transitionTo(
+        { x: 1.5, y: 1.38, z: 0.4 },
+        { x: 3.8, y: 1.15, z: -1.6 }
+      );
+
+      if (this.cardEl) {
+        this.cardEl.classList.remove('drawer-mode', 'micro-mode');
+        this.cardEl.classList.add('drawer-mode');
+      }
+
+      if (this.bodyEl) {
+        this.bodyEl.innerHTML = this.getContent('workstation');
+      }
+
+      this.modalEl.classList.add('active');
+      document.body.classList.add('modal-open');
+
+      const exploreBtn = this.bodyEl.querySelector('#modal-explore-repos-btn');
+      if (exploreBtn) {
+        exploreBtn.addEventListener('click', () => {
+          this.openModal('trunk');
+        });
+      }
+
+      const sideCloseBtn = this.bodyEl.querySelector('#modal-side-close-btn');
+      if (sideCloseBtn) {
+        sideCloseBtn.addEventListener('click', () => this.closeModal());
+      }
+      return;
+    }
+
+    // 2. Jesse Zhou Style: For "About Jubayer", camera zooms right into 3D Signboard!
     if (targetId === 'driver') {
       this.closeModal();
+      document.body.classList.remove('workstation-focus');
       document.body.classList.add('signboard-focus');
       if (this.focusBanner) {
         if (this.focusTitle) {
@@ -453,6 +509,7 @@ export default class Modal {
     }
 
     document.body.classList.remove('signboard-focus');
+    document.body.classList.remove('workstation-focus');
     if (this.focusBanner) {
       this.focusBanner.classList.remove('active');
     }
@@ -461,11 +518,11 @@ export default class Modal {
     this.bodyEl.innerHTML = this.getContent(targetId);
 
     // Apply Layout Modes:
-    // "trunk" (GitHub Repos) -> bottom-drawer mode
+    // "trunk" (GitHub Repos) / "workstation" -> bottom-drawer mode
     // "hood", "dashboard", "fuel" -> micro-hud mode (compact corner card)
     if (this.cardEl) {
       this.cardEl.classList.remove('drawer-mode', 'micro-mode');
-      if (targetId === 'trunk') {
+      if (targetId === 'trunk' || targetId === 'workstation') {
         this.cardEl.classList.add('drawer-mode');
       } else {
         this.cardEl.classList.add('micro-mode');
@@ -520,6 +577,13 @@ export default class Modal {
       sideCloseBtn.addEventListener('click', () => this.closeModal());
     }
 
+    const reposBtn = this.bodyEl.querySelector('#modal-explore-repos-btn');
+    if (reposBtn) {
+      reposBtn.addEventListener('click', () => {
+        this.openModal('trunk');
+      });
+    }
+
     // Repository Category Filtering Logic
     const filterBtns = this.bodyEl.querySelectorAll('.repo-filter-btn');
     const gridContainer = this.bodyEl.querySelector('#repos-grid-container');
@@ -566,6 +630,94 @@ export default class Modal {
 
   getContent(targetId) {
     switch (targetId) {
+      case 'workstation':
+        return `
+          <div class="drawer-header-row">
+            <div>
+              <div class="modal-badge gold-badge">DEVELOPER WORKSTATION</div>
+              <h2 class="modal-title gold-gradient-text" style="font-size: 1.35rem; margin-bottom: 4px;">Live Applications & Verified Profiles</h2>
+            </div>
+            <div class="workstation-status-pill">
+              <span class="pulse-dot"></span>
+              <span>VERCEL CLOUD • ACTIVE</span>
+            </div>
+          </div>
+
+          <div class="workstation-container">
+            <!-- Featured Live Vercel App Hero Card -->
+            <div class="workstation-hero-card">
+              <div class="hero-top-row">
+                <span class="hero-live-pill"><span class="pulse-dot"></span> LIVE APP (VERCEL)</span>
+                <span class="hero-framework-badge">Next.js 15 • Python • Multi-Agent</span>
+              </div>
+              <h3 class="hero-app-title">Special Agent One</h3>
+              <p class="hero-app-desc">Autonomous Agent Framework with terminal reasoning loops, multi-tool scheduling, and contextual workspace synthesis. Live production deployment verified on Vercel.</p>
+              <div class="hero-action-row">
+                <a href="https://special-agent-one.vercel.app" target="_blank" class="hero-btn-launch">
+                  <span>LAUNCH LIVE APP ↗</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+                <a href="https://github.com/Jubayer-AI-Studio/special-agent" target="_blank" class="hero-btn-code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  <span>Source Code</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Verified Client & Social Channels -->
+            <div class="workstation-social-grid">
+              <!-- Upwork -->
+              <a href="https://www.upwork.com/freelancers/~0185d56d4075d701a6" target="_blank" class="profile-card upwork-card">
+                <div class="profile-icon-wrap upwork-bg">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-3.715 0-5.596 2.493-6.236 4.351-.837-1.636-1.464-3.528-1.748-4.99H7.63v6.529c0 1.95-1.587 3.537-3.537 3.537-1.95 0-3.537-1.587-3.537-3.537V4.378H0v6.529c0 3.57 2.903 6.473 6.473 6.473 2.274 0 4.275-1.177 5.429-2.966.528 1.411 1.444 2.68 2.802 3.522 1.272.788 2.756 1.222 4.316 1.222 4.333 0 7.857-3.524 7.857-7.857 0-4.333-3.524-7.857-7.857-7.857z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">Upwork Profile</div>
+                  <div class="profile-meta">Verified Freelancer • Hire Me ↗</div>
+                </div>
+              </a>
+
+              <!-- Facebook Profile -->
+              <a href="https://www.facebook.com/share/1CopAWZnyX/" target="_blank" class="profile-card fb-card">
+                <div class="profile-icon-wrap fb-bg">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">Facebook Profile</div>
+                  <div class="profile-meta">Jubayer Ahmad (Official ID) ↗</div>
+                </div>
+              </a>
+
+              <!-- Facebook Page -->
+              <a href="https://www.facebook.com/share/1C8RmiURup/" target="_blank" class="profile-card fb-card">
+                <div class="profile-icon-wrap fb-bg">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">Facebook Page</div>
+                  <div class="profile-meta">Official Developer Studio ↗</div>
+                </div>
+              </a>
+
+              <!-- GitHub Studio -->
+              <a href="https://github.com/Jubayer-AI-Studio" target="_blank" class="profile-card gh-card">
+                <div class="profile-icon-wrap gh-bg">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">GitHub Studio</div>
+                  <div class="profile-meta">@Jubayer-AI-Studio • 22 Repos ↗</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="modal-footer-bar" style="margin-top: 14px; padding-top: 12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="card-btn-door gold-btn" id="modal-explore-repos-btn" style="font-size: 0.74rem; padding: 8px 14px;">Browse 22 Repositories &nearr;</button>
+            <button class="card-btn-close" id="modal-side-close-btn" style="font-size: 0.74rem; padding: 8px 14px;">Close Drawer</button>
+          </div>
+        `;
+
       case 'hood':
         return `
           <div class="modal-badge gold-badge">V8 Engine Power</div>
@@ -646,8 +798,11 @@ export default class Modal {
               <div class="info-item-sub"><a href="mailto:jubayerahmad2002@gmail.com" class="direct-mail-link gold-link" style="font-size: 0.85rem;">jubayerahmad2002@gmail.com</a></div>
             </div>
             <div class="info-item gold-card" style="padding: 10px 14px;">
-              <div class="info-item-title gold-text" style="font-size: 0.88rem;">Developer Profiles</div>
+              <div class="info-item-title gold-text" style="font-size: 0.88rem;">Official Profiles & Hire Channels</div>
               <div class="tag-list" style="margin-top: 6px;">
+                <a href="https://www.upwork.com/freelancers/~0185d56d4075d701a6" target="_blank" class="social-tag upwork gold-social" style="font-size: 0.72rem; padding: 4px 10px;">Upwork (Verified Freelancer)</a>
+                <a href="https://www.facebook.com/share/1CopAWZnyX/" target="_blank" class="social-tag facebook gold-social" style="font-size: 0.72rem; padding: 4px 10px;">Facebook Profile</a>
+                <a href="https://www.facebook.com/share/1C8RmiURup/" target="_blank" class="social-tag facebook gold-social" style="font-size: 0.72rem; padding: 4px 10px;">Facebook Page</a>
                 <a href="https://github.com/Jubayer-AI-Studio" target="_blank" class="social-tag github gold-social" style="font-size: 0.72rem; padding: 4px 10px;">GitHub (@Jubayer-AI-Studio)</a>
                 <a href="https://www.youtube.com/@jubayeraispecialist" target="_blank" class="social-tag youtube gold-social" style="font-size: 0.72rem; padding: 4px 10px;">YouTube (@jubayeraispecialist)</a>
                 <a href="https://www.instagram.com/jubayer_ahmad_2002/" target="_blank" class="social-tag instagram gold-social" style="font-size: 0.72rem; padding: 4px 10px;">Instagram</a>

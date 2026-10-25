@@ -21,8 +21,8 @@ export default class Camera {
       100
     );
     this.updateFov();
-    // Perfect hero angle on the car
-    this.instance.position.set(-4.5, 1.8, 4.2);
+    // Panoramic hero angle showcasing the car, 3D computer workstation, and sky penthouse
+    this.instance.position.set(-4.8, 1.9, 4.4);
     this.scene.add(this.instance);
   }
 

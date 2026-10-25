@@ -9,6 +9,14 @@ export default class Hotspots {
 
     this.points = [
       {
+        id: 'workstation',
+        name: '3D Workstation (PC)',
+        position: new THREE.Vector3(3.2, 1.45, -1.3),
+        camPos: { x: 1.5, y: 1.38, z: 0.4 },
+        camTarget: { x: 3.8, y: 1.15, z: -1.6 },
+        action: 'workstation'
+      },
+      {
         id: 'driver',
         name: 'About Jubayer (3D Signboard)',
         position: new THREE.Vector3(-3.4, 1.45, -1.6),
