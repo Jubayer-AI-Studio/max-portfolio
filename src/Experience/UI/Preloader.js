@@ -15,22 +15,22 @@ export default class Preloader {
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 40; // Instant lively start
+    this.targetProgress = 65; // Instant lively start
     this.displayProgress = 0;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Show Quick Launch button after 1.5s if network is slow
+    // Show Quick Launch button after 1.0s if network is slow
     this.quickLaunchTimer = setTimeout(() => {
       if (!this.finished && this.quickBtn) {
         this.quickBtn.style.display = 'inline-flex';
       }
-    }, 1500);
+    }, 1000);
 
-    // Hard fallback: Never keep user waiting longer than 3.5 seconds
+    // Hard fallback: Never keep user waiting longer than 1.8 seconds
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 3500);
+    }, 1800);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {
@@ -93,7 +93,7 @@ export default class Preloader {
       this.targetProgress = 100;
       setTimeout(() => {
         this.finish();
-      }, 180);
+      }, 40);
     }
   }
 
@@ -102,7 +102,7 @@ export default class Preloader {
 
     // Smooth snappy lerp progress towards target
     const diff = this.targetProgress - this.displayProgress;
-    const step = Math.max(diff * 0.35, 1.8);
+    const step = Math.max(diff * 0.45, 2.5);
     this.displayProgress = Math.min(this.displayProgress + step, this.targetProgress);
 
     const progInt = Math.min(Math.round(this.displayProgress), 100);
@@ -178,6 +178,6 @@ export default class Preloader {
       if (this.experience.sounds) {
         this.experience.sounds.playWhoosh();
       }
-    }, 450);
+    }, 180);
   }
 }

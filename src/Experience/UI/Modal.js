@@ -446,47 +446,15 @@ export default class Modal {
   }
 
   openModal(targetId) {
-    // 1. For "workstation", fly camera to 3D Computer Desk & open Live Apps Drawer!
+    // 1. For "workstation", launch the interactive 3D Virtual PC (JubayerOS) directly!
     if (targetId === 'workstation') {
+      this.closeModal();
       document.body.classList.remove('signboard-focus');
-      document.body.classList.add('workstation-focus');
       if (this.focusBanner) {
-        if (this.focusTitle) {
-          this.focusTitle.textContent = '3D Developer Workstation • Live Projects & Social Hub';
-        }
-        this.focusBanner.classList.add('active');
+        this.focusBanner.classList.remove('active');
       }
-      if (this.experience.sounds) {
-        this.experience.sounds.playBloop();
-      }
-
-      this.experience.camera.transitionTo(
-        { x: 1.5, y: 1.38, z: 0.4 },
-        { x: 3.8, y: 1.15, z: -1.6 }
-      );
-
-      if (this.cardEl) {
-        this.cardEl.classList.remove('drawer-mode', 'micro-mode');
-        this.cardEl.classList.add('drawer-mode');
-      }
-
-      if (this.bodyEl) {
-        this.bodyEl.innerHTML = this.getContent('workstation');
-      }
-
-      this.modalEl.classList.add('active');
-      document.body.classList.add('modal-open');
-
-      const exploreBtn = this.bodyEl.querySelector('#modal-explore-repos-btn');
-      if (exploreBtn) {
-        exploreBtn.addEventListener('click', () => {
-          this.openModal('trunk');
-        });
-      }
-
-      const sideCloseBtn = this.bodyEl.querySelector('#modal-side-close-btn');
-      if (sideCloseBtn) {
-        sideCloseBtn.addEventListener('click', () => this.closeModal());
+      if (this.experience.virtualPC) {
+        this.experience.virtualPC.open();
       }
       return;
     }

@@ -7,6 +7,7 @@ import Renderer from './Renderer.js';
 import World from './World/World.js';
 import Preloader from './UI/Preloader.js';
 import Modal from './UI/Modal.js';
+import VirtualPC from './UI/VirtualPC.js';
 
 let instance = null;
 
@@ -39,6 +40,7 @@ export default class Experience {
     this.preloader = new Preloader(this);
     this.world = new World(this);
     this.ui = new Modal(this);
+    this.virtualPC = new VirtualPC(this);
 
     // Event Listeners
     this.sizes.onResize(() => this.resize());
