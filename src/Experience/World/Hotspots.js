@@ -12,8 +12,8 @@ export default class Hotspots {
         id: 'workstation',
         name: '3D Workstation (PC)',
         position: new THREE.Vector3(3.2, 1.45, -1.3),
-        camPos: { x: 3.8, y: 1.44, z: -0.62 },
-        camTarget: { x: 3.8, y: 1.42, z: -1.6 },
+        camPos: { x: 3.6, y: 1.28, z: -0.72 },
+        camTarget: { x: 3.6, y: 1.05, z: -1.6 },
         action: 'workstation'
       },
       {

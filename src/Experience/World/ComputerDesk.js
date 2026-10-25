@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 
 export default class ComputerDesk {
   constructor(experience) {
@@ -6,20 +8,19 @@ export default class ComputerDesk {
     this.scene = this.experience.scene;
 
     this.group = new THREE.Group();
-    // Symmetrically placed on right-rear side opposite to the portrait signboard
-    this.group.position.set(3.8, 0, -1.6);
-    this.group.rotation.y = -Math.PI / 3.4; // ~-53 degrees facing showroom center
+    // Positioned symmetrically opposite to portrait signboard facing showroom center
+    this.group.position.set(3.6, 0, -1.6);
+    this.group.rotation.y = -Math.PI / 3.4; // Facing towards car turntable
     this.scene.add(this.group);
 
     this.canvasWidth = 2048;
     this.canvasHeight = 1024;
-    this.drawn = false;
+    this.interactiveMeshes = [];
 
     this.setupCanvas();
-    this.setDesk();
-    this.setMonitor();
-    this.setPeripherals();
+    this.loadModel();
     this.setLighting();
+    this.setupRaycasting();
   }
 
   setupCanvas() {
@@ -37,255 +38,188 @@ export default class ComputerDesk {
     this.drawScreen();
   }
 
-  setDesk() {
-    // Luxury Modern Materials
-    const titaniumMat = new THREE.MeshStandardMaterial({
-      color: 0x181c24, // Slate 900 dark titanium
-      metalness: 0.92,
-      roughness: 0.24
-    });
+  loadModel() {
+    const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
 
-    const walnutMat = new THREE.MeshStandardMaterial({
-      color: 0x271e18, // Rich deep dark walnut
-      metalness: 0.15,
-      roughness: 0.45
-    });
+    loader.load(
+      './models/gaming_pc_with_curved_monitor.glb',
+      (gltf) => {
+        this.model = gltf.scene;
 
-    const goldAccentMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038, // Warm Amber Gold
-      metalness: 0.85,
-      roughness: 0.28
-    });
+        // Ensure grounded perfectly at Y = 0
+        const box = new THREE.Box3().setFromObject(this.model);
+        const yOffset = -box.min.y;
+        this.model.position.set(0, yOffset, 0);
 
-    const deskWidth = 2.4;
-    const deskDepth = 1.0;
-    const deskHeight = 0.06;
-    const deskY = 0.76;
+        // Enhance PBR materials & attach active screen texture
+        this.model.traverse((child) => {
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            this.interactiveMeshes.push(child);
 
-    // 1. Desk Top (Beveled Solid Walnut & Carbon Surface)
-    const deskGeo = new THREE.BoxGeometry(deskWidth, deskHeight, deskDepth);
-    const deskMesh = new THREE.Mesh(deskGeo, walnutMat);
-    deskMesh.position.set(0, deskY, 0);
-    deskMesh.castShadow = true;
-    deskMesh.receiveShadow = true;
-    this.group.add(deskMesh);
+            const mat = Array.isArray(child.material) ? child.material[0] : child.material;
+            const matName = mat ? mat.name : '';
 
-    // Front Brushed Gold Trim Bevel
-    const trimGeo = new THREE.BoxGeometry(deskWidth + 0.01, 0.015, 0.015);
-    const trimMesh = new THREE.Mesh(trimGeo, goldAccentMat);
-    trimMesh.position.set(0, deskY, deskDepth / 2 + 0.005);
-    this.group.add(trimMesh);
+            // 1. Map Live Dynamic Screen Texture onto MonitorScreen
+            if (matName === 'MonitorScreen') {
+              this.screenMaterial = new THREE.MeshStandardMaterial({
+                map: this.texture,
+                emissive: 0xffffff,
+                emissiveMap: this.texture,
+                emissiveIntensity: 1.15,
+                roughness: 0.18,
+                metalness: 0.08
+              });
+              child.material = this.screenMaterial;
+            }
 
-    // 2. Leather & Felt Stitched Large Desk Pad
-    const padMat = new THREE.MeshStandardMaterial({
-      color: 0x0f172a, // Slate 900
-      roughness: 0.85,
-      metalness: 0.05
-    });
-    const padGeo = new THREE.BoxGeometry(1.65, 0.006, 0.68);
-    const padMesh = new THREE.Mesh(padGeo, padMat);
-    padMesh.position.set(0, deskY + deskHeight / 2 + 0.003, 0.06);
-    padMesh.receiveShadow = true;
-    this.group.add(padMesh);
+            // 2. Enhance Curved Monitor Plastic Frame
+            else if (matName === 'MonitorPlastic' || matName === 'buttons') {
+              child.material = new THREE.MeshStandardMaterial({
+                color: 0x111622,
+                roughness: 0.25,
+                metalness: 0.85
+              });
+            }
 
-    // 3. Dual Motorized Standing Desk Legs
-    const legWidth = 0.08;
-    const legDepth = 0.12;
-    const legHeight = deskY - deskHeight / 2;
-    const legGeo = new THREE.BoxGeometry(legWidth, legHeight, legDepth);
+            // 3. Enhance Luxury Desk Table Wood
+            else if (matName.includes('Wood')) {
+              child.material = new THREE.MeshStandardMaterial({
+                color: 0x221a14, // Rich Dark Smoked Walnut
+                roughness: 0.42,
+                metalness: 0.12
+              });
+            }
 
-    // Left Leg
-    const leftLeg = new THREE.Mesh(legGeo, titaniumMat);
-    leftLeg.position.set(-0.85, legHeight / 2, 0);
-    leftLeg.castShadow = true;
-    this.group.add(leftLeg);
+            // 4. Enhance Smoked Glass Table Inset
+            else if (matName.includes('Glass')) {
+              child.material = new THREE.MeshStandardMaterial({
+                color: 0x0a101d,
+                roughness: 0.08,
+                metalness: 0.2,
+                transparent: true,
+                opacity: 0.78
+              });
+            }
 
-    // Right Leg
-    const rightLeg = new THREE.Mesh(legGeo, titaniumMat);
-    rightLeg.position.set(0.85, legHeight / 2, 0);
-    rightLeg.castShadow = true;
-    this.group.add(rightLeg);
+            // 5. Enhance Gaming PC Tower Case & Internal RGB
+            else if (matName.includes('gamingPC')) {
+              if (matName.includes('cover')) {
+                // Tempered glass side panel
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x050c18,
+                  roughness: 0.05,
+                  metalness: 0.15,
+                  transparent: true,
+                  opacity: 0.65
+                });
+              } else if (matName.includes('insides')) {
+                // Glowing internal GPU/Cooler RGB
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x00f0ff,
+                  emissive: 0x00d4ff,
+                  emissiveIntensity: 0.85,
+                  roughness: 0.3,
+                  metalness: 0.7
+                });
+              } else {
+                // Slate black brushed metal chassis
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x141a24,
+                  roughness: 0.22,
+                  metalness: 0.92
+                });
+              }
+            }
 
-    // Left Foot Stabilizer
-    const footGeo = new THREE.BoxGeometry(0.12, 0.03, 0.75);
-    const leftFoot = new THREE.Mesh(footGeo, titaniumMat);
-    leftFoot.position.set(-0.85, 0.015, 0);
-    this.group.add(leftFoot);
+            // 6. Mechanical Keyboard & Mouse
+            else if (matName.includes('Keyboard') || matName.includes('keys') || matName === 'wheel') {
+              if (matName.includes('keys')) {
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x182030,
+                  roughness: 0.45,
+                  metalness: 0.25,
+                  emissive: 0x38bdf8,
+                  emissiveIntensity: 0.2
+                });
+              } else {
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x0f1520,
+                  roughness: 0.35,
+                  metalness: 0.8
+                });
+              }
+            }
+          }
+        });
 
-    // Right Foot Stabilizer
-    const rightFoot = new THREE.Mesh(footGeo, titaniumMat);
-    rightFoot.position.set(0.85, 0.015, 0);
-    this.group.add(rightFoot);
+        this.group.add(this.model);
 
-    // Gold Collar Rings on legs
-    const collarGeo = new THREE.BoxGeometry(legWidth + 0.02, 0.04, legDepth + 0.02);
-    const collar1 = new THREE.Mesh(collarGeo, goldAccentMat);
-    collar1.position.set(-0.85, 0.42, 0);
-    this.group.add(collar1);
-
-    const collar2 = new THREE.Mesh(collarGeo, goldAccentMat);
-    collar2.position.set(0.85, 0.42, 0);
-    this.group.add(collar2);
-
-    // 4. Subtle Under-Desk Warm LED Neon Glow Strip
-    const stripGeo = new THREE.BoxGeometry(deskWidth - 0.2, 0.01, 0.015);
-    const stripMat = new THREE.MeshStandardMaterial({
-      color: 0xffaa00,
-      emissive: 0xffaa00,
-      emissiveIntensity: 1.8
-    });
-    const stripMesh = new THREE.Mesh(stripGeo, stripMat);
-    stripMesh.position.set(0, deskY - deskHeight / 2 - 0.005, deskDepth / 2 - 0.02);
-    this.group.add(stripMesh);
-  }
-
-  setMonitor() {
-    const titaniumMat = new THREE.MeshStandardMaterial({
-      color: 0x11141a,
-      metalness: 0.94,
-      roughness: 0.18
-    });
-
-    const goldAccentMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038,
-      metalness: 0.85,
-      roughness: 0.25
-    });
-
-    // 1. Articulated Heavy-Duty Monitor Arm Stanchion
-    const armBaseGeo = new THREE.CylinderGeometry(0.06, 0.07, 0.03, 24);
-    const armBase = new THREE.Mesh(armBaseGeo, titaniumMat);
-    armBase.position.set(0, 0.79 + 0.015, -0.32);
-    this.group.add(armBase);
-
-    const armPostGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.42, 16);
-    const armPost = new THREE.Mesh(armPostGeo, titaniumMat);
-    armPost.position.set(0, 0.79 + 0.21, -0.32);
-    this.group.add(armPost);
-
-    // 2. Ultrawide Curved Display Chassis
-    const monitorWidth = 1.48;
-    const monitorHeight = 0.65;
-    const monitorDepth = 0.05;
-    const monitorY = 1.28;
-    const monitorZ = -0.15;
-
-    const monitorChassisGeo = new THREE.BoxGeometry(monitorWidth, monitorHeight, monitorDepth);
-    const monitorChassis = new THREE.Mesh(monitorChassisGeo, titaniumMat);
-    monitorChassis.position.set(0, monitorY, monitorZ);
-    monitorChassis.castShadow = true;
-    this.group.add(monitorChassis);
-
-    // Gold Bezel Frame Border
-    const frameGeo = new THREE.BoxGeometry(monitorWidth + 0.016, monitorHeight + 0.016, 0.012);
-    const frameMesh = new THREE.Mesh(frameGeo, goldAccentMat);
-    frameMesh.position.set(0, monitorY, monitorZ + 0.022);
-    this.group.add(frameMesh);
-
-    // 3. Screen Display Face (Canvas Texture)
-    const screenGeo = new THREE.PlaneGeometry(monitorWidth - 0.02, monitorHeight - 0.02);
-    this.screenMat = new THREE.MeshBasicMaterial({
-      map: this.texture,
-      toneMapped: false,
-      side: THREE.FrontSide
-    });
-    this.screenMesh = new THREE.Mesh(screenGeo, this.screenMat);
-    this.screenMesh.position.set(0, monitorY, monitorZ + 0.028);
-    this.group.add(this.screenMesh);
-
-    // Interactive pointer handling on the screen
-    this.screenMesh.cursor = 'pointer';
-  }
-
-  setPeripherals() {
-    const darkMetal = new THREE.MeshStandardMaterial({
-      color: 0x1e2430,
-      metalness: 0.85,
-      roughness: 0.3
-    });
-
-    const keycapMat = new THREE.MeshStandardMaterial({
-      color: 0x0f172a,
-      roughness: 0.6,
-      metalness: 0.2
-    });
-
-    const goldMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038,
-      metalness: 0.9,
-      roughness: 0.2
-    });
-
-    const deskY = 0.79;
-
-    // 1. Mechanical 75% Keyboard
-    const kbBaseGeo = new THREE.BoxGeometry(0.42, 0.018, 0.16);
-    const kbBase = new THREE.Mesh(kbBaseGeo, darkMetal);
-    kbBase.position.set(-0.06, deskY + 0.01, 0.14);
-    this.group.add(kbBase);
-
-    // Keycaps cluster
-    const keysGeo = new THREE.BoxGeometry(0.40, 0.012, 0.14);
-    const keys = new THREE.Mesh(keysGeo, keycapMat);
-    keys.position.set(-0.06, deskY + 0.022, 0.14);
-    this.group.add(keys);
-
-    // 2. Ergonomic Wireless Mouse
-    const mouseGeo = new THREE.BoxGeometry(0.08, 0.024, 0.13);
-    const mouse = new THREE.Mesh(mouseGeo, darkMetal);
-    mouse.position.set(0.32, deskY + 0.014, 0.14);
-    this.group.add(mouse);
-
-    // 3. Studio Monitor Speakers (Left & Right)
-    const speakerWidth = 0.18;
-    const speakerHeight = 0.30;
-    const speakerDepth = 0.20;
-    const speakerY = deskY + speakerHeight / 2;
-
-    const speakerGeo = new THREE.BoxGeometry(speakerWidth, speakerHeight, speakerDepth);
-
-    // Left Speaker
-    const leftSpeaker = new THREE.Mesh(speakerGeo, darkMetal);
-    leftSpeaker.position.set(-0.95, speakerY, -0.16);
-    leftSpeaker.rotation.y = Math.PI / 12; // Angled towards user
-    leftSpeaker.castShadow = true;
-    this.group.add(leftSpeaker);
-
-    // Left Speaker Gold Driver Cone
-    const driverGeo = new THREE.CylinderGeometry(0.05, 0.04, 0.01, 24);
-    const leftDriver = new THREE.Mesh(driverGeo, goldMat);
-    leftDriver.rotation.x = Math.PI / 2;
-    leftDriver.position.set(-0.95, speakerY - 0.03, -0.055);
-    this.group.add(leftDriver);
-
-    // Right Speaker
-    const rightSpeaker = new THREE.Mesh(speakerGeo, darkMetal);
-    rightSpeaker.position.set(0.95, speakerY, -0.16);
-    rightSpeaker.rotation.y = -Math.PI / 12;
-    rightSpeaker.castShadow = true;
-    this.group.add(rightSpeaker);
-
-    // Right Speaker Gold Driver Cone
-    const rightDriver = new THREE.Mesh(driverGeo, goldMat);
-    rightDriver.rotation.x = Math.PI / 2;
-    rightDriver.position.set(0.95, speakerY - 0.03, -0.055);
-    this.group.add(rightDriver);
+        // Preload complete signal
+        if (this.experience.preloader) {
+          this.experience.preloader.onItemLoaded('computer');
+        }
+      },
+      undefined,
+      (error) => {
+        console.error('Error loading 3D Computer Model:', error);
+      }
+    );
   }
 
   setLighting() {
-    // Warm overhead workstation desk light
-    this.deskLight = new THREE.SpotLight(0xfff7ed, 2.8, 8.0, Math.PI / 3.5, 0.4, 1.5);
-    this.deskLight.position.set(0, 2.6, 0.3);
-    this.deskLight.target.position.set(0, 0.8, 0);
-    this.group.add(this.deskLight);
-    this.group.add(this.deskLight.target);
+    // 1. Under-Desk Amber Gold Neon Glow
+    this.underglow = new THREE.PointLight(0xffd700, 1.4, 3.8);
+    this.underglow.position.set(0, 0.45, 0);
+    this.group.add(this.underglow);
+
+    // 2. Monitor Screen Forward Ambient Glow (illuminates desk pad & keyboard)
+    this.screenLight = new THREE.PointLight(0x38bdf8, 1.2, 2.5);
+    this.screenLight.position.set(0, 1.05, 0.2);
+    this.group.add(this.screenLight);
+
+    // 3. PC Tower Internal Cyan RGB Light
+    this.towerLight = new THREE.PointLight(0x00f0ff, 1.0, 1.8);
+    this.towerLight.position.set(0.65, 0.9, 0);
+    this.group.add(this.towerLight);
+  }
+
+  setupRaycasting() {
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2();
+
+    const onPointerDown = (event) => {
+      // Don't trigger if modal or Virtual PC is already active
+      if (document.body.classList.contains('pc-mode-active') || document.body.classList.contains('modal-open')) {
+        return;
+      }
+
+      const clientX = event.clientX || (event.touches && event.touches[0] ? event.touches[0].clientX : 0);
+      const clientY = event.clientY || (event.touches && event.touches[0] ? event.touches[0].clientY : 0);
+
+      this.mouse.x = (clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+
+      this.raycaster.setFromCamera(this.mouse, this.experience.camera.instance);
+      const intersects = this.raycaster.intersectObjects(this.interactiveMeshes, true);
+
+      if (intersects.length > 0) {
+        if (this.experience.virtualPC) {
+          this.experience.virtualPC.open();
+        }
+      }
+    };
+
+    window.addEventListener('click', onPointerDown);
+    window.addEventListener('touchend', onPointerDown);
   }
 
   update(delta, elapsed) {
-    if (!this.drawn) {
-      this.drawScreen();
-      this.drawn = true;
-      if (this.texture) this.texture.needsUpdate = true;
+    // Subtle pulsating glow on the gaming PC internals
+    if (this.towerLight) {
+      this.towerLight.intensity = 1.0 + Math.sin(elapsed * 2.8) * 0.35;
     }
   }
 
@@ -294,8 +228,8 @@ export default class ComputerDesk {
     const w = this.canvasWidth;
     const h = this.canvasHeight;
 
-    // 1. Dark Developer Studio IDE Background (#0B0F19)
-    ctx.fillStyle = '#0B0F19';
+    // 1. Dark Slate Cyber-Studio Terminal Canvas
+    ctx.fillStyle = '#060B14';
     ctx.fillRect(0, 0, w, h);
 
     // Subtle Grid pattern
@@ -369,7 +303,7 @@ export default class ComputerDesk {
     const lineHeight = 42;
 
     const codeLines = [
-      { num: '01', text: '// Jubayer Ahmad — Full-Stack Developer & AI Architect', color: '#94A3B8' },
+      { num: '01', text: '// Jubayer Ahmad — Full-Stack Developer & AI Specialist', color: '#94A3B8' },
       { num: '02', text: 'import { GoogleVeo, GeminiFlash } from "@google/genai";', color: '#F472B6' },
       { num: '03', text: 'import { Next15Engine, ThreeWebGL } from "@studio/core";', color: '#F472B6' },
       { num: '04', text: '', color: '#fff' },
@@ -383,7 +317,7 @@ export default class ComputerDesk {
       { num: '12', text: '  return await agent.deployToProduction();', color: '#FBBF24' },
       { num: '13', text: '}', color: '#60A5FA' },
       { num: '14', text: '', color: '#fff' },
-      { num: '15', text: 'console.log("⚡ Systems Calibrated & Verified by Jubayer");', color: '#38BDF8' }
+      { num: '15', text: 'console.log("Systems Calibrated & Verified by Jubayer");', color: '#38BDF8' }
     ];
 
     codeLines.forEach((cl) => {
@@ -479,6 +413,6 @@ export default class ComputerDesk {
     ctx.fillRect(rightX + 20, cardY + 206, w - rightX - 90, 40);
     ctx.fillStyle = '#FDE047';
     ctx.font = '700 20px "Outfit", sans-serif';
-    ctx.fillText('TAP OR SELECT "3D WORKSTATION" TO EXPLORE ALL LIVE SITES', rightX + 35, cardY + 233);
+    ctx.fillText('TAP COMPUTER TO LAUNCH INTERACTIVE OS & APPS', rightX + 35, cardY + 233);
   }
 }

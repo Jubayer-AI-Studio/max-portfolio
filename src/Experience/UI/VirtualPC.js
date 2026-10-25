@@ -308,8 +308,8 @@ export default class VirtualPC {
     // Smoothly fly camera right into the 3D ultrawide monitor display
     if (this.experience.camera) {
       this.experience.camera.transitionTo(
-        { x: 3.8, y: 1.44, z: -0.62 },
-        { x: 3.8, y: 1.42, z: -1.6 },
+        { x: 3.6, y: 1.28, z: -0.72 },
+        { x: 3.6, y: 1.05, z: -1.6 },
         1.0
       );
     }
