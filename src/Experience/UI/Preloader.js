@@ -15,22 +15,15 @@ export default class Preloader {
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 65; // Instant lively start
+    this.targetProgress = 80; // Instant lively start
     this.displayProgress = 0;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Show Quick Launch button after 1.0s if network is slow
-    this.quickLaunchTimer = setTimeout(() => {
-      if (!this.finished && this.quickBtn) {
-        this.quickBtn.style.display = 'inline-flex';
-      }
-    }, 1000);
-
-    // Hard fallback: Never keep user waiting longer than 1.8 seconds
+    // Hard fallback: Never keep user waiting longer than 1.0 second under any circumstance
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 1800);
+    }, 1000);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {
