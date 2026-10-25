@@ -446,23 +446,27 @@ export default class Modal {
   }
 
   openModal(targetId) {
-    // 1. For "workstation", launch the interactive 3D Virtual PC (JubayerOS) directly!
-    if (targetId === 'workstation') {
+    // 1. For "social", camera zooms right into 3D Social Media Billboard!
+    if (targetId === 'social') {
       this.closeModal();
       document.body.classList.remove('signboard-focus');
+      document.body.classList.add('social-focus');
       if (this.focusBanner) {
-        this.focusBanner.classList.remove('active');
+        if (this.focusTitle) {
+          this.focusTitle.textContent = 'Official Social Media Billboard (YouTube • TikTok • Facebook • Instagram)';
+        }
+        this.focusBanner.classList.add('active');
       }
-      if (this.experience.virtualPC) {
-        this.experience.virtualPC.open();
+      if (this.experience.sounds) {
+        this.experience.sounds.playBloop();
       }
       return;
     }
 
-    // 2. Jesse Zhou Style: For "About Jubayer", camera zooms right into 3D Signboard!
+    // 2. For "driver", camera zooms right into 3D Signboard (About Jubayer)!
     if (targetId === 'driver') {
       this.closeModal();
-      document.body.classList.remove('workstation-focus');
+      document.body.classList.remove('social-focus');
       document.body.classList.add('signboard-focus');
       if (this.focusBanner) {
         if (this.focusTitle) {
@@ -477,7 +481,7 @@ export default class Modal {
     }
 
     document.body.classList.remove('signboard-focus');
-    document.body.classList.remove('workstation-focus');
+    document.body.classList.remove('social-focus');
     if (this.focusBanner) {
       this.focusBanner.classList.remove('active');
     }
@@ -598,24 +602,96 @@ export default class Modal {
 
   getContent(targetId) {
     switch (targetId) {
-      case 'workstation':
+      case 'social':
         return `
           <div class="drawer-header-row">
             <div>
-              <div class="modal-badge gold-badge">DEVELOPER WORKSTATION</div>
-              <h2 class="modal-title gold-gradient-text" style="font-size: 1.35rem; margin-bottom: 4px;">Live Applications & Verified Profiles</h2>
+              <div class="modal-badge gold-badge">OFFICIAL SOCIAL CHANNELS</div>
+              <h2 class="modal-title gold-gradient-text" style="font-size: 1.35rem; margin-bottom: 4px;">Connect with Jubayer Ahmad</h2>
             </div>
             <div class="workstation-status-pill">
               <span class="pulse-dot"></span>
-              <span>VERCEL CLOUD • ACTIVE</span>
+              <span>VERIFIED DIRECT ACCESS</span>
             </div>
           </div>
 
           <div class="workstation-container">
-            <!-- Featured Live Vercel App Hero Card -->
-            <div class="workstation-hero-card">
+            <!-- 4 Main Social Media Cards Requested by User -->
+            <div class="workstation-social-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+              <!-- 1. YouTube -->
+              <a href="https://www.youtube.com/@jubayeraispecialist" target="_blank" class="profile-card yt-card" style="border-left: 4px solid #FF0000;">
+                <div class="profile-icon-wrap" style="background: rgba(255, 0, 0, 0.15); color: #FF0000;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">YouTube Channel</div>
+                  <div class="profile-meta">@jubayeraispecialist • Subscribe ↗</div>
+                </div>
+              </a>
+
+              <!-- 2. TikTok -->
+              <a href="https://www.tiktok.com/@jubayer_ahmad_2002" target="_blank" class="profile-card tiktok-card" style="border-left: 4px solid #00F2FE;">
+                <div class="profile-icon-wrap" style="background: #000000; color: #FFFFFF;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743 2.895 2.895 0 0 1 3.12-4.524V9.37a6.34 6.34 0 0 0-4.043 1.05 6.338 6.338 0 0 0-2.33 4.671 6.342 6.342 0 0 0 2.378 5.176 6.335 6.335 0 0 0 5.485 1.344 6.34 6.34 0 0 0 4.66-4.992c.07-.468.106-.944.106-1.42V8.653a8.214 8.214 0 0 0 5.04 1.705v-3.48a4.832 4.832 0 0 1-2.005-.192z" fill="#00F2FE"/>
+                    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743 2.895 2.895 0 0 1 3.12-4.524V9.37a6.34 6.34 0 0 0-4.043 1.05 6.338 6.338 0 0 0-2.33 4.671 6.342 6.342 0 0 0 2.378 5.176 6.335 6.335 0 0 0 5.485 1.344 6.34 6.34 0 0 0 4.66-4.992c.07-.468.106-.944.106-1.42V8.653a8.214 8.214 0 0 0 5.04 1.705v-3.48a4.832 4.832 0 0 1-2.005-.192z" fill="#FE0979" style="mix-blend-mode: screen; transform: translate(1px, 1px);"/>
+                  </svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">TikTok Profile</div>
+                  <div class="profile-meta">@jubayer_ahmad_2002 • Follow ↗</div>
+                </div>
+              </a>
+
+              <!-- 3. Facebook Profile & Page -->
+              <a href="https://www.facebook.com/share/1CopAWZnyX/" target="_blank" class="profile-card fb-card" style="border-left: 4px solid #1877F2;">
+                <div class="profile-icon-wrap" style="background: rgba(24, 119, 242, 0.15); color: #1877F2;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">Facebook Profile</div>
+                  <div class="profile-meta">Jubayer Ahmad (Official ID) ↗</div>
+                </div>
+              </a>
+
+              <!-- Facebook Studio Page -->
+              <a href="https://www.facebook.com/share/1C8RmiURup/" target="_blank" class="profile-card fb-card" style="border-left: 4px solid #1877F2;">
+                <div class="profile-icon-wrap" style="background: rgba(24, 119, 242, 0.15); color: #1877F2;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">Facebook Studio Page</div>
+                  <div class="profile-meta">Official Developer Studio ↗</div>
+                </div>
+              </a>
+
+              <!-- 4. Instagram -->
+              <a href="https://www.instagram.com/jubayer_ahmad_2002/" target="_blank" class="profile-card ig-card" style="border-left: 4px solid #E1306C;">
+                <div class="profile-icon-wrap" style="background: linear-gradient(135deg, rgba(131, 58, 180, 0.2) 0%, rgba(253, 29, 29, 0.2) 50%, rgba(252, 176, 69, 0.2) 100%); color: #E1306C;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">Instagram</div>
+                  <div class="profile-meta">@jubayer_ahmad_2002 • Follow ↗</div>
+                </div>
+              </a>
+
+              <!-- 5. Upwork Profile -->
+              <a href="https://www.upwork.com/freelancers/~0185d56d4075d701a6" target="_blank" class="profile-card upwork-card" style="border-left: 4px solid #14A800;">
+                <div class="profile-icon-wrap" style="background: rgba(20, 168, 0, 0.15); color: #14A800;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-3.715 0-5.596 2.493-6.236 4.351-.837-1.636-1.464-3.528-1.748-4.99H7.63v6.529c0 1.95-1.587 3.537-3.537 3.537-1.95 0-3.537-1.587-3.537-3.537V4.378H0v6.529c0 3.57 2.903 6.473 6.473 6.473 2.274 0 4.275-1.177 5.429-2.966.528 1.411 1.444 2.68 2.802 3.522 1.272.788 2.756 1.222 4.316 1.222 4.333 0 7.857-3.524 7.857-7.857 0-4.333-3.524-7.857-7.857-7.857z"/></svg>
+                </div>
+                <div class="profile-info">
+                  <div class="profile-name">Upwork Profile</div>
+                  <div class="profile-meta">Verified Freelancer • Hire Me ↗</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Featured Live App Card: Special Agent One -->
+            <div class="workstation-hero-card" style="margin-top: 14px;">
               <div class="hero-top-row">
-                <span class="hero-live-pill"><span class="pulse-dot"></span> LIVE APP (VERCEL)</span>
+                <span class="hero-live-pill"><span class="pulse-dot"></span> LIVE WEB APP (VERCEL)</span>
                 <span class="hero-framework-badge">Next.js 15 • Python • Multi-Agent</span>
               </div>
               <h3 class="hero-app-title">Special Agent One</h3>
@@ -630,53 +706,6 @@ export default class Modal {
                   <span>Source Code</span>
                 </a>
               </div>
-            </div>
-
-            <!-- Verified Client & Social Channels -->
-            <div class="workstation-social-grid">
-              <!-- Upwork -->
-              <a href="https://www.upwork.com/freelancers/~0185d56d4075d701a6" target="_blank" class="profile-card upwork-card">
-                <div class="profile-icon-wrap upwork-bg">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-3.715 0-5.596 2.493-6.236 4.351-.837-1.636-1.464-3.528-1.748-4.99H7.63v6.529c0 1.95-1.587 3.537-3.537 3.537-1.95 0-3.537-1.587-3.537-3.537V4.378H0v6.529c0 3.57 2.903 6.473 6.473 6.473 2.274 0 4.275-1.177 5.429-2.966.528 1.411 1.444 2.68 2.802 3.522 1.272.788 2.756 1.222 4.316 1.222 4.333 0 7.857-3.524 7.857-7.857 0-4.333-3.524-7.857-7.857-7.857z"/></svg>
-                </div>
-                <div class="profile-info">
-                  <div class="profile-name">Upwork Profile</div>
-                  <div class="profile-meta">Verified Freelancer • Hire Me ↗</div>
-                </div>
-              </a>
-
-              <!-- Facebook Profile -->
-              <a href="https://www.facebook.com/share/1CopAWZnyX/" target="_blank" class="profile-card fb-card">
-                <div class="profile-icon-wrap fb-bg">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </div>
-                <div class="profile-info">
-                  <div class="profile-name">Facebook Profile</div>
-                  <div class="profile-meta">Jubayer Ahmad (Official ID) ↗</div>
-                </div>
-              </a>
-
-              <!-- Facebook Page -->
-              <a href="https://www.facebook.com/share/1C8RmiURup/" target="_blank" class="profile-card fb-card">
-                <div class="profile-icon-wrap fb-bg">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </div>
-                <div class="profile-info">
-                  <div class="profile-name">Facebook Page</div>
-                  <div class="profile-meta">Official Developer Studio ↗</div>
-                </div>
-              </a>
-
-              <!-- GitHub Studio -->
-              <a href="https://github.com/Jubayer-AI-Studio" target="_blank" class="profile-card gh-card">
-                <div class="profile-icon-wrap gh-bg">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                </div>
-                <div class="profile-info">
-                  <div class="profile-name">GitHub Studio</div>
-                  <div class="profile-meta">@Jubayer-AI-Studio • 22 Repos ↗</div>
-                </div>
-              </a>
             </div>
           </div>
 

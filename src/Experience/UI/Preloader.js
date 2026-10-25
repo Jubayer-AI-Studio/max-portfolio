@@ -11,19 +11,19 @@ export default class Preloader {
     this.quickBtn = document.getElementById('loader-quick-launch');
 
     this.items = {
-      car: { loaded: 0, total: 6455952, ready: false }
+      car: { loaded: 0, total: 5234628, ready: false }
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 80; // Instant lively start
+    this.targetProgress = 18; // Lively start
     this.displayProgress = 0;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Hard fallback: Never keep user waiting longer than 1.0 second under any circumstance
+    // Emergency fail-safe timer (only if network completely drops after 25s)
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 1000);
+    }, 25000);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {
@@ -65,10 +65,10 @@ export default class Preloader {
     }
 
     const currentLoaded = this.items.car.loaded;
-    const currentTotal = this.totalBytes || 6455952;
-    // Map network download to 10% - 95%
+    const currentTotal = this.totalBytes || 5234628;
+    // Map network download to 15% - 94%
     const rawRatio = Math.min(currentLoaded / currentTotal, 1);
-    this.targetProgress = Math.max(this.targetProgress, Math.round(10 + rawRatio * 85));
+    this.targetProgress = Math.max(this.targetProgress, Math.round(15 + rawRatio * 79));
 
     // Play engine rev as speed passes 50%
     if (this.displayProgress > 45 && !this.soundPlayed) {
@@ -84,9 +84,14 @@ export default class Preloader {
 
     if (this.items.car.ready) {
       this.targetProgress = 100;
-      setTimeout(() => {
-        this.finish();
-      }, 40);
+      const checkAndFinish = () => {
+        if (this.displayProgress >= 98) {
+          setTimeout(() => this.finish(), 80);
+        } else {
+          setTimeout(checkAndFinish, 30);
+        }
+      };
+      checkAndFinish();
     }
   }
 

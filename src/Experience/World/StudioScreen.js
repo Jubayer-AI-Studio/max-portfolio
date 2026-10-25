@@ -273,7 +273,7 @@ export default class StudioScreen {
       ctx.fillStyle = '#E8DFD0';
       ctx.fillRect(photoX, photoY, photoW, photoH);
       ctx.fillStyle = '#78716C';
-      ctx.font = '600 32px "Space Grotesk", sans-serif';
+      ctx.font = '600 32px "Plus Jakarta Sans", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('LOADING PORTRAIT...', photoX + photoW / 2, photoY + photoH / 2);
     }
@@ -286,7 +286,7 @@ export default class StudioScreen {
     // Line 1: Jubayer Ahmad
     // Color: Rich Deep Charcoal Obsidian (#0A0908) — maximum visual authority & contrast
     ctx.fillStyle = '#0A0908';
-    ctx.font = '800 96px "Outfit", "Space Grotesk", sans-serif';
+    ctx.font = '800 96px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'left';
     ctx.letterSpacing = '0.01em';
     ctx.fillText('Jubayer Ahmad', textStartX, centerY - 80);
