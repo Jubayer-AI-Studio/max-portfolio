@@ -2,6 +2,7 @@ import SkyStudio from './SkyStudio.js';
 import Floor from './Floor.js';
 import Turntable from './Turntable.js';
 import StudioScreen from './StudioScreen.js';
+import ProjectsScreen from './ProjectsScreen.js';
 import SocialScreen from './SocialScreen.js';
 import Environment from './Environment.js';
 import Car from './Car.js';
@@ -17,6 +18,7 @@ export default class World {
     this.floor = new Floor(this.experience);
     this.turntable = new Turntable(this.experience);
     this.studioScreen = new StudioScreen(this.experience);
+    this.projectsScreen = new ProjectsScreen(this.experience);
     this.socialScreen = new SocialScreen(this.experience);
     this.environment = new Environment(this.experience);
     this.car = new Car(this.experience);
@@ -33,6 +35,9 @@ export default class World {
     }
     if (this.studioScreen) {
       this.studioScreen.update(delta, elapsed);
+    }
+    if (this.projectsScreen) {
+      this.projectsScreen.update(delta, elapsed);
     }
     if (this.socialScreen) {
       this.socialScreen.update(delta, elapsed);

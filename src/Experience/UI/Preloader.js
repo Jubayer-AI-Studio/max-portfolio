@@ -20,10 +20,10 @@ export default class Preloader {
     this.soundPlayed = false;
     this.finished = false;
 
-    // Emergency fail-safe timer (only if network completely drops after 25s)
+    // Maximum 2.8 second startup guarantee as explicitly requested by user
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 25000);
+    }, 2800);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {

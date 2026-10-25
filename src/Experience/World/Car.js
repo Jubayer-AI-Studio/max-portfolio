@@ -23,7 +23,49 @@ export default class Car {
     this.wheelPivots = [];
     this.wheelRotationSpeed = 8.5; // rad/s for dynamic wheel spin
 
+    // Immediately place an illuminated aerodynamic wireframe concept car on the turntable
+    // so the turntable is NEVER empty even on slow mobile connections!
+    this.setupHolographicProxy();
     this.setModel();
+  }
+
+  setupHolographicProxy() {
+    this.proxyGroup = new THREE.Group();
+
+    // Aerodynamic wireframe body of Mercedes SLK 55 AMG
+    const bodyGeo = new THREE.BoxGeometry(1.68, 0.48, 3.8);
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0xd4a038, // Warm Amber Gold
+      wireframe: true,
+      transparent: true,
+      opacity: 0.55
+    });
+    const bodyMesh = new THREE.Mesh(bodyGeo, wireMat);
+    bodyMesh.position.set(0, 0.44, 0);
+    this.proxyGroup.add(bodyMesh);
+
+    // Aerodynamic cabin dome
+    const cabinGeo = new THREE.BoxGeometry(1.35, 0.40, 1.5);
+    const cabinMesh = new THREE.Mesh(cabinGeo, wireMat);
+    cabinMesh.position.set(0, 0.84, -0.2);
+    this.proxyGroup.add(cabinMesh);
+
+    // 4 Glowing wireframe wheels
+    const wheelGeo = new THREE.CylinderGeometry(0.32, 0.32, 0.22, 16);
+    wheelGeo.rotateZ(Math.PI / 2);
+    const wheelPositions = [
+      [-0.78, 0.34, 1.2],
+      [ 0.78, 0.34, 1.2],
+      [-0.78, 0.34, -1.2],
+      [ 0.78, 0.34, -1.2]
+    ];
+    wheelPositions.forEach(([x, y, z]) => {
+      const w = new THREE.Mesh(wheelGeo, wireMat);
+      w.position.set(x, y, z);
+      this.proxyGroup.add(w);
+    });
+
+    this.scene.add(this.proxyGroup);
   }
 
   setModel() {
@@ -148,6 +190,11 @@ export default class Car {
             }
           }
         });
+
+        if (this.proxyGroup) {
+          this.scene.remove(this.proxyGroup);
+          this.proxyGroup = null;
+        }
 
         this.scene.add(this.model);
 

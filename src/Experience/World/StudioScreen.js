@@ -6,9 +6,9 @@ export default class StudioScreen {
     this.scene = this.experience.scene;
 
     this.group = new THREE.Group();
-    // Positioned gracefully on the left-rear side so it never blocks the car
-    this.group.position.set(-3.8, 0, -1.8);
-    this.group.rotation.y = Math.PI / 3.4; // ~53 degrees toward showroom center
+    // Positioned gracefully on the left gallery curve, perfectly mirroring SocialScreen on the right
+    this.group.position.set(-4.2, 0, -1.8);
+    this.group.rotation.y = Math.PI / 3.0; // ~60 degrees toward showroom center
     this.scene.add(this.group);
 
     this.canvasWidth = 2048;

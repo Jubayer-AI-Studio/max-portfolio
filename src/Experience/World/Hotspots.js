@@ -9,25 +9,33 @@ export default class Hotspots {
 
     this.points = [
       {
-        id: 'social',
-        name: 'Social Media Billboard',
-        position: new THREE.Vector3(-1.8, 1.45, -3.0),
-        camPos: { x: 0.1, y: 1.62, z: -0.6 },
-        camTarget: { x: -1.8, y: 1.48, z: -3.2 },
-        action: 'social'
+        id: 'projects',
+        name: 'Live Vercel Projects',
+        position: new THREE.Vector3(0, 2.3, -4.5),
+        camPos: { x: 0, y: 1.65, z: -1.8 },
+        camTarget: { x: 0, y: 1.65, z: -4.6 },
+        action: 'projects'
       },
       {
         id: 'driver',
-        name: 'About Jubayer (3D Signboard)',
-        position: new THREE.Vector3(-3.4, 1.45, -1.6),
-        camPos: { x: -0.7, y: 1.62, z: 0.9 }, // Museum gallery distance with generous editorial margins
-        camTarget: { x: -3.8, y: 1.48, z: -1.8 },
+        name: 'About Jubayer',
+        position: new THREE.Vector3(-4.2, 2.3, -1.8),
+        camPos: { x: -1.2, y: 1.62, z: 0.2 },
+        camTarget: { x: -4.2, y: 1.5, z: -1.8 },
         action: 'signboard'
+      },
+      {
+        id: 'social',
+        name: 'Social Media',
+        position: new THREE.Vector3(4.2, 2.3, -1.8),
+        camPos: { x: 1.2, y: 1.62, z: 0.2 },
+        camTarget: { x: 4.2, y: 1.5, z: -1.8 },
+        action: 'social'
       },
       {
         id: 'hood',
         name: 'Full-Stack Core',
-        position: new THREE.Vector3(0, 1.05, 1.45),
+        position: new THREE.Vector3(0, 0.95, 1.45),
         camPos: { x: 1.2, y: 1.6, z: 2.8 },
         camTarget: { x: 0, y: 0.85, z: 1.1 },
         action: 'hood'
@@ -35,7 +43,7 @@ export default class Hotspots {
       {
         id: 'dashboard',
         name: 'AI & Content Stack',
-        position: new THREE.Vector3(-0.5, 1.15, 0.1),
+        position: new THREE.Vector3(-0.5, 1.05, 0.1),
         camPos: { x: -1.6, y: 1.35, z: 0.8 },
         camTarget: { x: -0.2, y: 0.9, z: 0.1 },
         action: 'dashboard'
@@ -43,18 +51,10 @@ export default class Hotspots {
       {
         id: 'trunk',
         name: 'GitHub Repos (22)',
-        position: new THREE.Vector3(0, 1.05, -1.45),
+        position: new THREE.Vector3(0, 0.95, -1.45),
         camPos: { x: -1.0, y: 1.6, z: -2.8 },
         camTarget: { x: 0, y: 0.8, z: -1.1 },
         action: 'trunk'
-      },
-      {
-        id: 'fuel',
-        name: 'Connect',
-        position: new THREE.Vector3(1.1, 1.0, 1.2),
-        camPos: { x: 2.2, y: 1.3, z: 1.4 },
-        camTarget: { x: 0.8, y: 0.8, z: 1.0 },
-        action: 'fuel'
       }
     ];
 

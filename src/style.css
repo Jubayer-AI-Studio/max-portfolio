@@ -464,55 +464,55 @@ html, body {
 }
 
 .brand-minimal {
-  background: var(--bg-panel);
+  background: linear-gradient(135deg, rgba(248, 244, 236, 0.94) 0%, rgba(239, 228, 210, 0.90) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 10px 18px;
+  padding: 8px 18px;
   border-radius: 14px;
-  border: 1px solid var(--border-subtle);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1.5px solid rgba(212, 160, 56, 0.45);
+  box-shadow: 0 10px 25px rgba(12, 10, 9, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 
 .brand-minimal .brand-title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #0A0908;
   line-height: 1.2;
 }
 
 .brand-minimal .brand-sub {
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
-  color: var(--accent-cyan);
+  color: #9A3412;
   margin-top: 2px;
 }
 
 /* ===============================
-   Big Bold Cyberpunk / Luxury Gold HUD Clock
+   Luxury Warm Cream / Editorial HUD Clock
 =============================== */
 .hud-clock-center {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(18, 14, 8, 0.92);
+  background: linear-gradient(135deg, rgba(248, 244, 236, 0.95) 0%, rgba(239, 228, 210, 0.92) 100%);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  padding: 8px 28px 10px;
-  border-radius: 18px;
-  border: 1.5px solid rgba(255, 215, 0, 0.45);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.25);
+  padding: 6px 22px 7px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(212, 160, 56, 0.5);
+  box-shadow: 0 10px 30px rgba(12, 10, 9, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 
 .hud-big-clock {
   font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-  font-size: 2.1rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #FFD700;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.75), 0 0 40px rgba(229, 169, 60, 0.4);
+  letter-spacing: 0.05em;
+  color: #0A0908;
+  text-shadow: none;
   line-height: 1.1;
 }
 
@@ -520,11 +520,11 @@ html, body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
-  color: #FFC107;
-  margin-top: 3px;
+  letter-spacing: 0.12em;
+  color: #9A3412;
+  margin-top: 2px;
   text-transform: uppercase;
 }
 
@@ -636,37 +636,38 @@ html, body {
 }
 
 .hud-btn {
-  background: var(--bg-panel);
+  background: linear-gradient(135deg, rgba(248, 244, 236, 0.94) 0%, rgba(239, 228, 210, 0.90) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-main);
-  padding: 10px 16px;
+  border: 1.5px solid rgba(212, 160, 56, 0.45);
+  color: #0A0908;
+  padding: 8px 14px;
   border-radius: 12px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   font-family: var(--font-display);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 20px rgba(12, 10, 9, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
 }
 
 .hud-btn.active {
-  background: rgba(255, 215, 0, 0.18);
-  border-color: #FFD700;
-  color: #FFD700;
-  box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
+  background: #0A0908;
+  border-color: #D4A038;
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px rgba(12, 10, 9, 0.35);
 }
 
 .hud-btn:hover {
-  background: rgba(255, 215, 0, 0.12);
-  border-color: #FFD700;
+  background: #FFFFFF;
+  border-color: #D4A038;
+  color: #0A0908;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.25);
+  box-shadow: 0 10px 24px rgba(212, 160, 56, 0.22);
 }
 
 .hud-btn:active {
@@ -714,15 +715,15 @@ html, body {
 
 .nav-container {
   pointer-events: auto;
-  background: var(--bg-panel);
+  background: linear-gradient(135deg, rgba(248, 244, 236, 0.94) 0%, rgba(239, 228, 210, 0.90) 100%);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border-subtle);
-  padding: 6px;
+  border: 1.5px solid rgba(212, 160, 56, 0.45);
+  padding: 5px;
   border-radius: 99px;
   display: flex;
-  gap: 6px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  gap: 5px;
+  box-shadow: 0 16px 40px rgba(12, 10, 9, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
   max-width: 95vw;
   overflow-x: auto;
 }
@@ -730,44 +731,44 @@ html, body {
 .nav-pill {
   background: transparent;
   border: none;
-  color: #E2E8F0;
+  color: #57534E;
   font-family: var(--font-display);
-  font-size: 0.80rem;
+  font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  padding: 10px 18px;
+  padding: 9px 16px;
   border-radius: 99px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
   white-space: nowrap;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
 
 .nav-pill .dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #94A3B8;
-  transition: all 0.25s ease;
+  background: #A8A29E;
+  transition: all 0.2s ease;
 }
 
 .nav-pill:hover {
-  color: #FFD700;
-  background: rgba(255, 215, 0, 0.08);
+  color: #0A0908;
+  background: rgba(212, 160, 56, 0.15);
 }
 
 .nav-pill.active {
-  color: #FFD700;
-  background: rgba(255, 215, 0, 0.16);
-  border: 1px solid rgba(255, 215, 0, 0.4);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 215, 0, 0.25);
+  color: #FFFFFF;
+  background: #0A0908;
+  border: 1px solid #D4A038;
+  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.35);
 }
 
 .nav-pill.active .dot {
-  background: #FFD700;
-  box-shadow: 0 0 10px #FFD700;
+  background: #D4A038;
+  box-shadow: 0 0 8px #D4A038;
 }
 
 /* ===============================
@@ -1381,7 +1382,8 @@ html, body {
 
 body.modal-open .hotspots-container,
 body.signboard-focus .hotspots-container,
-body.social-focus .hotspots-container {
+body.social-focus .hotspots-container,
+body.projects-focus .hotspots-container {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -1399,28 +1401,28 @@ body.social-focus .hotspots-container {
 .hotspot-inner {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(10, 14, 22, 0.85);
+  gap: 7px;
+  background: linear-gradient(135deg, rgba(248, 244, 236, 0.96) 0%, rgba(239, 228, 210, 0.92) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 240, 255, 0.45);
-  padding: 6px 14px 6px 10px;
+  border: 1.5px solid rgba(212, 160, 56, 0.55);
+  padding: 5px 12px 5px 8px;
   border-radius: 999px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 240, 255, 0.25);
-  color: #fff;
-  font-size: 0.75rem;
+  box-shadow: 0 6px 20px rgba(12, 10, 9, 0.22);
+  color: #0A0908;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   white-space: nowrap;
   transition: all 0.25s ease;
 }
 
 .hotspot-beacon {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--accent-cyan);
-  box-shadow: 0 0 12px var(--accent-cyan);
+  background: #D4A038;
+  box-shadow: 0 0 8px #D4A038;
   flex-shrink: 0;
   position: relative;
 }
@@ -1430,7 +1432,7 @@ body.social-focus .hotspots-container {
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  border: 1.5px solid var(--accent-cyan);
+  border: 1.5px solid #D4A038;
   animation: beacon-pulse 2s infinite ease-out;
 }
 
@@ -1440,10 +1442,10 @@ body.social-focus .hotspots-container {
 }
 
 .hotspot-pin:hover .hotspot-inner {
-  background: rgba(18, 24, 36, 0.96);
-  border-color: #00f0ff;
-  box-shadow: 0 6px 25px rgba(0, 240, 255, 0.5);
-  transform: scale(1.08);
+  background: #FFFFFF;
+  border-color: #D4A038;
+  box-shadow: 0 8px 24px rgba(212, 160, 56, 0.35);
+  transform: scale(1.06);
 }
 
 /* Responsive adjustments */
@@ -1979,7 +1981,8 @@ body.workstation-focus .hotspots-container {
   pointer-events: none;
 }
 
-body.social-focus .hotspots-container {
+body.social-focus .hotspots-container,
+body.projects-focus .hotspots-container {
   opacity: 0;
   pointer-events: none;
 }

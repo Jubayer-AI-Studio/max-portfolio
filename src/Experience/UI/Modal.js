@@ -370,7 +370,8 @@ export default class Modal {
   resetView() {
     this.closeModal();
     document.body.classList.remove('signboard-focus');
-    document.body.classList.remove('workstation-focus');
+    document.body.classList.remove('social-focus');
+    document.body.classList.remove('projects-focus');
     document.body.classList.remove('exploded-mode');
     if (this.focusBanner) {
       this.focusBanner.classList.remove('active');
@@ -446,14 +447,33 @@ export default class Modal {
   }
 
   openModal(targetId) {
+    // 0. For "projects", camera zooms right into 3D Live Projects Billboard!
+    if (targetId === 'projects') {
+      this.closeModal();
+      document.body.classList.remove('signboard-focus');
+      document.body.classList.remove('social-focus');
+      document.body.classList.add('projects-focus');
+      if (this.focusBanner) {
+        if (this.focusTitle) {
+          this.focusTitle.textContent = 'Live Vercel Projects • Production Deployments';
+        }
+        this.focusBanner.classList.add('active');
+      }
+      if (this.experience.sounds) {
+        this.experience.sounds.playBloop();
+      }
+      return;
+    }
+
     // 1. For "social", camera zooms right into 3D Social Media Billboard!
     if (targetId === 'social') {
       this.closeModal();
       document.body.classList.remove('signboard-focus');
+      document.body.classList.remove('projects-focus');
       document.body.classList.add('social-focus');
       if (this.focusBanner) {
         if (this.focusTitle) {
-          this.focusTitle.textContent = 'Official Social Media Billboard (YouTube • TikTok • Facebook • Instagram)';
+          this.focusTitle.textContent = 'Official Social Media (YouTube • TikTok • Facebook • Instagram)';
         }
         this.focusBanner.classList.add('active');
       }
@@ -467,6 +487,7 @@ export default class Modal {
     if (targetId === 'driver') {
       this.closeModal();
       document.body.classList.remove('social-focus');
+      document.body.classList.remove('projects-focus');
       document.body.classList.add('signboard-focus');
       if (this.focusBanner) {
         if (this.focusTitle) {
@@ -482,6 +503,7 @@ export default class Modal {
 
     document.body.classList.remove('signboard-focus');
     document.body.classList.remove('social-focus');
+    document.body.classList.remove('projects-focus');
     if (this.focusBanner) {
       this.focusBanner.classList.remove('active');
     }

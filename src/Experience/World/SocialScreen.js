@@ -9,9 +9,9 @@ export default class SocialScreen {
     this.mouse = new THREE.Vector2();
 
     this.group = new THREE.Group();
-    // Positioned beside the main profile signboard on the left gallery curve
-    this.group.position.set(-1.8, 0, -3.2);
-    this.group.rotation.y = Math.PI / 4.4; // ~41 degrees toward showroom center
+    // Positioned gracefully on the right gallery curve, perfectly mirroring StudioScreen on the left
+    this.group.position.set(4.2, 0, -1.8);
+    this.group.rotation.y = -Math.PI / 3.0; // ~ -60 degrees toward showroom center
     this.scene.add(this.group);
 
     this.canvasWidth = 2048;
@@ -27,7 +27,7 @@ export default class SocialScreen {
         color: '#FF0000',
         url: 'https://www.youtube.com/@jubayeraispecialist',
         actionText: 'Subscribe ↗',
-        rect: { x: 120, y: 310, w: 860, h: 360 }
+        rect: { x: 120, y: 280, w: 860, h: 360 }
       },
       {
         id: 'tiktok',
@@ -37,27 +37,27 @@ export default class SocialScreen {
         color: '#000000',
         url: 'https://www.tiktok.com/@jubayer_ahmad_2002',
         actionText: 'Follow ↗',
-        rect: { x: 1060, y: 310, w: 860, h: 360 }
+        rect: { x: 1068, y: 280, w: 860, h: 360 }
       },
       {
         id: 'facebook',
         name: 'Facebook',
         handle: 'Jubayer Ahmad & Studio Page',
-        desc: 'Personal Profile & Official Page',
+        desc: 'Personal Profile & Official Studio Page',
         color: '#1877F2',
         url: 'https://www.facebook.com/share/1CopAWZnyX/',
         actionText: 'Connect ↗',
-        rect: { x: 120, y: 710, w: 860, h: 360 }
+        rect: { x: 120, y: 680, w: 860, h: 360 }
       },
       {
         id: 'instagram',
         name: 'Instagram',
         handle: '@jubayer_ahmad_2002',
-        desc: 'Visual Stories & Behind the Scenes',
+        desc: 'Visual Stories & Lifestyle',
         color: '#E1306C',
         url: 'https://www.instagram.com/jubayer_ahmad_2002/',
         actionText: 'Follow ↗',
-        rect: { x: 1060, y: 710, w: 860, h: 360 }
+        rect: { x: 1068, y: 680, w: 860, h: 360 }
       }
     ];
 
