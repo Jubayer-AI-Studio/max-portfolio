@@ -9,55 +9,56 @@ export default class SocialScreen {
     this.mouse = new THREE.Vector2();
 
     this.group = new THREE.Group();
-    // Positioned gracefully on the right gallery curve, perfectly mirroring StudioScreen on the left
-    this.group.position.set(4.2, 0, -1.8);
-    this.group.rotation.y = -Math.PI / 3.0; // ~ -60 degrees toward showroom center
+    // Compact pedestal kiosk gracefully positioned on the right gallery curve
+    this.group.position.set(3.4, 0, -1.2);
+    this.group.rotation.y = -Math.PI / 3.8;
     this.scene.add(this.group);
 
-    this.canvasWidth = 2048;
-    this.canvasHeight = 1152;
+    this.canvasWidth = 1024;
+    this.canvasHeight = 680;
     this.hoveredIndex = -1;
 
+    // 4 Official Verified Social Channels
     this.cards = [
       {
         id: 'youtube',
         name: 'YouTube',
         handle: '@jubayeraispecialist',
-        desc: 'Official AI & Creative Tech Channel',
+        desc: 'Official AI Tech & Studio Channel',
         color: '#FF0000',
         url: 'https://www.youtube.com/@jubayeraispecialist',
         actionText: 'Subscribe ↗',
-        rect: { x: 120, y: 280, w: 860, h: 360 }
-      },
-      {
-        id: 'tiktok',
-        name: 'TikTok',
-        handle: '@jubayer_ahmad_2002',
-        desc: 'Short AI Videos & Creative Reels',
-        color: '#000000',
-        url: 'https://www.tiktok.com/@jubayer_ahmad_2002',
-        actionText: 'Follow ↗',
-        rect: { x: 1068, y: 280, w: 860, h: 360 }
-      },
-      {
-        id: 'facebook',
-        name: 'Facebook',
-        handle: 'Jubayer Ahmad & Studio Page',
-        desc: 'Personal Profile & Official Studio Page',
-        color: '#1877F2',
-        url: 'https://www.facebook.com/share/1CopAWZnyX/',
-        actionText: 'Connect ↗',
-        rect: { x: 120, y: 680, w: 860, h: 360 }
+        rect: { x: 50, y: 160, w: 435, h: 220 }
       },
       {
         id: 'instagram',
         name: 'Instagram',
         handle: '@jubayer_ahmad_2002',
-        desc: 'Visual Stories & Lifestyle',
+        desc: 'Visual Stories & Daily Tech',
         color: '#E1306C',
         url: 'https://www.instagram.com/jubayer_ahmad_2002/',
         actionText: 'Follow ↗',
-        rect: { x: 1068, y: 680, w: 860, h: 360 }
+        rect: { x: 539, y: 160, w: 435, h: 220 }
+      },
+      {
+        id: 'facebook',
+        name: 'Facebook',
+        handle: 'Jubayer Ahmad',
+        desc: 'Personal Profile & Studio Page',
+        color: '#1877F2',
+        url: 'https://www.facebook.com/share/1CopAWZnyX/',
+        actionText: 'Connect ↗',
+        rect: { x: 50, y: 410, w: 435, h: 220 }
+      },
+      {
+        id: 'tiktok',
+        name: 'TikTok',
+        handle: '@jubayer_ahmad_2002',
+        desc: 'Short AI Reels & Video Clips',
+        color: '#000000',
+        url: 'https://www.tiktok.com/@jubayer_ahmad_2002',
+        actionText: 'Follow ↗',
+        rect: { x: 539, y: 410, w: 435, h: 220 }
       }
     ];
 
@@ -83,7 +84,6 @@ export default class SocialScreen {
   }
 
   setMesh() {
-    // Showroom dark titanium material
     const metalMat = new THREE.MeshStandardMaterial({
       color: 0x1c1917,
       metalness: 0.92,
@@ -96,49 +96,34 @@ export default class SocialScreen {
       roughness: 0.28
     });
 
-    // 1. Showroom floor pedestal base
-    const baseGeo = new THREE.BoxGeometry(1.5, 0.04, 0.7);
+    // 1. Sleek Circular Pedestal Base
+    const baseGeo = new THREE.CylinderGeometry(0.32, 0.36, 0.03, 32);
     const base = new THREE.Mesh(baseGeo, metalMat);
-    base.position.y = 0.02;
+    base.position.y = 0.015;
     base.receiveShadow = true;
     this.group.add(base);
 
-    const chassisWidth = 2.36;
-    const chassisHeight = 1.33; // 16:9 ratio
-    const chassisDepth = 0.08;
-    const chassisY = 1.5;
-    const chassisBottomY = chassisY - chassisHeight / 2; // 0.835m
+    // Compact Kiosk Dimensions
+    const chassisWidth = 1.15;
+    const chassisHeight = 0.76;
+    const chassisDepth = 0.045;
+    const chassisY = 1.12;
+    const chassisBottomY = chassisY - chassisHeight / 2; // ~0.74m
 
-    // 2. Twin Support Stanchions
+    // 2. Central Brushed Titanium Support Column
     const pillarHeight = chassisBottomY;
-    const pillarGeo = new THREE.CylinderGeometry(0.04, 0.04, pillarHeight, 24);
+    const pillarGeo = new THREE.CylinderGeometry(0.032, 0.032, pillarHeight, 24);
+    const pillar = new THREE.Mesh(pillarGeo, metalMat);
+    pillar.position.set(0, pillarHeight / 2, 0);
+    this.group.add(pillar);
 
-    const pillar1 = new THREE.Mesh(pillarGeo, metalMat);
-    pillar1.position.set(-0.6, pillarHeight / 2, 0);
-    this.group.add(pillar1);
+    // Amber Gold Accent Collar Ring
+    const ringGeo = new THREE.CylinderGeometry(0.042, 0.042, 0.02, 24);
+    const ring = new THREE.Mesh(ringGeo, ochreRingMat);
+    ring.position.set(0, 0.38, 0);
+    this.group.add(ring);
 
-    const pillar2 = new THREE.Mesh(pillarGeo, metalMat);
-    pillar2.position.set(0.6, pillarHeight / 2, 0);
-    this.group.add(pillar2);
-
-    // Warm Ochre accent collar rings
-    const ringGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.03, 24);
-    const ring1 = new THREE.Mesh(ringGeo, ochreRingMat);
-    ring1.position.set(-0.6, 0.42, 0);
-    this.group.add(ring1);
-
-    const ring2 = new THREE.Mesh(ringGeo, ochreRingMat);
-    ring2.position.set(0.6, 0.42, 0);
-    this.group.add(ring2);
-
-    // Rear A-Frame strut brace
-    const rearBraceGeo = new THREE.CylinderGeometry(0.02, 0.02, 1.0, 16);
-    const rearBrace = new THREE.Mesh(rearBraceGeo, metalMat);
-    rearBrace.position.set(0, 0.45, -0.22);
-    rearBrace.rotation.x = -Math.PI / 6;
-    this.group.add(rearBrace);
-
-    // 3. Display Chassis Box
+    // 3. Compact Display Chassis Box
     const chassisGeo = new THREE.BoxGeometry(chassisWidth, chassisHeight, chassisDepth);
     const chassis = new THREE.Mesh(chassisGeo, metalMat);
     chassis.position.set(0, chassisY, 0);
@@ -146,29 +131,29 @@ export default class SocialScreen {
     this.group.add(chassis);
 
     // Brushed Amber Gold Bezel Frame
-    const frameGeo = new THREE.BoxGeometry(chassisWidth + 0.02, chassisHeight + 0.02, 0.016);
+    const frameGeo = new THREE.BoxGeometry(chassisWidth + 0.014, chassisHeight + 0.014, 0.012);
     const frameMat = new THREE.MeshStandardMaterial({
       color: 0xd4a038,
       metalness: 0.84,
       roughness: 0.3
     });
     const frame = new THREE.Mesh(frameGeo, frameMat);
-    frame.position.set(0, chassisY, 0.036);
+    frame.position.set(0, chassisY, 0.022);
     this.group.add(frame);
 
     // 4. FRONT Screen Surface (Canvas Texture)
-    const screenGeo = new THREE.PlaneGeometry(chassisWidth - 0.03, chassisHeight - 0.03);
+    const screenGeo = new THREE.PlaneGeometry(chassisWidth - 0.02, chassisHeight - 0.02);
     this.screenMat = new THREE.MeshBasicMaterial({
       map: this.texture,
       toneMapped: false,
       side: THREE.FrontSide
     });
     this.screenMesh = new THREE.Mesh(screenGeo, this.screenMat);
-    this.screenMesh.position.set(0, chassisY, 0.045);
+    this.screenMesh.position.set(0, chassisY, 0.028);
     this.group.add(this.screenMesh);
 
     // 5. Solid Back Plate
-    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.02, chassisHeight - 0.02);
+    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.015, chassisHeight - 0.015);
     const backPlateMat = new THREE.MeshStandardMaterial({
       color: 0x110f0e,
       metalness: 0.95,
@@ -176,20 +161,14 @@ export default class SocialScreen {
       side: THREE.FrontSide
     });
     const backPlate = new THREE.Mesh(backPlateGeo, backPlateMat);
-    backPlate.position.set(0, chassisY, -0.042);
+    backPlate.position.set(0, chassisY, -0.024);
     backPlate.rotation.y = Math.PI;
     this.group.add(backPlate);
-
-    const backEmblemGeo = new THREE.RingGeometry(0.1, 0.13, 32);
-    const backEmblem = new THREE.Mesh(backEmblemGeo, ochreRingMat);
-    backEmblem.position.set(0, chassisY, -0.044);
-    backEmblem.rotation.y = Math.PI;
-    this.group.add(backEmblem);
   }
 
   setLighting() {
-    this.screenLight = new THREE.PointLight(0xfef3c7, 1.2, 5.0, 1.8);
-    this.screenLight.position.set(0, 1.5, 0.8);
+    this.screenLight = new THREE.PointLight(0xfef3c7, 0.9, 4.0, 1.8);
+    this.screenLight.position.set(0, 1.15, 0.6);
     this.group.add(this.screenLight);
   }
 
@@ -198,7 +177,7 @@ export default class SocialScreen {
     const w = this.canvasWidth;
     const h = this.canvasHeight;
 
-    // 1. Organic Warm Linen Parchment Background (Matching StudioScreen)
+    // 1. Organic Warm Linen Parchment Background
     const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
     bgGrad.addColorStop(0, '#F8F4EC');
     bgGrad.addColorStop(0.5, '#EFE4D2');
@@ -207,243 +186,251 @@ export default class SocialScreen {
     ctx.fillRect(0, 0, w, h);
 
     // Warm radial bloom in upper header
-    const radial = ctx.createRadialGradient(w * 0.5, 120, 40, w * 0.5, 200, w * 0.6);
-    radial.addColorStop(0, 'rgba(253, 230, 138, 0.22)');
+    const radial = ctx.createRadialGradient(w * 0.5, 60, 20, w * 0.5, 100, w * 0.6);
+    radial.addColorStop(0, 'rgba(253, 230, 138, 0.25)');
     radial.addColorStop(1, 'rgba(253, 230, 138, 0)');
     ctx.fillStyle = radial;
     ctx.fillRect(0, 0, w, h);
 
     // Warm Amber Bronze Hairline Frame
     ctx.strokeStyle = '#D4A038';
-    ctx.lineWidth = 4;
-    ctx.strokeRect(32, 32, w - 64, h - 64);
+    ctx.lineWidth = 3;
+    ctx.strokeRect(20, 20, w - 40, h - 40);
 
     ctx.strokeStyle = 'rgba(120, 83, 30, 0.2)';
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(46, 46, w - 92, h - 92);
+    ctx.lineWidth = 1;
+    ctx.strokeRect(28, 28, w - 56, h - 56);
 
     // Corner Architectural Accents
-    const cornerSize = 32;
+    const cornerSize = 20;
     ctx.fillStyle = '#D4A038';
-    ctx.fillRect(28, 28, cornerSize, 4);
-    ctx.fillRect(28, 28, 4, cornerSize);
-    ctx.fillRect(w - 28 - cornerSize, 28, cornerSize, 4);
-    ctx.fillRect(w - 32, 28, 4, cornerSize);
-    ctx.fillRect(28, h - 32, cornerSize, 4);
-    ctx.fillRect(28, h - 28 - cornerSize, 4, cornerSize);
-    ctx.fillRect(w - 28 - cornerSize, h - 32, cornerSize, 4);
-    ctx.fillRect(w - 32, h - 28 - cornerSize, 4, cornerSize);
+    ctx.fillRect(18, 18, cornerSize, 3);
+    ctx.fillRect(18, 18, 3, cornerSize);
+    ctx.fillRect(w - 18 - cornerSize, 18, cornerSize, 3);
+    ctx.fillRect(w - 21, 18, 3, cornerSize);
+    ctx.fillRect(18, h - 21, cornerSize, 3);
+    ctx.fillRect(18, h - 18 - cornerSize, 3, cornerSize);
+    ctx.fillRect(w - 18 - cornerSize, h - 21, cornerSize, 3);
+    ctx.fillRect(w - 21, h - 18 - cornerSize, 3, cornerSize);
 
-    // 2. HEADER SECTION (Clean, human, editorial typography)
+    // 2. HEADER SECTION (Compact & Refined)
     ctx.save();
     ctx.textAlign = 'center';
 
     // Top Category Pill
     ctx.fillStyle = '#9A3412';
-    ctx.font = '700 30px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('OFFICIAL CHANNELS • VERIFIED SOCIAL HUBS', w / 2, 115);
+    ctx.font = '700 17px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('OFFICIAL SOCIAL CHANNELS', w / 2, 58);
 
     // Main Title
     ctx.fillStyle = '#0A0908';
-    ctx.font = '800 68px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('Connect with Jubayer Ahmad', w / 2, 195);
+    ctx.font = '800 32px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Connect with Jubayer', w / 2, 98);
 
-    // Subtitle
-    ctx.fillStyle = '#57534E';
-    ctx.font = '500 32px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('Click any card to open the verified official platform directly', w / 2, 255);
+    // Subtitle instruction
+    ctx.fillStyle = '#78531E';
+    ctx.font = '500 15px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Click any official channel below to visit', w / 2, 126);
+
     ctx.restore();
 
-    // 3. DRAW 4 AUTHENTIC SOCIAL MEDIA CARDS
+    // Divider Line
+    ctx.strokeStyle = 'rgba(212, 160, 56, 0.4)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(50, 140);
+    ctx.lineTo(w - 50, 140);
+    ctx.stroke();
+
+    // 3. RENDER 4 COMPACT SOCIAL CARDS (2x2 Grid)
     this.cards.forEach((card, index) => {
-      const isHovered = (this.hoveredIndex === index);
-      const { x, y, w: cw, h: ch } = card.rect;
+      const isHovered = this.hoveredIndex === index;
+      this.drawSocialCard(ctx, card, isHovered);
+    });
 
-      // Card Base Box
-      ctx.save();
-      ctx.shadowColor = isHovered ? 'rgba(212, 160, 56, 0.45)' : 'rgba(12, 10, 9, 0.12)';
-      ctx.shadowBlur = isHovered ? 36 : 22;
-      ctx.shadowOffsetY = isHovered ? 6 : 8;
+    if (this.texture) {
+      this.texture.needsUpdate = true;
+    }
+  }
 
-      // Card Background (Pure solid white)
-      ctx.fillStyle = isHovered ? '#FFFFFF' : '#FCFAF7';
-      this.roundRect(ctx, x, y, cw, ch, 24);
+  drawSocialCard(ctx, card, isHovered) {
+    const { x, y, w, h } = card.rect;
+
+    ctx.save();
+
+    // Card Background
+    if (isHovered) {
+      ctx.shadowColor = 'rgba(212, 160, 56, 0.45)';
+      ctx.shadowBlur = 18;
+      ctx.fillStyle = '#FFFFFF';
+    } else {
+      ctx.shadowColor = 'rgba(10, 9, 8, 0.06)';
+      ctx.shadowBlur = 8;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    }
+
+    this.roundRect(ctx, x, y, w, h, 12);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Card Border
+    if (isHovered) {
+      ctx.strokeStyle = '#D4A038';
+      ctx.lineWidth = 3;
+    } else {
+      ctx.strokeStyle = 'rgba(212, 160, 56, 0.35)';
+      ctx.lineWidth = 1.2;
+    }
+    this.roundRect(ctx, x, y, w, h, 12);
+    ctx.stroke();
+
+    // Top Accent Line
+    ctx.fillStyle = isHovered ? '#D4A038' : 'rgba(212, 160, 56, 0.4)';
+    ctx.fillRect(x + 18, y + 2, w - 36, 2.5);
+
+    // DRAW AUTHENTIC OFFICIAL ICON (Left Side)
+    const iconX = x + 24;
+    const iconY = y + 26;
+    const iconSize = 58;
+
+    if (card.id === 'youtube') {
+      // YouTube Red Rounded Button with White Triangle
+      this.roundRect(ctx, iconX, iconY, iconSize + 12, iconSize, 14);
+      ctx.fillStyle = '#FF0000';
       ctx.fill();
-      ctx.restore();
 
-      // Card Border
-      ctx.lineWidth = isHovered ? 4 : 2;
-      ctx.strokeStyle = isHovered ? '#D4A038' : 'rgba(120, 83, 30, 0.22)';
-      this.roundRect(ctx, x, y, cw, ch, 24);
+      // Centered White Triangle
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      const triX = iconX + 28;
+      const triY = iconY + iconSize / 2;
+      ctx.moveTo(triX - 6, triY - 10);
+      ctx.lineTo(triX + 10, triY);
+      ctx.lineTo(triX - 6, triY + 10);
+      ctx.closePath();
+      ctx.fill();
+    } else if (card.id === 'instagram') {
+      // Instagram Sunset Gradient Squircle
+      const grad = ctx.createLinearGradient(iconX, iconY + iconSize, iconX + iconSize, iconY);
+      grad.addColorStop(0, '#FFDC80');
+      grad.addColorStop(0.3, '#F56040');
+      grad.addColorStop(0.6, '#E1306C');
+      grad.addColorStop(1, '#405DE6');
+
+      this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 14);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Camera Glyph
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 3;
+      this.roundRect(ctx, iconX + 11, iconY + 11, iconSize - 22, iconSize - 22, 9);
       ctx.stroke();
 
-      // Draw Platform Official Icon Box
-      const iconBoxX = x + 40;
-      const iconBoxY = y + 45;
-      const iconBoxSize = 130;
+      ctx.beginPath();
+      ctx.arc(iconX + iconSize / 2, iconY + iconSize / 2, 8, 0, Math.PI * 2);
+      ctx.stroke();
 
-      if (card.id === 'youtube') {
-        this.drawYouTubeIcon(ctx, iconBoxX, iconBoxY, iconBoxSize);
-      } else if (card.id === 'tiktok') {
-        this.drawTikTokIcon(ctx, iconBoxX, iconBoxY, iconBoxSize);
-      } else if (card.id === 'facebook') {
-        this.drawFacebookIcon(ctx, iconBoxX, iconBoxY, iconBoxSize);
-      } else if (card.id === 'instagram') {
-        this.drawInstagramIcon(ctx, iconBoxX, iconBoxY, iconBoxSize);
-      }
-
-      // Text Information (Title, Handle, Subtitle)
-      const textX = iconBoxX + iconBoxSize + 36;
-      ctx.save();
-      ctx.textAlign = 'left';
-
-      // Title
-      ctx.fillStyle = '#0A0908';
-      ctx.font = '800 48px "Outfit", "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(card.name, textX, y + 90);
-
-      // Handle
-      ctx.fillStyle = card.color === '#000000' ? '#1E293B' : card.color;
-      ctx.font = '700 32px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(card.handle, textX, y + 140);
-
-      // Description
-      ctx.fillStyle = '#78716C';
-      ctx.font = '500 28px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(card.desc, textX, y + 190);
-      ctx.restore();
-
-      // Action Button in Bottom Right of Card
-      const btnW = 260;
-      const btnH = 68;
-      const btnX = x + cw - btnW - 36;
-      const btnY = y + ch - btnH - 36;
-
-      ctx.save();
-      ctx.fillStyle = isHovered ? '#0A0908' : (card.color === '#000000' ? '#0F172A' : card.color);
-      this.roundRect(ctx, btnX, btnY, btnW, btnH, 16);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.arc(iconX + iconSize - 18, iconY + 18, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (card.id === 'facebook') {
+      // Facebook Blue Circle with 'f'
+      ctx.beginPath();
+      ctx.arc(iconX + iconSize / 2, iconY + iconSize / 2, iconSize / 2, 0, Math.PI * 2);
+      ctx.fillStyle = '#1877F2';
       ctx.fill();
 
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = '700 28px "Outfit", "Plus Jakarta Sans", sans-serif';
+      ctx.font = 'bold 38px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('f', iconX + iconSize / 2 - 8, iconY + iconSize - 12);
+    } else if (card.id === 'tiktok') {
+      // TikTok Black Squircle with Cyan & Magenta Note
+      this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 14);
+      ctx.fillStyle = '#000000';
+      ctx.fill();
+
+      // Note Glyph
+      const nx = iconX + iconSize / 2 - 5;
+      const ny = iconY + 14;
+
+      // Cyan Shadow
+      ctx.fillStyle = '#00f2fe';
+      ctx.beginPath();
+      ctx.arc(nx + 1, ny + 24, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(nx + 6, ny - 2, 4, 26);
+      ctx.fillRect(nx + 6, ny - 2, 12, 5);
+
+      // Pink Overlay
+      ctx.fillStyle = '#fe0979';
+      ctx.beginPath();
+      ctx.arc(nx - 2, ny + 26, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(nx + 3, ny, 4, 26);
+      ctx.fillRect(nx + 3, ny, 12, 5);
+
+      // White Body
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(nx, ny + 25, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(nx + 5, ny, 3, 25);
+      ctx.fillRect(nx + 5, ny, 10, 4);
+    }
+
+    // TEXT METADATA (Right of Icon)
+    const textX = iconX + (card.id === 'youtube' ? iconSize + 26 : iconSize + 18);
+
+    // Title
+    ctx.fillStyle = '#0A0908';
+    ctx.font = '800 22px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(card.name, textX, y + 42);
+
+    // Handle
+    ctx.fillStyle = card.id === 'youtube' ? '#B91C1C' : card.id === 'instagram' ? '#BE185D' : card.id === 'facebook' ? '#1D4ED8' : '#374151';
+    ctx.font = '700 15px "Plus Jakarta Sans", monospace';
+    ctx.fillText(card.handle, textX, y + 68);
+
+    // Brief Subtitle
+    ctx.fillStyle = '#6B7280';
+    ctx.font = '400 13px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(card.desc, textX, y + 90);
+
+    // BOTTOM ACTION BUTTON
+    const btnY = y + h - 50;
+    const btnH = 34;
+    const btnW = w - 36;
+
+    if (isHovered) {
+      const gradBtn = ctx.createLinearGradient(x + 18, btnY, x + 18 + btnW, btnY);
+      gradBtn.addColorStop(0, '#B45309');
+      gradBtn.addColorStop(1, '#D4A038');
+      ctx.fillStyle = gradBtn;
+      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 6);
+      ctx.fill();
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '700 14px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(card.actionText, btnX + btnW / 2, btnY + 44);
-      ctx.restore();
-    });
-
-    if (this.texture) this.texture.needsUpdate = true;
-  }
-
-  // 1. Authentic YouTube Red Button Logo
-  drawYouTubeIcon(ctx, x, y, size) {
-    ctx.save();
-    // YouTube Official Red rounded rectangle
-    ctx.fillStyle = '#FF0000';
-    this.roundRect(ctx, x, y + 10, size, size - 20, 28);
-    ctx.fill();
-
-    // Pure White Centered Play Triangle
-    ctx.fillStyle = '#FFFFFF';
-    ctx.beginPath();
-    const triW = size * 0.32;
-    const triH = size * 0.36;
-    const triX = x + (size - triW) / 2 + 4;
-    const triY = y + size / 2;
-    ctx.moveTo(triX, triY - triH / 2);
-    ctx.lineTo(triX + triW, triY);
-    ctx.lineTo(triX, triY + triH / 2);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-  }
-
-  // 2. Authentic TikTok Official Logo
-  drawTikTokIcon(ctx, x, y, size) {
-    ctx.save();
-    // Black rounded squircle
-    ctx.fillStyle = '#000000';
-    this.roundRect(ctx, x, y, size, size, 28);
-    ctx.fill();
-
-    // Iconic TikTok Note with Cyan (#00F2FE) and Magenta (#FE0979) 3D chromatic aberration
-    const cx = x + size / 2 - 2;
-    const cy = y + size / 2 + 2;
-    const s = size * 0.007;
-
-    const drawNote = (color, ox, oy) => {
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      // Stem & top hook
-      ctx.fillRect(cx + 8 * s + ox, cy - 35 * s + oy, 14 * s, 48 * s);
-      // Top flag
-      ctx.beginPath();
-      ctx.arc(cx + 26 * s + ox, cy - 32 * s + oy, 22 * s, Math.PI, Math.PI * 0.45, true);
-      ctx.lineTo(cx + 22 * s + ox, cy - 14 * s + oy);
-      ctx.arc(cx + 22 * s + ox, cy - 24 * s + oy, 12 * s, Math.PI * 0.45, Math.PI, false);
-      ctx.closePath();
+      ctx.fillText(card.actionText.toUpperCase(), x + 18 + btnW / 2, btnY + 22);
+    } else {
+      ctx.fillStyle = '#F4EDE2';
+      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 6);
       ctx.fill();
-      // Lower bulb
-      ctx.beginPath();
-      ctx.arc(cx - 10 * s + ox, cy + 14 * s + oy, 20 * s, 0, Math.PI * 2);
-      ctx.fill();
-    };
 
-    drawNote('#00F2FE', -3, -2); // Cyan left shadow
-    drawNote('#FE0979', 3, 2);   // Magenta right shadow
-    drawNote('#FFFFFF', 0, 0);   // Crisp White Core
-    ctx.restore();
-  }
+      ctx.strokeStyle = 'rgba(212, 160, 56, 0.45)';
+      ctx.lineWidth = 1;
+      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 6);
+      ctx.stroke();
 
-  // 3. Authentic Facebook Blue Icon
-  drawFacebookIcon(ctx, x, y, size) {
-    ctx.save();
-    // Facebook Official Blue Circle
-    ctx.fillStyle = '#1877F2';
-    ctx.beginPath();
-    ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
-    ctx.fill();
+      ctx.fillStyle = '#0A0908';
+      ctx.font = '600 13px "Outfit", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(card.actionText, x + 18 + btnW / 2, btnY + 22);
+    }
 
-    // Bold Crisp White 'f'
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = `800 ${Math.round(size * 0.78)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('f', x + size / 2 + 6, y + size / 2 + 8);
-    ctx.restore();
-  }
-
-  // 4. Authentic Instagram Sunset Gradient Icon
-  drawInstagramIcon(ctx, x, y, size) {
-    ctx.save();
-    // Luxury Instagram Sunset Gradient
-    const grad = ctx.createLinearGradient(x, y + size, x + size, y);
-    grad.addColorStop(0, '#FFDC80');
-    grad.addColorStop(0.25, '#F77737');
-    grad.addColorStop(0.5, '#F56040');
-    grad.addColorStop(0.75, '#FD1D1D');
-    grad.addColorStop(1, '#833AB4');
-
-    ctx.fillStyle = grad;
-    this.roundRect(ctx, x, y, size, size, 28);
-    ctx.fill();
-
-    // Crisp White Camera Outline
-    ctx.strokeStyle = '#FFFFFF';
-    ctx.lineWidth = Math.round(size * 0.08);
-    const pad = size * 0.22;
-    this.roundRect(ctx, x + pad, y + pad, size - pad * 2, size - pad * 2, 20);
-    ctx.stroke();
-
-    // Central Lens Circle
-    ctx.beginPath();
-    ctx.arc(x + size / 2, y + size / 2, size * 0.22, 0, Math.PI * 2);
-    ctx.stroke();
-
-    // Flash Dot
-    ctx.fillStyle = '#FFFFFF';
-    ctx.beginPath();
-    ctx.arc(x + size * 0.74, y + size * 0.28, size * 0.05, 0, Math.PI * 2);
-    ctx.fill();
     ctx.restore();
   }
 
@@ -462,7 +449,6 @@ export default class SocialScreen {
   }
 
   bindEvents() {
-    // 3D Raycasting Hover & Click
     const onPointerMove = (e) => {
       this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -513,13 +499,15 @@ export default class SocialScreen {
         const canvasX = uv.x * this.canvasWidth;
         const canvasY = (1 - uv.y) * this.canvasHeight;
 
-        this.cards.forEach((card) => {
+        this.cards.forEach((card, index) => {
           const { x, y, w, h } = card.rect;
           if (canvasX >= x && canvasX <= x + w && canvasY >= y && canvasY <= y + h) {
-            if (this.experience.sounds) {
-              this.experience.sounds.playClick();
+            if (card.url) {
+              if (this.experience.sounds) {
+                this.experience.sounds.playClick();
+              }
+              window.open(card.url, '_blank');
             }
-            window.open(card.url, '_blank');
           }
         });
       }
@@ -530,6 +518,6 @@ export default class SocialScreen {
   }
 
   update(delta, elapsed) {
-    // Canvas updates only on hover/draw changes to preserve performance
+    // Dynamic updates when hovered
   }
 }
