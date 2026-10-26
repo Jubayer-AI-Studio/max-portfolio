@@ -1,0 +1,24 @@
+{
+  "name": "MAX Portfolio — Jubayer Ahmad",
+  "short_name": "MAX 3D",
+  "description": "Cinematic 3D Automotive Portfolio of Jubayer Ahmad. Full-Stack Developer & AI Content Creator.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#08090C",
+  "theme_color": "#D4A038",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./images/jubayer.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

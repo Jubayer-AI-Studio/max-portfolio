@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAX Portfolio — Jubayer Ahmad | Full-Stack Developer • AI Content Creator</title>
+  <meta name="description" content="Cinematic 3D Portfolio of Jubayer Ahmad. Full-Stack Developer & AI Content Creator.">
+  
+  <!-- PWA & Mobile Web App Manifest -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#08090C">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MAX 3D">
+  <link rel="apple-touch-icon" href="./images/jubayer.jpg">
+
+  <!-- Google Search Console Site Verification -->
+  <meta name="google-site-verification" content="29O24SJ5OWwkfB7wgFKwUwOHIqAEXKwb8YuTvZxxSVI" />
+
+  <!-- Open Graph & Twitter Social SEO -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jubayer Ahmad — Full-Stack Developer & AI Content Creator | MAX 3D Studio">
+  <meta property="og:description" content="Cinematic 3D Interactive Showroom & VIP Engineering Portfolio of Jubayer Ahmad.">
+  <meta property="og:image" content="./images/jubayer.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jubayer Ahmad — Full-Stack Developer & AI Content Creator">
+  <meta name="twitter:description" content="Cinematic 3D Interactive Showroom & VIP Engineering Portfolio of Jubayer Ahmad.">
+  <meta name="twitter:image" content="./images/jubayer.jpg">
+
+  <!-- Schema.org JSON-LD Structured Data for Google Search Engine -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jubayer Ahmad",
+    "alternateName": "জুবায়ের আহমদ",
+    "jobTitle": "Full-Stack Developer & AI Content Creator",
+    "knowsAbout": ["Full-Stack SaaS Development", "Next.js", "React", "TypeScript", "Node.js", "Three.js WebGL", "AI Content Creation", "Google Veo 3.1", "Python"],
+    "sameAs": [
+      "https://github.com/Jubayer-AI-Studio",
+      "https://www.youtube.com/@jubayeraispecialist",
+      "https://www.instagram.com/jubayer_ahmad_2002/"
+    ]
+  }
+  </script>
+  
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  
+  <!-- Premium Automotive Luxury Typography (Outfit, Plus Jakarta Sans, Space Grotesk) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <script type="module" crossorigin src="./assets/index-ErHofq_S.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-G9h4Vxqk.css">
+</head>
+<body>
+  <!-- 3D Canvas -->
+  <canvas class="webgl"></canvas>
+
+  <!-- Cinematic Interactive Supercar Loading Screen -->
+  <div class="loader-overlay" id="loader">
+    <div class="loader-content">
+      <!-- Brand & VIP Identity -->
+      <div class="loader-badge">MERCEDES-BENZ SLK 55 AMG • VIP SHOWROOM</div>
+      <div class="loader-brand">MAX PORTFOLIO</div>
+      <div class="loader-sub">JUBAYER AHMAD • FULL STACK & AI CONTENT CREATOR</div>
+
+      <!-- Live Speedometer / Telemetry HUD Cluster -->
+      <div class="loader-telemetry">
+        <div class="telemetry-item">
+          <span class="telemetry-label">GEAR</span>
+          <span class="telemetry-val" id="loader-gear">1</span>
+        </div>
+        <div class="telemetry-speed-wrap">
+          <span class="telemetry-speed" id="loader-speed">000</span>
+          <span class="telemetry-unit">KM/H</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">RPM</span>
+          <span class="telemetry-val" id="loader-rpm">1.2K</span>
+        </div>
+      </div>
+
+      <!-- High-Speed Highway Car Stage -->
+      <div class="loader-car-stage">
+        <!-- Road with High-Speed Dashed Stripes -->
+        <div class="loader-road">
+          <div class="loader-road-line"></div>
+        </div>
+
+        <!-- Speeding Neon Sports Car -->
+        <div class="loader-supercar" id="loader-car-graphic">
+          <!-- Headlight Beam -->
+          <div class="car-headlight-beam"></div>
+
+          <!-- Car Silhouette SVG -->
+          <svg class="car-svg" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Aerodynamic Body -->
+            <path d="M12 36 L25 36 C27 30 33 26 40 26 C47 26 53 30 55 36 L105 36 C107 30 113 26 120 26 C127 26 133 30 135 36 L152 36 C155 36 158 33 156 29 L142 16 C138 12 128 10 118 10 L68 10 C56 10 44 14 36 21 L16 28 C12 29 10 32 12 36 Z" fill="url(#carPaintGrad)" stroke="#00f0ff" stroke-width="1.2"/>
+            <!-- Cabin Glass Roof -->
+            <path d="M52 19 L66 12 L112 12 L128 19 Z" fill="#00f0ff" fill-opacity="0.25" stroke="#00f0ff" stroke-width="0.8"/>
+            <!-- LED Headlights -->
+            <polygon points="152,28 156,29 154,32" fill="#00f0ff" filter="drop-shadow(0 0 6px #00f0ff)"/>
+            <!-- LED Tail Lights -->
+            <polygon points="12,32 14,29 12,28" fill="#ff2255" filter="drop-shadow(0 0 6px #ff2255)"/>
+            <!-- Gradients -->
+            <defs>
+              <linearGradient id="carPaintGrad" x1="0" y1="0" x2="160" y2="50" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#0a101d"/>
+                <stop offset="50%" stop-color="#1e293b"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- Front Wheel (Spinning) -->
+          <div class="car-wheel car-wheel-front">
+            <div class="wheel-rim"></div>
+          </div>
+          <!-- Rear Wheel (Spinning) -->
+          <div class="car-wheel car-wheel-rear">
+            <div class="wheel-rim"></div>
+          </div>
+
+          <!-- Exhaust Turbo Flame -->
+          <div class="car-exhaust-flame"></div>
+        </div>
+      </div>
+
+      <!-- Glowing High-Tech Loading Bar -->
+      <div class="loader-bar-wrap">
+        <div class="loader-bar" id="loader-bar"></div>
+        <div class="loader-bar-glow"></div>
+      </div>
+
+      <!-- Live Dynamic Status Message -->
+      <div class="loader-status" id="loader-status">Igniting AMG Twin-Turbo V8 Engine... 0%</div>
+
+      <!-- Interactive Audio / Rev Engine Trigger -->
+      <div class="loader-actions">
+        <button class="loader-sound-btn" id="loader-rev-btn" type="button" title="Rev Engine">
+          <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          <span>TAP TO REV ENGINE</span>
+        </button>
+        <button class="loader-quick-btn" id="loader-quick-launch" type="button" style="display: none;">
+          <span>QUICK LAUNCH</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD: Top Header (Large Bold Clock & Studio Controls) -->
+  <header class="hud-header">
+    <div class="brand-minimal">
+      <div class="brand-title">MAX STUDIO</div>
+      <div class="brand-sub">MERCEDES-BENZ SLK 55 AMG</div>
+    </div>
+
+    <!-- Big Bold Cyberpunk Digital Clock HUD -->
+    <div class="hud-clock-center">
+      <div class="hud-big-clock" id="live-clock">--:--:--</div>
+      <div class="hud-clock-meta">
+        <span class="pulse-dot"></span>
+        <span>LOCAL TIME • 60 FPS ACTIVE ENGINE</span>
+      </div>
+    </div>
+
+    <!-- Top Right Controls -->
+    <div class="hud-controls">
+      <button class="hud-btn active" id="wheels-toggle" title="Toggle Live Wheel Spin">
+        <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="2" x2="12" y2="9"></line><line x1="12" y1="15" x2="12" y2="22"></line><line x1="2" y1="12" x2="9" y2="12"></line><line x1="15" y1="12" x2="22" y2="12"></line></svg>
+        <span class="btn-text">WHEELS: SPIN</span>
+      </button>
+      <button class="hud-btn" id="turntable-toggle" title="Toggle Turntable Rotation">
+        <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+        <span class="btn-text">ROTATE 360°</span>
+      </button>
+      <button class="hud-btn hud-btn-explode" id="explode-toggle" title="Explode / Open All Car Parts & Reveal Identity Blueprint">
+        <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+        <span class="btn-text">OPEN ALL PARTS</span>
+      </button>
+      <button class="hud-btn" id="audio-toggle" title="Toggle Sound">
+        <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        <span class="btn-text">SOUND ON</span>
+      </button>
+      <button class="hud-btn reset-cam" id="reset-cam" title="Reset Camera View">
+        <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m10 15 5-3-5-3v6Z"></path></svg>
+        <span class="btn-text">RESET VIEW</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Floating Minimal HUD Focus Pill (Shows when looking at 3D Signboard or Car Part) -->
+  <div class="hud-focus-banner" id="hud-focus-banner">
+    <div class="hud-focus-pill">
+      <span class="focus-dot"></span>
+      <span class="focus-title" id="focus-title">VIP Signboard • Jubayer Ahmad</span>
+      <button class="focus-return-btn" id="focus-return-btn">Back to Car Overview</button>
+    </div>
+  </div>
+
+  <!-- HUD: Bottom Navigation Bar -->
+  <nav class="hud-nav">
+    <div class="nav-container">
+      <button class="nav-pill active" data-target="overview">
+        <span class="dot"></span>
+        <span>Overview</span>
+      </button>
+      <button class="nav-pill" data-target="driver">
+        <span class="dot"></span>
+        <span>About Jubayer (Profile)</span>
+      </button>
+      <button class="nav-pill" data-target="projects">
+        <span class="dot"></span>
+        <span>Live Vercel Projects</span>
+      </button>
+      <button class="nav-pill" data-target="social">
+        <span class="dot"></span>
+        <span>Social Media Channels</span>
+      </button>
+      <button class="nav-pill" data-target="hood">
+        <span class="dot"></span>
+        <span>Full-Stack Core</span>
+      </button>
+      <button class="nav-pill" data-target="dashboard">
+        <span class="dot"></span>
+        <span>AI & Content Stack</span>
+      </button>
+      <button class="nav-pill" data-target="trunk">
+        <span class="dot"></span>
+        <span>GitHub Repos (22)</span>
+      </button>
+      <button class="nav-pill" data-target="explode">
+        <span class="dot"></span>
+        <span>Open All Parts (Blueprint)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Interactive Non-Intrusive HUD Drawer (Jesse Zhou Style - Never Blocks the Car) -->
+  <div class="content-modal" id="content-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-scroll" id="modal-body">
+        <!-- Content injected dynamically via UI Controller -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript Entry Point -->
+</body>
+</html>
