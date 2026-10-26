@@ -30,9 +30,12 @@ export default class StudioScreen {
 
     this.texture = new THREE.CanvasTexture(this.canvas);
     this.texture.colorSpace = THREE.SRGBColorSpace;
-    this.texture.minFilter = THREE.LinearFilter;
+    // 4K Ultra-Crisp Trilinear Mipmapping & 16x Anisotropic Filtering (eliminates all noise & moiré)
+    this.texture.minFilter = THREE.LinearMipmapLinearFilter;
     this.texture.magFilter = THREE.LinearFilter;
     this.texture.generateMipmaps = true;
+    const maxAniso = this.experience.renderer?.instance?.capabilities?.getMaxAnisotropy() || 16;
+    this.texture.anisotropy = maxAniso;
 
     // Draw initial clean placeholder
     this.drawSignboard();
@@ -109,38 +112,63 @@ export default class StudioScreen {
     rearBrace.rotation.x = -Math.PI / 6;
     this.group.add(rearBrace);
 
-    // 3. Display Chassis Box
+    // 3. Display Chassis Box (Solid Dark Titanium Backing)
     const chassisGeo = new THREE.BoxGeometry(chassisWidth, chassisHeight, chassisDepth);
     const chassis = new THREE.Mesh(chassisGeo, metalMat);
     chassis.position.set(0, chassisY, 0);
     chassis.castShadow = true;
     this.group.add(chassis);
 
-    // Brushed Champagne Gold Bezel Frame around the outer rim
-    const frameGeo = new THREE.BoxGeometry(chassisWidth + 0.02, chassisHeight + 0.02, 0.016);
-    const frameMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038, // Warm Amber Gold
-      metalness: 0.84,
-      roughness: 0.3
-    });
-    const frame = new THREE.Mesh(frameGeo, frameMat);
-    frame.position.set(0, chassisY, 0.036);
-    this.group.add(frame);
+    // 4. TRUE HOLLOW PERIMETER BEZEL FRAME (4 separate edge bars — ZERO solid geometry behind screen!)
+    // This 100% eliminates any Z-fighting, depth contention, or diagonal moiré pattern!
+    const borderThickness = 0.02;
+    const borderDepth = 0.015;
+    const borderZ = chassisDepth / 2 + borderDepth / 2;
 
-    // 4. FRONT Screen Surface (Canvas Texture) — FrontSide ONLY
-    const screenGeo = new THREE.PlaneGeometry(chassisWidth - 0.03, chassisHeight - 0.03);
+    const topBar = new THREE.Mesh(
+      new THREE.BoxGeometry(chassisWidth + borderThickness * 2, borderThickness, borderDepth),
+      ochreRingMat
+    );
+    topBar.position.set(0, chassisY + chassisHeight / 2 + borderThickness / 2, borderZ);
+    this.group.add(topBar);
+
+    const bottomBar = new THREE.Mesh(
+      new THREE.BoxGeometry(chassisWidth + borderThickness * 2, borderThickness, borderDepth),
+      ochreRingMat
+    );
+    bottomBar.position.set(0, chassisY - chassisHeight / 2 - borderThickness / 2, borderZ);
+    this.group.add(bottomBar);
+
+    const leftBar = new THREE.Mesh(
+      new THREE.BoxGeometry(borderThickness, chassisHeight, borderDepth),
+      ochreRingMat
+    );
+    leftBar.position.set(-chassisWidth / 2 - borderThickness / 2, chassisY, borderZ);
+    this.group.add(leftBar);
+
+    const rightBar = new THREE.Mesh(
+      new THREE.BoxGeometry(borderThickness, chassisHeight, borderDepth),
+      ochreRingMat
+    );
+    rightBar.position.set(chassisWidth / 2 + borderThickness / 2, chassisY, borderZ);
+    this.group.add(rightBar);
+
+    // 5. FRONT Screen Surface (Canvas Texture)
+    const screenGeo = new THREE.PlaneGeometry(chassisWidth, chassisHeight);
     this.screenMat = new THREE.MeshBasicMaterial({
       map: this.texture,
       toneMapped: false,
-      side: THREE.FrontSide // Completely invisible from the back
+      side: THREE.FrontSide,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      polygonOffsetUnits: -1
     });
     this.screenMesh = new THREE.Mesh(screenGeo, this.screenMat);
-    // Placed well in FRONT of any chassis part (z = +0.045)
-    this.screenMesh.position.set(0, chassisY, 0.045);
+    this.screenMesh.position.set(0, chassisY, chassisDepth / 2 + 0.003);
     this.group.add(this.screenMesh);
 
-    // 5. SOLID BACK CHASSIS PLATE — Completely prevents viewing text/image from behind
-    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.02, chassisHeight - 0.02);
+    // 6. SOLID BACK CHASSIS PLATE — Completely prevents viewing text/image from behind
+    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.01, chassisHeight - 0.01);
     const backPlateMat = new THREE.MeshStandardMaterial({
       color: 0x110f0e, // Stone 950 obsidian
       metalness: 0.95,
@@ -148,7 +176,7 @@ export default class StudioScreen {
       side: THREE.FrontSide
     });
     const backPlate = new THREE.Mesh(backPlateGeo, backPlateMat);
-    backPlate.position.set(0, chassisY, -0.042);
+    backPlate.position.set(0, chassisY, -chassisDepth / 2 - 0.001);
     backPlate.rotation.y = Math.PI; // Faces directly backward
     this.group.add(backPlate);
 

@@ -136,9 +136,12 @@ export default class ProjectsScreen {
 
     this.texture = new THREE.CanvasTexture(this.canvas);
     this.texture.colorSpace = THREE.SRGBColorSpace;
-    this.texture.minFilter = THREE.LinearFilter;
+    // 4K Ultra-Crisp Trilinear Mipmapping & 16x Anisotropic Filtering (eliminates all noise & moiré)
+    this.texture.minFilter = THREE.LinearMipmapLinearFilter;
     this.texture.magFilter = THREE.LinearFilter;
     this.texture.generateMipmaps = true;
+    const maxAniso = this.experience.renderer?.instance?.capabilities?.getMaxAnisotropy() || 16;
+    this.texture.anisotropy = maxAniso;
 
     this.draw();
   }
@@ -151,10 +154,10 @@ export default class ProjectsScreen {
       roughness: 0.22
     });
 
-    const ochreRingMat = new THREE.MeshStandardMaterial({
+    const bezelMat = new THREE.MeshStandardMaterial({
       color: 0xd4a038,
       metalness: 0.85,
-      roughness: 0.28
+      roughness: 0.25
     });
 
     // 1. Showroom floor pedestal base
@@ -184,11 +187,11 @@ export default class ProjectsScreen {
 
     // Warm Ochre accent collar rings
     const ringGeo = new THREE.CylinderGeometry(0.055, 0.055, 0.03, 24);
-    const ring1 = new THREE.Mesh(ringGeo, ochreRingMat);
+    const ring1 = new THREE.Mesh(ringGeo, bezelMat);
     ring1.position.set(-0.7, 0.42, 0);
     this.group.add(ring1);
 
-    const ring2 = new THREE.Mesh(ringGeo, ochreRingMat);
+    const ring2 = new THREE.Mesh(ringGeo, bezelMat);
     ring2.position.set(0.7, 0.42, 0);
     this.group.add(ring2);
 
@@ -199,37 +202,63 @@ export default class ProjectsScreen {
     rearBrace.rotation.x = -Math.PI / 6;
     this.group.add(rearBrace);
 
-    // 3. Display Chassis Box
+    // 3. Display Chassis Box (Solid Dark Titanium Backing)
     const chassisGeo = new THREE.BoxGeometry(chassisWidth, chassisHeight, chassisDepth);
     const chassis = new THREE.Mesh(chassisGeo, metalMat);
     chassis.position.set(0, chassisY, 0);
     chassis.castShadow = true;
     this.group.add(chassis);
 
-    // Brushed Amber Gold Bezel Frame
-    const frameGeo = new THREE.BoxGeometry(chassisWidth + 0.02, chassisHeight + 0.02, 0.016);
-    const frameMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038,
-      metalness: 0.84,
-      roughness: 0.3
-    });
-    const frame = new THREE.Mesh(frameGeo, frameMat);
-    frame.position.set(0, chassisY, 0.036);
-    this.group.add(frame);
+    // 4. TRUE HOLLOW PERIMETER BEZEL FRAME (4 separate edge bars — ZERO solid geometry behind screen!)
+    // This 100% eliminates any Z-fighting, depth contention, or diagonal moiré pattern!
+    const borderThickness = 0.02;
+    const borderDepth = 0.015;
+    const borderZ = chassisDepth / 2 + borderDepth / 2;
 
-    // 4. FRONT Screen Surface (Canvas Texture)
-    const screenGeo = new THREE.PlaneGeometry(chassisWidth - 0.03, chassisHeight - 0.03);
+    const topBar = new THREE.Mesh(
+      new THREE.BoxGeometry(chassisWidth + borderThickness * 2, borderThickness, borderDepth),
+      bezelMat
+    );
+    topBar.position.set(0, chassisY + chassisHeight / 2 + borderThickness / 2, borderZ);
+    this.group.add(topBar);
+
+    const bottomBar = new THREE.Mesh(
+      new THREE.BoxGeometry(chassisWidth + borderThickness * 2, borderThickness, borderDepth),
+      bezelMat
+    );
+    bottomBar.position.set(0, chassisY - chassisHeight / 2 - borderThickness / 2, borderZ);
+    this.group.add(bottomBar);
+
+    const leftBar = new THREE.Mesh(
+      new THREE.BoxGeometry(borderThickness, chassisHeight, borderDepth),
+      bezelMat
+    );
+    leftBar.position.set(-chassisWidth / 2 - borderThickness / 2, chassisY, borderZ);
+    this.group.add(leftBar);
+
+    const rightBar = new THREE.Mesh(
+      new THREE.BoxGeometry(borderThickness, chassisHeight, borderDepth),
+      bezelMat
+    );
+    rightBar.position.set(chassisWidth / 2 + borderThickness / 2, chassisY, borderZ);
+    this.group.add(rightBar);
+
+    // 5. FRONT Screen Surface (Canvas Texture)
+    const screenGeo = new THREE.PlaneGeometry(chassisWidth, chassisHeight);
     this.screenMat = new THREE.MeshBasicMaterial({
       map: this.texture,
       toneMapped: false,
-      side: THREE.FrontSide
+      side: THREE.FrontSide,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      polygonOffsetUnits: -1
     });
     this.screenMesh = new THREE.Mesh(screenGeo, this.screenMat);
-    this.screenMesh.position.set(0, chassisY, 0.045);
+    this.screenMesh.position.set(0, chassisY, chassisDepth / 2 + 0.003);
     this.group.add(this.screenMesh);
 
-    // 5. Solid Back Plate
-    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.02, chassisHeight - 0.02);
+    // 6. Solid Back Plate
+    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.01, chassisHeight - 0.01);
     const backPlateMat = new THREE.MeshStandardMaterial({
       color: 0x110f0e,
       metalness: 0.95,
@@ -237,7 +266,7 @@ export default class ProjectsScreen {
       side: THREE.FrontSide
     });
     const backPlate = new THREE.Mesh(backPlateGeo, backPlateMat);
-    backPlate.position.set(0, chassisY, -0.042);
+    backPlate.position.set(0, chassisY, -chassisDepth / 2 - 0.001);
     backPlate.rotation.y = Math.PI;
     this.group.add(backPlate);
 

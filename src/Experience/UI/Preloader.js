@@ -15,15 +15,23 @@ export default class Preloader {
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 18; // Lively start
+    this.targetProgress = 45; // Rapid, energetic launch
     this.displayProgress = 0;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Maximum 2.8 second startup guarantee as explicitly requested by user
+    // Ultra-fast entrance: 1.2 second maximum showroom launch guarantee
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 2800);
+    }, 1200);
+
+    setTimeout(() => {
+      this.targetProgress = 88;
+    }, 350);
+
+    setTimeout(() => {
+      this.targetProgress = 100;
+    }, 750);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {
@@ -100,7 +108,7 @@ export default class Preloader {
 
     // Smooth snappy lerp progress towards target
     const diff = this.targetProgress - this.displayProgress;
-    const step = Math.max(diff * 0.45, 2.5);
+    const step = Math.max(diff * 0.55, 3.8);
     this.displayProgress = Math.min(this.displayProgress + step, this.targetProgress);
 
     const progInt = Math.min(Math.round(this.displayProgress), 100);

@@ -14,11 +14,12 @@ export default class SocialScreen {
     this.group.rotation.y = -Math.PI / 3.8;
     this.scene.add(this.group);
 
-    this.canvasWidth = 1024;
-    this.canvasHeight = 680;
+    // 4K Ultra-Sharp Retina Canvas Dimensions
+    this.canvasWidth = 2048;
+    this.canvasHeight = 1360;
     this.hoveredIndex = -1;
 
-    // 4 Official Verified Social Channels
+    // 4 Official Verified Social Channels (2x2 Grid)
     this.cards = [
       {
         id: 'youtube',
@@ -28,7 +29,7 @@ export default class SocialScreen {
         color: '#FF0000',
         url: 'https://www.youtube.com/@jubayeraispecialist',
         actionText: 'Subscribe ↗',
-        rect: { x: 50, y: 160, w: 435, h: 220 }
+        rect: { x: 100, y: 310, w: 870, h: 440 }
       },
       {
         id: 'instagram',
@@ -38,7 +39,7 @@ export default class SocialScreen {
         color: '#E1306C',
         url: 'https://www.instagram.com/jubayer_ahmad_2002/',
         actionText: 'Follow ↗',
-        rect: { x: 539, y: 160, w: 435, h: 220 }
+        rect: { x: 1078, y: 310, w: 870, h: 440 }
       },
       {
         id: 'facebook',
@@ -48,7 +49,7 @@ export default class SocialScreen {
         color: '#1877F2',
         url: 'https://www.facebook.com/share/1CopAWZnyX/',
         actionText: 'Connect ↗',
-        rect: { x: 50, y: 410, w: 435, h: 220 }
+        rect: { x: 100, y: 798, w: 870, h: 440 }
       },
       {
         id: 'tiktok',
@@ -58,7 +59,7 @@ export default class SocialScreen {
         color: '#000000',
         url: 'https://www.tiktok.com/@jubayer_ahmad_2002',
         actionText: 'Follow ↗',
-        rect: { x: 539, y: 410, w: 435, h: 220 }
+        rect: { x: 1078, y: 798, w: 870, h: 440 }
       }
     ];
 
@@ -76,9 +77,12 @@ export default class SocialScreen {
 
     this.texture = new THREE.CanvasTexture(this.canvas);
     this.texture.colorSpace = THREE.SRGBColorSpace;
-    this.texture.minFilter = THREE.LinearFilter;
+    // 4K Ultra-Crisp Trilinear Mipmapping & 16x Anisotropic Filtering (eliminates all noise & moiré)
+    this.texture.minFilter = THREE.LinearMipmapLinearFilter;
     this.texture.magFilter = THREE.LinearFilter;
     this.texture.generateMipmaps = true;
+    const maxAniso = this.experience.renderer?.instance?.capabilities?.getMaxAnisotropy() || 16;
+    this.texture.anisotropy = maxAniso;
 
     this.draw();
   }
@@ -90,10 +94,10 @@ export default class SocialScreen {
       roughness: 0.22
     });
 
-    const ochreRingMat = new THREE.MeshStandardMaterial({
+    const bezelMat = new THREE.MeshStandardMaterial({
       color: 0xd4a038,
       metalness: 0.85,
-      roughness: 0.28
+      roughness: 0.25
     });
 
     // 1. Sleek Circular Pedestal Base
@@ -119,41 +123,72 @@ export default class SocialScreen {
 
     // Amber Gold Accent Collar Ring
     const ringGeo = new THREE.CylinderGeometry(0.042, 0.042, 0.02, 24);
-    const ring = new THREE.Mesh(ringGeo, ochreRingMat);
+    const ring = new THREE.Mesh(ringGeo, bezelMat);
     ring.position.set(0, 0.38, 0);
     this.group.add(ring);
 
-    // 3. Compact Display Chassis Box
+    // 3. Compact Display Chassis Box (Solid Dark Titanium Backing)
     const chassisGeo = new THREE.BoxGeometry(chassisWidth, chassisHeight, chassisDepth);
     const chassis = new THREE.Mesh(chassisGeo, metalMat);
     chassis.position.set(0, chassisY, 0);
     chassis.castShadow = true;
     this.group.add(chassis);
 
-    // Brushed Amber Gold Bezel Frame
-    const frameGeo = new THREE.BoxGeometry(chassisWidth + 0.014, chassisHeight + 0.014, 0.012);
-    const frameMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038,
-      metalness: 0.84,
-      roughness: 0.3
-    });
-    const frame = new THREE.Mesh(frameGeo, frameMat);
-    frame.position.set(0, chassisY, 0.022);
-    this.group.add(frame);
+    // 4. TRUE HOLLOW PERIMETER BEZEL FRAME (4 separate edge bars — ZERO solid geometry behind screen!)
+    // This 100% eliminates any Z-fighting, depth contention, or diagonal moiré pattern!
+    const borderThickness = 0.016;
+    const borderDepth = 0.012;
+    const borderZ = chassisDepth / 2 + borderDepth / 2; // Sits slightly raised around the screen
 
-    // 4. FRONT Screen Surface (Canvas Texture)
-    const screenGeo = new THREE.PlaneGeometry(chassisWidth - 0.02, chassisHeight - 0.02);
+    // Top border bar
+    const topBar = new THREE.Mesh(
+      new THREE.BoxGeometry(chassisWidth + borderThickness * 2, borderThickness, borderDepth),
+      bezelMat
+    );
+    topBar.position.set(0, chassisY + chassisHeight / 2 + borderThickness / 2, borderZ);
+    this.group.add(topBar);
+
+    // Bottom border bar
+    const bottomBar = new THREE.Mesh(
+      new THREE.BoxGeometry(chassisWidth + borderThickness * 2, borderThickness, borderDepth),
+      bezelMat
+    );
+    bottomBar.position.set(0, chassisY - chassisHeight / 2 - borderThickness / 2, borderZ);
+    this.group.add(bottomBar);
+
+    // Left border bar
+    const leftBar = new THREE.Mesh(
+      new THREE.BoxGeometry(borderThickness, chassisHeight, borderDepth),
+      bezelMat
+    );
+    leftBar.position.set(-chassisWidth / 2 - borderThickness / 2, chassisY, borderZ);
+    this.group.add(leftBar);
+
+    // Right border bar
+    const rightBar = new THREE.Mesh(
+      new THREE.BoxGeometry(borderThickness, chassisHeight, borderDepth),
+      bezelMat
+    );
+    rightBar.position.set(chassisWidth / 2 + borderThickness / 2, chassisY, borderZ);
+    this.group.add(rightBar);
+
+    // 5. FRONT Screen Surface (Canvas Texture)
+    // Placed cleanly on the front face of the chassis with positive clearance
+    const screenGeo = new THREE.PlaneGeometry(chassisWidth, chassisHeight);
     this.screenMat = new THREE.MeshBasicMaterial({
       map: this.texture,
       toneMapped: false,
-      side: THREE.FrontSide
+      side: THREE.FrontSide,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      polygonOffsetUnits: -1
     });
     this.screenMesh = new THREE.Mesh(screenGeo, this.screenMat);
-    this.screenMesh.position.set(0, chassisY, 0.028);
+    this.screenMesh.position.set(0, chassisY, chassisDepth / 2 + 0.003);
     this.group.add(this.screenMesh);
 
-    // 5. Solid Back Plate
-    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.015, chassisHeight - 0.015);
+    // 6. Solid Back Plate
+    const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.01, chassisHeight - 0.01);
     const backPlateMat = new THREE.MeshStandardMaterial({
       color: 0x110f0e,
       metalness: 0.95,
@@ -161,7 +196,7 @@ export default class SocialScreen {
       side: THREE.FrontSide
     });
     const backPlate = new THREE.Mesh(backPlateGeo, backPlateMat);
-    backPlate.position.set(0, chassisY, -0.024);
+    backPlate.position.set(0, chassisY, -chassisDepth / 2 - 0.001);
     backPlate.rotation.y = Math.PI;
     this.group.add(backPlate);
   }
@@ -177,7 +212,7 @@ export default class SocialScreen {
     const w = this.canvasWidth;
     const h = this.canvasHeight;
 
-    // 1. Organic Warm Linen Parchment Background
+    // 1. Organic Warm Linen Parchment Background (Flawless, smooth 4K gradient)
     const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
     bgGrad.addColorStop(0, '#F8F4EC');
     bgGrad.addColorStop(0.5, '#EFE4D2');
@@ -186,7 +221,7 @@ export default class SocialScreen {
     ctx.fillRect(0, 0, w, h);
 
     // Warm radial bloom in upper header
-    const radial = ctx.createRadialGradient(w * 0.5, 60, 20, w * 0.5, 100, w * 0.6);
+    const radial = ctx.createRadialGradient(w * 0.5, 120, 40, w * 0.5, 200, w * 0.6);
     radial.addColorStop(0, 'rgba(253, 230, 138, 0.25)');
     radial.addColorStop(1, 'rgba(253, 230, 138, 0)');
     ctx.fillStyle = radial;
@@ -194,52 +229,52 @@ export default class SocialScreen {
 
     // Warm Amber Bronze Hairline Frame
     ctx.strokeStyle = '#D4A038';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(20, 20, w - 40, h - 40);
+    ctx.lineWidth = 6;
+    ctx.strokeRect(40, 40, w - 80, h - 80);
 
     ctx.strokeStyle = 'rgba(120, 83, 30, 0.2)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(28, 28, w - 56, h - 56);
+    ctx.lineWidth = 2;
+    ctx.strokeRect(56, 56, w - 112, h - 112);
 
     // Corner Architectural Accents
-    const cornerSize = 20;
+    const cornerSize = 40;
     ctx.fillStyle = '#D4A038';
-    ctx.fillRect(18, 18, cornerSize, 3);
-    ctx.fillRect(18, 18, 3, cornerSize);
-    ctx.fillRect(w - 18 - cornerSize, 18, cornerSize, 3);
-    ctx.fillRect(w - 21, 18, 3, cornerSize);
-    ctx.fillRect(18, h - 21, cornerSize, 3);
-    ctx.fillRect(18, h - 18 - cornerSize, 3, cornerSize);
-    ctx.fillRect(w - 18 - cornerSize, h - 21, cornerSize, 3);
-    ctx.fillRect(w - 21, h - 18 - cornerSize, 3, cornerSize);
+    ctx.fillRect(36, 36, cornerSize, 6);
+    ctx.fillRect(36, 36, 6, cornerSize);
+    ctx.fillRect(w - 36 - cornerSize, 36, cornerSize, 6);
+    ctx.fillRect(w - 42, 36, 6, cornerSize);
+    ctx.fillRect(36, h - 42, cornerSize, 6);
+    ctx.fillRect(36, h - 36 - cornerSize, 6, cornerSize);
+    ctx.fillRect(w - 36 - cornerSize, h - 42, cornerSize, 6);
+    ctx.fillRect(w - 42, h - 36 - cornerSize, 6, cornerSize);
 
-    // 2. HEADER SECTION (Compact & Refined)
+    // 2. HEADER SECTION (Ultra-Crisp 4K Editorial Typography)
     ctx.save();
     ctx.textAlign = 'center';
 
     // Top Category Pill
     ctx.fillStyle = '#9A3412';
-    ctx.font = '700 17px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('OFFICIAL SOCIAL CHANNELS', w / 2, 58);
+    ctx.font = '700 32px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('OFFICIAL SOCIAL CHANNELS', w / 2, 115);
 
     // Main Title
     ctx.fillStyle = '#0A0908';
-    ctx.font = '800 32px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('Connect with Jubayer', w / 2, 98);
+    ctx.font = '800 64px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Connect with Jubayer', w / 2, 195);
 
     // Subtitle instruction
     ctx.fillStyle = '#78531E';
-    ctx.font = '500 15px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('Click any official channel below to visit', w / 2, 126);
+    ctx.font = '500 28px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Click any official channel below to visit', w / 2, 248);
 
     ctx.restore();
 
     // Divider Line
-    ctx.strokeStyle = 'rgba(212, 160, 56, 0.4)';
-    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = 'rgba(212, 160, 56, 0.45)';
+    ctx.lineWidth = 2.5;
     ctx.beginPath();
-    ctx.moveTo(50, 140);
-    ctx.lineTo(w - 50, 140);
+    ctx.moveTo(100, 275);
+    ctx.lineTo(w - 100, 275);
     ctx.stroke();
 
     // 3. RENDER 4 COMPACT SOCIAL CARDS (2x2 Grid)
@@ -261,52 +296,52 @@ export default class SocialScreen {
     // Card Background
     if (isHovered) {
       ctx.shadowColor = 'rgba(212, 160, 56, 0.45)';
-      ctx.shadowBlur = 18;
+      ctx.shadowBlur = 36;
       ctx.fillStyle = '#FFFFFF';
     } else {
-      ctx.shadowColor = 'rgba(10, 9, 8, 0.06)';
-      ctx.shadowBlur = 8;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.shadowColor = 'rgba(10, 9, 8, 0.08)';
+      ctx.shadowBlur = 16;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
     }
 
-    this.roundRect(ctx, x, y, w, h, 12);
+    this.roundRect(ctx, x, y, w, h, 24);
     ctx.fill();
     ctx.shadowBlur = 0;
 
     // Card Border
     if (isHovered) {
       ctx.strokeStyle = '#D4A038';
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 5;
     } else {
-      ctx.strokeStyle = 'rgba(212, 160, 56, 0.35)';
-      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = 'rgba(212, 160, 56, 0.4)';
+      ctx.lineWidth = 2.5;
     }
-    this.roundRect(ctx, x, y, w, h, 12);
+    this.roundRect(ctx, x, y, w, h, 24);
     ctx.stroke();
 
     // Top Accent Line
-    ctx.fillStyle = isHovered ? '#D4A038' : 'rgba(212, 160, 56, 0.4)';
-    ctx.fillRect(x + 18, y + 2, w - 36, 2.5);
+    ctx.fillStyle = isHovered ? '#D4A038' : 'rgba(212, 160, 56, 0.5)';
+    ctx.fillRect(x + 36, y + 4, w - 72, 5);
 
     // DRAW AUTHENTIC OFFICIAL ICON (Left Side)
-    const iconX = x + 24;
-    const iconY = y + 26;
-    const iconSize = 58;
+    const iconX = x + 44;
+    const iconY = y + 50;
+    const iconSize = 116;
 
     if (card.id === 'youtube') {
       // YouTube Red Rounded Button with White Triangle
-      this.roundRect(ctx, iconX, iconY, iconSize + 12, iconSize, 14);
+      this.roundRect(ctx, iconX, iconY, iconSize + 24, iconSize, 28);
       ctx.fillStyle = '#FF0000';
       ctx.fill();
 
       // Centered White Triangle
       ctx.fillStyle = '#FFFFFF';
       ctx.beginPath();
-      const triX = iconX + 28;
+      const triX = iconX + 56;
       const triY = iconY + iconSize / 2;
-      ctx.moveTo(triX - 6, triY - 10);
-      ctx.lineTo(triX + 10, triY);
-      ctx.lineTo(triX - 6, triY + 10);
+      ctx.moveTo(triX - 12, triY - 20);
+      ctx.lineTo(triX + 20, triY);
+      ctx.lineTo(triX - 12, triY + 20);
       ctx.closePath();
       ctx.fill();
     } else if (card.id === 'instagram') {
@@ -317,23 +352,23 @@ export default class SocialScreen {
       grad.addColorStop(0.6, '#E1306C');
       grad.addColorStop(1, '#405DE6');
 
-      this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 14);
+      this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 28);
       ctx.fillStyle = grad;
       ctx.fill();
 
       // Camera Glyph
       ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 3;
-      this.roundRect(ctx, iconX + 11, iconY + 11, iconSize - 22, iconSize - 22, 9);
+      ctx.lineWidth = 6;
+      this.roundRect(ctx, iconX + 22, iconY + 22, iconSize - 44, iconSize - 44, 18);
       ctx.stroke();
 
       ctx.beginPath();
-      ctx.arc(iconX + iconSize / 2, iconY + iconSize / 2, 8, 0, Math.PI * 2);
+      ctx.arc(iconX + iconSize / 2, iconY + iconSize / 2, 16, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.fillStyle = '#FFFFFF';
       ctx.beginPath();
-      ctx.arc(iconX + iconSize - 18, iconY + 18, 2.5, 0, Math.PI * 2);
+      ctx.arc(iconX + iconSize - 36, iconY + 36, 5, 0, Math.PI * 2);
       ctx.fill();
     } else if (card.id === 'facebook') {
       // Facebook Blue Circle with 'f'
@@ -343,92 +378,92 @@ export default class SocialScreen {
       ctx.fill();
 
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 38px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('f', iconX + iconSize / 2 - 8, iconY + iconSize - 12);
+      ctx.font = 'bold 76px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('f', iconX + iconSize / 2 - 16, iconY + iconSize - 24);
     } else if (card.id === 'tiktok') {
       // TikTok Black Squircle with Cyan & Magenta Note
-      this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 14);
+      this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 28);
       ctx.fillStyle = '#000000';
       ctx.fill();
 
       // Note Glyph
-      const nx = iconX + iconSize / 2 - 5;
-      const ny = iconY + 14;
+      const nx = iconX + iconSize / 2 - 10;
+      const ny = iconY + 28;
 
       // Cyan Shadow
       ctx.fillStyle = '#00f2fe';
       ctx.beginPath();
-      ctx.arc(nx + 1, ny + 24, 7, 0, Math.PI * 2);
+      ctx.arc(nx + 2, ny + 48, 14, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillRect(nx + 6, ny - 2, 4, 26);
-      ctx.fillRect(nx + 6, ny - 2, 12, 5);
+      ctx.fillRect(nx + 12, ny - 4, 8, 52);
+      ctx.fillRect(nx + 12, ny - 4, 24, 10);
 
       // Pink Overlay
       ctx.fillStyle = '#fe0979';
       ctx.beginPath();
-      ctx.arc(nx - 2, ny + 26, 7, 0, Math.PI * 2);
+      ctx.arc(nx - 4, ny + 52, 14, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillRect(nx + 3, ny, 4, 26);
-      ctx.fillRect(nx + 3, ny, 12, 5);
+      ctx.fillRect(nx + 6, ny, 8, 52);
+      ctx.fillRect(nx + 6, ny, 24, 10);
 
       // White Body
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.arc(nx, ny + 25, 6, 0, Math.PI * 2);
+      ctx.arc(nx, ny + 50, 12, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillRect(nx + 5, ny, 3, 25);
-      ctx.fillRect(nx + 5, ny, 10, 4);
+      ctx.fillRect(nx + 10, ny - 2, 6, 50);
+      ctx.fillRect(nx + 10, ny - 2, 20, 8);
     }
 
     // TEXT METADATA (Right of Icon)
-    const textX = iconX + (card.id === 'youtube' ? iconSize + 26 : iconSize + 18);
+    const textX = iconX + (card.id === 'youtube' ? iconSize + 50 : iconSize + 36);
 
     // Title
     ctx.fillStyle = '#0A0908';
-    ctx.font = '800 22px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(card.name, textX, y + 42);
+    ctx.font = '800 44px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(card.name, textX, y + 84);
 
     // Handle
     ctx.fillStyle = card.id === 'youtube' ? '#B91C1C' : card.id === 'instagram' ? '#BE185D' : card.id === 'facebook' ? '#1D4ED8' : '#374151';
-    ctx.font = '700 15px "Plus Jakarta Sans", monospace';
-    ctx.fillText(card.handle, textX, y + 68);
+    ctx.font = '700 30px "Plus Jakarta Sans", monospace';
+    ctx.fillText(card.handle, textX, y + 136);
 
     // Brief Subtitle
     ctx.fillStyle = '#6B7280';
-    ctx.font = '400 13px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(card.desc, textX, y + 90);
+    ctx.font = '400 26px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(card.desc, textX, y + 180);
 
     // BOTTOM ACTION BUTTON
-    const btnY = y + h - 50;
-    const btnH = 34;
-    const btnW = w - 36;
+    const btnY = y + h - 100;
+    const btnH = 68;
+    const btnW = w - 72;
 
     if (isHovered) {
-      const gradBtn = ctx.createLinearGradient(x + 18, btnY, x + 18 + btnW, btnY);
+      const gradBtn = ctx.createLinearGradient(x + 36, btnY, x + 36 + btnW, btnY);
       gradBtn.addColorStop(0, '#B45309');
       gradBtn.addColorStop(1, '#D4A038');
       ctx.fillStyle = gradBtn;
-      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 6);
+      this.roundRect(ctx, x + 36, btnY, btnW, btnH, 12);
       ctx.fill();
 
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = '700 14px "Outfit", sans-serif';
+      ctx.font = '700 28px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(card.actionText.toUpperCase(), x + 18 + btnW / 2, btnY + 22);
+      ctx.fillText(card.actionText.toUpperCase(), x + 36 + btnW / 2, btnY + 44);
     } else {
       ctx.fillStyle = '#F4EDE2';
-      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 6);
+      this.roundRect(ctx, x + 36, btnY, btnW, btnH, 12);
       ctx.fill();
 
       ctx.strokeStyle = 'rgba(212, 160, 56, 0.45)';
-      ctx.lineWidth = 1;
-      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 6);
+      ctx.lineWidth = 2;
+      this.roundRect(ctx, x + 36, btnY, btnW, btnH, 12);
       ctx.stroke();
 
       ctx.fillStyle = '#0A0908';
-      ctx.font = '600 13px "Outfit", sans-serif';
+      ctx.font = '600 26px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(card.actionText, x + 18 + btnW / 2, btnY + 22);
+      ctx.fillText(card.actionText, x + 36 + btnW / 2, btnY + 44);
     }
 
     ctx.restore();
