@@ -271,7 +271,7 @@ export default class ProjectsScreen {
     this.group.add(backPlate);
 
     const backEmblemGeo = new THREE.RingGeometry(0.12, 0.15, 32);
-    const backEmblem = new THREE.Mesh(backEmblemGeo, ochreRingMat);
+    const backEmblem = new THREE.Mesh(backEmblemGeo, bezelMat);
     backEmblem.position.set(0, chassisY, -0.044);
     backEmblem.rotation.y = Math.PI;
     this.group.add(backEmblem);
