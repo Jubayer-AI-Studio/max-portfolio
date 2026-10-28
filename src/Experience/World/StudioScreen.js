@@ -211,34 +211,34 @@ export default class StudioScreen {
     const w = this.canvasWidth;
     const h = this.canvasHeight;
 
-    // 1. Hollywood Smoked Obsidian OLED Background (Ultra-Luxury Agency Grade)
+    // 1. Organic Warm Linen Parchment Ivory Background
     const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-    bgGrad.addColorStop(0, '#06070B');
-    bgGrad.addColorStop(0.5, '#0B0D14');
-    bgGrad.addColorStop(1, '#10131F');
+    bgGrad.addColorStop(0, '#FBF8F2');
+    bgGrad.addColorStop(0.5, '#F4EFE6');
+    bgGrad.addColorStop(1, '#EBE3D5');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, w, h);
 
     // Warm radial luminous bloom in upper center
     const radial = ctx.createRadialGradient(w * 0.5, h * 0.2, 50, w * 0.5, h * 0.4, w * 0.6);
-    radial.addColorStop(0, 'rgba(229, 192, 123, 0.2)');
-    radial.addColorStop(1, 'rgba(229, 192, 123, 0)');
+    radial.addColorStop(0, 'rgba(253, 230, 138, 0.32)');
+    radial.addColorStop(1, 'rgba(253, 230, 138, 0)');
     ctx.fillStyle = radial;
     ctx.fillRect(0, 0, w, h);
 
-    // Warm Champagne Gold Hairline Frame
-    ctx.strokeStyle = '#E5C07B';
+    // 24K Royal Amber Gold Hairline Frame
+    ctx.strokeStyle = '#D4A038';
     ctx.lineWidth = 4;
     ctx.strokeRect(32, 32, w - 64, h - 64);
 
     // Inner subtle hairline
-    ctx.strokeStyle = 'rgba(229, 192, 123, 0.25)';
+    ctx.strokeStyle = 'rgba(180, 83, 9, 0.22)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(46, 46, w - 92, h - 92);
 
-    // 4 Corner Architectural Accents in Champagne Gold
+    // 4 Corner Architectural Accents in 24K Royal Gold
     const cornerSize = 32;
-    ctx.fillStyle = '#E5C07B';
+    ctx.fillStyle = '#D4A038';
     ctx.fillRect(28, 28, cornerSize, 4);
     ctx.fillRect(28, 28, 4, cornerSize);
     ctx.fillRect(w - 28 - cornerSize, 28, cornerSize, 4);
@@ -248,34 +248,28 @@ export default class StudioScreen {
     ctx.fillRect(w - 28 - cornerSize, h - 32, cornerSize, 4);
     ctx.fillRect(w - 32, h - 28 - cornerSize, 4, cornerSize);
 
-    // 2. LEFT SIDE: Jubayer's Full Natural Photo in Crisp Pure White & Gold Frame
+    // 2. LEFT SIDE: Jubayer's Full Natural Photo in Crisp Pure White Porcelain Frame
     const photoX = 140;
     const photoY = 120;
     const photoW = 660;
     const photoH = 912;
 
-    // Solid Frame with subtle drop shadow
+    // Solid Frame with editorial soft drop-shadow
     ctx.save();
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
-    ctx.shadowBlur = 36;
+    ctx.shadowColor = 'rgba(10, 9, 8, 0.16)';
+    ctx.shadowBlur = 32;
     ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 14;
-    ctx.fillStyle = '#10131F';
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(photoX - 14, photoY - 14, photoW + 28, photoH + 28);
     ctx.restore();
 
-    // Champagne Gold Frame Border
-    ctx.strokeStyle = '#E5C07B';
+    // Solid 24K Gold Frame Border
+    ctx.strokeStyle = '#D4A038';
     ctx.lineWidth = 3;
     ctx.strokeRect(photoX - 14, photoY - 14, photoW + 28, photoH + 28);
 
-    // Inner Crisp White Border
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(photoX - 4, photoY - 4, photoW + 8, photoH + 8);
-
     if (this.imageLoaded && this.profileImg) {
-      // 100% natural, untouched photo (Zero filters, Zero shimmers)
       ctx.save();
       ctx.beginPath();
       ctx.rect(photoX, photoY, photoW, photoH);
@@ -295,48 +289,48 @@ export default class StudioScreen {
         drawW = photoW;
         drawH = photoW / imgRatio;
         drawX = photoX;
-        drawY = photoY + (photoH - drawH) * 0.18; // Centered on face and torso
+        drawY = photoY + (photoH - drawH) * 0.18;
       }
 
       ctx.drawImage(img, drawX, drawY, drawW, drawH);
       ctx.restore();
     } else {
-      ctx.fillStyle = '#161B26';
+      ctx.fillStyle = '#F4EDE2';
       ctx.fillRect(photoX, photoY, photoW, photoH);
-      ctx.fillStyle = '#94A3B8';
+      ctx.fillStyle = '#78531E';
       ctx.font = '600 32px "Plus Jakarta Sans", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('LOADING PORTRAIT...', photoX + photoW / 2, photoY + photoH / 2);
+      ctx.fillText('PORTRAIT LOADING...', photoX + photoW / 2, photoY + photoH / 2);
     }
 
-    // 3. RIGHT SIDE: Clean English Identity & Tech Stacks
+    // 3. RIGHT SIDE: Clean Editorial Identity in Deep Charcoal & Ochre
     const textStartX = 890;
     const centerY = h * 0.5;
 
     // Top Category Tag
-    ctx.fillStyle = '#E5C07B';
+    ctx.fillStyle = '#9A3412';
     ctx.font = '700 24px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText('LEAD ENGINEER & ARCHITECT', textStartX, centerY - 145);
 
-    // Line 1: Jubayer Ahmad (Pure Crisp White, High Contrast 19:1)
-    ctx.fillStyle = '#FFFFFF';
+    // Line 1: Jubayer Ahmad (Deep Obsidian Charcoal)
+    ctx.fillStyle = '#0A0908';
     ctx.font = '900 96px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.letterSpacing = '0.01em';
     ctx.fillText('Jubayer Ahmad', textStartX, centerY - 45);
 
-    // Champagne Gold Divider Line (#E5C07B)
-    ctx.fillStyle = '#E5C07B';
+    // Warm Amber Gold Divider Line
+    ctx.fillStyle = '#D4A038';
     ctx.fillRect(textStartX, centerY + 2, 640, 4);
 
-    // Line 2: Full Stack Developer (Warm Luminous Amber)
-    ctx.fillStyle = '#F3BA4F';
+    // Line 2: Full Stack Developer (Deep Burnt Ochre)
+    ctx.fillStyle = '#9A3412';
     ctx.font = '800 58px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.letterSpacing = '0.02em';
     ctx.fillText('Full Stack Developer', textStartX, centerY + 78);
 
-    // Line 3: AI Content Creator & Agent Systems (Emerald Mint)
-    ctx.fillStyle = '#34D399';
+    // Line 3: AI Content Creator & Agent Systems (Deep Emerald Pine)
+    ctx.fillStyle = '#064E3B';
     ctx.font = '700 46px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.letterSpacing = '0.01em';
     ctx.fillText('AI Content Creator & Systems Architect', textStartX, centerY + 148);
@@ -355,16 +349,16 @@ export default class StudioScreen {
 
     badges.forEach((b) => {
       const bWidth = ctx.measureText(b).width + 36;
-      ctx.fillStyle = 'rgba(229, 192, 123, 0.12)';
+      ctx.fillStyle = '#FFFFFF';
       this.roundRect(ctx, currentBadgeX, badgeY, bWidth, 42, 8);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(229, 192, 123, 0.35)';
+      ctx.strokeStyle = '#D4A038';
       ctx.lineWidth = 1.5;
       this.roundRect(ctx, currentBadgeX, badgeY, bWidth, 42, 8);
       ctx.stroke();
 
-      ctx.fillStyle = '#FDE68A';
+      ctx.fillStyle = '#78531E';
       ctx.fillText(b, currentBadgeX + 18, badgeY + 28);
 
       currentBadgeX += bWidth + 18;

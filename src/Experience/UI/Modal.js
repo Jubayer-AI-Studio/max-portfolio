@@ -577,7 +577,7 @@ export default class Modal {
       document.body.classList.add('projects-focus');
       if (this.focusBanner) {
         if (this.focusTitle) {
-          this.focusTitle.textContent = 'Live Vercel Projects • Production Deployments';
+          this.focusTitle.textContent = 'Live Projects (10) • Cloudflare & Vercel Deployments';
         }
         this.focusBanner.classList.add('active');
       }

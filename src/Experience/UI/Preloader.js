@@ -15,15 +15,15 @@ export default class Preloader {
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 100;
-    this.displayProgress = 100;
+    this.targetProgress = 90;
+    this.displayProgress = 20;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Sub-second instant launch: showroom opens within 200ms!
+    // Instant <1s showroom launch guarantee (dismisses preloader within 350ms)
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 200);
+    }, 350);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {

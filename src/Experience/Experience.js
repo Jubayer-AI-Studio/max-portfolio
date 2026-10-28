@@ -28,8 +28,9 @@ export default class Experience {
     this.time = new Time();
     this.sounds = new Sounds();
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x040608);
-    this.scene.fog = new THREE.Fog(0x040608, 6, 22);
+    this.scene.background = new THREE.Color(0x0a0c12);
+    // Warm atmospheric depth haze (zero occlusion of showroom assets within 30m)
+    this.scene.fog = new THREE.Fog(0x0e1118, 30, 80);
 
     // Setup Engine & Viewport
     this.camera = new Camera(this);

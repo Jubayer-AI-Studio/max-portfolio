@@ -29,7 +29,7 @@ export default class Environment {
     const shadowMapSize = isMobile ? 1024 : 2048;
 
     // Main Studio Softbox Overhead Light (Key Light)
-    const mainLight = new THREE.DirectionalLight(0xfff5ea, 1.8);
+    const mainLight = new THREE.DirectionalLight(0xfffaed, 2.2);
     mainLight.position.set(2, 8, 4);
     mainLight.castShadow = true;
     mainLight.shadow.mapSize.width = shadowMapSize;
@@ -47,14 +47,14 @@ export default class Environment {
     this.scene.add(topLight);
 
     // Cinematic Anamorphic Cyan Accent Light (Left Side)
-    const cyanLight = new THREE.SpotLight(0x00f0ff, 4.5, 20, Math.PI / 4, 0.4, 1);
+    const cyanLight = new THREE.SpotLight(0xfef3c7, 3.2, 20, Math.PI / 4, 0.4, 1);
     cyanLight.position.set(-6, 3.5, 0);
     cyanLight.target.position.set(0, 0.5, 0);
     this.scene.add(cyanLight);
     this.scene.add(cyanLight.target);
 
     // Cinematic Warm Amber Rim Light (Right & Rear)
-    const amberLight = new THREE.SpotLight(0xffaa00, 3.8, 20, Math.PI / 4, 0.4, 1);
+    const amberLight = new THREE.SpotLight(0xd4a038, 4.2, 20, Math.PI / 4, 0.4, 1);
     amberLight.position.set(5, 3.5, -2);
     amberLight.target.position.set(0, 0.5, 0);
     this.scene.add(amberLight);

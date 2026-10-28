@@ -10,7 +10,7 @@ export default class Hotspots {
     this.points = [
       {
         id: 'projects',
-        name: 'Live Vercel Projects',
+        name: 'Live Projects (10)',
         position: new THREE.Vector3(0, 2.38, -4.5),
         camPos: { x: 0, y: 1.62, z: -0.95 },
         camTarget: { x: 0, y: 1.62, z: -4.6 },
@@ -50,7 +50,7 @@ export default class Hotspots {
       },
       {
         id: 'trunk',
-        name: 'GitHub Repos (22)',
+        name: 'GitHub Repos (28+)',
         position: new THREE.Vector3(0, 0.95, -1.45),
         camPos: { x: -1.0, y: 1.6, z: -2.8 },
         camTarget: { x: 0, y: 0.8, z: -1.1 },
