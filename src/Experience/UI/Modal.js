@@ -1,164 +1,153 @@
 export const GITHUB_REPOS = [
   {
-    name: 'NoorHub-Madrasa-Management-SaaS',
+    name: 'max-portfolio',
     category: 'saas',
-    lang: 'TypeScript',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/NoorHub-Madrasa-Management-SaaS',
-    desc: 'Universal Islamic Education Management & Cloud SaaS Platform built with Next.js 15, React 19, TypeScript, Tailwind CSS, PWA, Drizzle ORM, Leaflet GIS & Noor AI.'
+    lang: 'JavaScript / 3D',
+    stars: 5,
+    url: 'https://github.com/Jubayer-AI-Studio/max-portfolio',
+    liveUrl: 'https://max-portfolio-2pv.pages.dev',
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'Cinematic 3D Interactive Showroom & VIP Engineering Portfolio built with Three.js WebGL, PWA support, and sub-300ms Cloudflare Edge delivery.'
   },
   {
-    name: 'Two-Friends-Driving-Masters-Video-Studio',
-    category: 'ai',
-    lang: 'TypeScript',
-    stars: 0,
-    url: 'https://github.com/Jubayer-AI-Studio/Two-Friends-Driving-Masters-Video-Studio',
-    desc: 'AI Video Generation Studio with Google Veo 3.1 & Gemini 3.7 Flash + TTS, animating the automotive story of Shafin and Nafis.'
-  },
-  {
-    name: 'Dhaka-Open-World-Racing',
-    category: 'games',
-    lang: 'Kotlin',
-    stars: 0,
-    url: 'https://github.com/Jubayer-AI-Studio/Dhaka-Open-World-Racing',
-    desc: 'Dhaka open world racing game featuring Shafin and Nafis, realistic vehicle damage, dynamic weather, and 10+ Dhaka drive routes.'
-  },
-  {
-    name: 'Shafin-Blade-Fighter-Game',
-    category: 'games',
-    lang: 'JavaScript',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/Shafin-Blade-Fighter-Game',
-    desc: 'Epic 2D/3D Cyber Anime Fighting Combat Web Game built with HTML5 Canvas, JavaScript, Web Audio API & PWA offline support.'
-  },
-  {
-    name: 'Shafin-and-Nafis-Racing-3D',
-    category: 'games',
-    lang: 'Kotlin',
-    stars: 0,
-    url: 'https://github.com/Jubayer-AI-Studio/Shafin-and-Nafis-Racing-3D',
-    desc: 'High-octane Android 3D racing game featuring Shafin and Nafis with smooth touch steering, nitro boosts, and car selection.'
-  },
-  {
-    name: 'Iron-Strike-2D-Fighter',
-    category: 'games',
-    lang: 'HTML5/JS',
-    stars: 0,
-    url: 'https://github.com/Jubayer-AI-Studio/Iron-Strike-2D-Fighter',
-    desc: 'An arcade 2D fighting game featuring intense martial arts combat, special moves, combos, diverse arenas, and multiple game modes.'
-  },
-  {
-    name: 'Jubayer-Legends-3D-Runner',
-    category: 'games',
-    lang: 'WebGL/3D',
-    stars: 0,
-    url: 'https://github.com/Jubayer-AI-Studio/Jubayer-Legends-3D-Runner',
-    desc: 'Cinematic 3D endless-runner game featuring Shafin, Nafis, and police chaser Jubayer through futuristic neon cities, vehicles, and sky flight.'
-  },
-  {
-    name: 'Shono-AI-Bangladeshi-Jarvis',
-    category: 'ai',
-    lang: 'HTML/JS',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/Shono-AI-Bangladeshi-Jarvis',
-    desc: 'Shono AI (শোনো এআই) - Bangladeshi Dialect-Aware Jarvis Voice Assistant Architecture Blueprint & Interactive Cyberpunk HUD.'
-  },
-  {
-    name: 'Jubayer-Jarvis-AI-Automation',
-    category: 'ai',
-    lang: 'Python',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/Jubayer-Jarvis-AI-Automation',
-    desc: '100% Hands-Free Desktop AI Assistant with Arc Reactor Orb, Biometric Voice Lock, Mobile QR Remote & System Automation in Bengali & English.'
-  },
-  {
-    name: 'YouTube-Automation-Bot',
-    category: 'ai',
-    lang: 'Python',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/YouTube-Automation-Bot',
-    desc: 'YouTube Automation Engine - Autonomous Video Production, Dynamic Thumbnail Card Generator & Automated Upload Pipeline.'
-  },
-  {
-    name: 'Reels-Video-Automation',
-    category: 'ai',
-    lang: 'Python',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/Reels-Video-Automation',
-    desc: 'Automated Reels & Shorts Video Generator - Cloud-Operated Video Production with GitHub Actions CI/CD & Telegram Delivery.'
-  },
-  {
-    name: 'AI__automation',
-    category: 'ai',
-    lang: 'Python/HTML',
-    stars: 2,
-    url: 'https://github.com/Jubayer-AI-Studio/AI__automation',
-    desc: 'Unified AI Social Media & Content Automator - 24/7 Telegram Worker, Smart Reels Commenter & Automated Content Pipeline.'
+    name: 'rihlah-gadget-shop',
+    category: 'saas',
+    lang: 'TypeScript / Next.js',
+    stars: 3,
+    url: 'https://github.com/Jubayer-AI-Studio/rihlah-gadget-shop',
+    liveUrl: 'https://rihlah-gadget-shop.pages.dev',
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'Premium electronic gadget e-commerce portal with fast edge cart, PWA offline support, and verified billing.'
   },
   {
     name: 'special-agent',
     category: 'ai',
     lang: 'Python / Next.js',
-    stars: 2,
+    stars: 4,
     url: 'https://github.com/Jubayer-AI-Studio/special-agent',
     liveUrl: 'https://special-agent-one.vercel.app',
-    desc: 'Autonomous Agent Framework with terminal reasoning loops, multi-tool scheduling, and contextual workspace synthesis. Live production deployment on Vercel.'
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'Autonomous 24/7 AI Job Hunter & Pitch Engine with terminal reasoning loops, multi-tool scheduling, and contextual client radar.'
   },
   {
-    name: 'auto-reels',
-    category: 'ai',
-    lang: 'Python',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/auto-reels',
-    desc: 'Short-form algorithmic video creation engine targeting viral social media deployment.'
-  },
-  {
-    name: 'super-chat',
+    name: 'affan-labib-blog',
     category: 'saas',
-    lang: 'JavaScript',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/super-chat',
-    desc: 'Real-time WebSocket chat application with end-to-end message routing and room management.'
+    lang: 'Astro v5 / Tailwind',
+    stars: 3,
+    url: 'https://github.com/Jubayer-AI-Studio/affan-labib-blog',
+    liveUrl: 'https://affan-labib-blog.vercel.app',
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'High-performance literary publication with MDX engine, sub-350ms edge caching, and rich editorial typography.'
   },
   {
-    name: 'full-chat',
+    name: 'electronics-importers-bd',
     category: 'saas',
-    lang: 'JavaScript',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/full-chat',
-    desc: 'Production-ready instant messaging platform featuring rich-text, media upload, and status broadcasts.'
+    lang: 'TypeScript / Next.js 15',
+    stars: 3,
+    url: 'https://github.com/Jubayer-AI-Studio/electronics-importers-bd',
+    liveUrl: 'https://electronics-importers-bd.vercel.app',
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'Enterprise commercial electronics import directory, product search, and verified supplier matchmaking portal.'
   },
   {
-    name: 'chat-all',
+    name: 'mesk',
     category: 'saas',
-    lang: 'JavaScript',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/chat-all',
-    desc: 'Omnichannel multi-platform chat aggregator bridging social communication endpoints.'
+    lang: 'TypeScript / Next.js',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/mesk',
+    liveUrl: 'https://mesk-nine.vercel.app',
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'Islamic publishing house & literature catalog with integrated WhatsApp AI customer support bot automation.'
   },
   {
-    name: 'chat-app',
+    name: 'ibrahim',
     category: 'saas',
-    lang: 'JavaScript',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/chat-app',
-    desc: 'Clean UI real-time communication portal built with responsive socket infrastructure.'
+    lang: 'React 19 / Tailwind',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/ibrahim',
+    liveUrl: 'https://ibrahim-jade.vercel.app',
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'Personal author and scholar portal with interactive publication reader, client deliverables, and verified matrix.'
   },
   {
-    name: 'chatapp',
+    name: 'kawsar',
     category: 'saas',
-    lang: 'JavaScript',
-    stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/chatapp',
-    desc: 'High-speed messaging client engine optimized for low-latency web interactions.'
+    lang: 'Next.js 15 / React',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/kawsar',
+    liveUrl: 'https://kawsar-seven.vercel.app',
+    liveBadge: 'LIVE VERCEL',
+    desc: 'Author, thinker, and literary translator portfolio with dynamic articles, book showcase, and verified contact matrix.'
   },
   {
-    name: 'my-first-site',
+    name: 'hasan',
     category: 'saas',
-    lang: 'CSS/HTML',
+    lang: 'TypeScript / Next.js',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/hasan',
+    liveUrl: 'https://hasan-portfolio-avn.pages.dev',
+    liveBadge: 'LIVE CLOUDFLARE',
+    desc: 'Modern personal mentorship & life guidance web app featuring interactive modules, articles, and cloud sync.'
+  },
+  {
+    name: 'ultra-portfolio',
+    category: 'saas',
+    lang: 'TypeScript / Three.js',
+    stars: 4,
+    url: 'https://github.com/Jubayer-AI-Studio/ultra-portfolio',
+    liveUrl: 'https://jubayer-portfolio.pages.dev',
+    liveBadge: 'LIVE CLOUDFLARE + VERCEL',
+    desc: 'Mind-blowing 3D and Cyber-Cinematic Portfolio for Jubayer Ahmad, Full-Stack Developer and AI Specialist.'
+  },
+  {
+    name: 'smritir-canvas',
+    category: 'saas',
+    lang: 'HTML5 / CSS3',
     stars: 1,
-    url: 'https://github.com/Jubayer-AI-Studio/my-first-site',
-    desc: 'Smritir Canvas - Author and Literary Website.'
+    url: 'https://github.com/Jubayer-AI-Studio/smritir-canvas',
+    liveUrl: 'https://maaz-canvas.pages.dev',
+    liveBadge: 'LIVE CLOUDFLARE',
+    desc: 'Literary memoir & writer portfolio portal featuring Bengali typography, book archives, and smooth mobile UX.'
+  },
+  {
+    name: 'NoorHub-Madrasa-Management-SaaS',
+    category: 'saas',
+    lang: 'TypeScript / Next.js 15',
+    stars: 4,
+    url: 'https://github.com/Jubayer-AI-Studio/NoorHub-Madrasa-Management-SaaS',
+    desc: 'Universal Islamic Education Management & Cloud SaaS Platform built with Next.js 15, React 19, TypeScript, Drizzle ORM & Noor AI.'
+  },
+  {
+    name: 'affan-labib-blog-v2',
+    category: 'saas',
+    lang: 'Astro / Cloud',
+    stars: 1,
+    url: 'https://github.com/Jubayer-AI-Studio/affan-labib-blog-v2',
+    desc: 'Official Literary Blog and Writer Studio of Affan Labib (V2 Cloud Architecture).'
+  },
+  {
+    name: 'amar-world-map',
+    category: 'saas',
+    lang: 'TypeScript / Next.js',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/amar-world-map',
+    desc: 'Interactive Bangladesh district & world travel tracker with Bengali font rendering and zero-tap social sharing.'
+  },
+  {
+    name: 'jubayer-ai-studio',
+    category: 'saas',
+    lang: 'HTML / Full-Stack',
+    stars: 3,
+    url: 'https://github.com/Jubayer-AI-Studio/jubayer-ai-studio',
+    desc: 'Official Master Organization Repository of Jubayer AI Studio — Autonomous AI Specialist & Full-Stack Architect.'
+  },
+  {
+    name: 'portfolio',
+    category: 'saas',
+    lang: 'HTML5 / CSS3',
+    stars: 1,
+    url: 'https://github.com/Jubayer-AI-Studio/portfolio',
+    desc: 'Foundational portfolio codebase and experimental interactive UI prototypes.'
   },
   {
     name: 'madrasa-managment-software',
@@ -166,15 +155,111 @@ export const GITHUB_REPOS = [
     lang: 'Full-Stack',
     stars: 1,
     url: 'https://github.com/Jubayer-AI-Studio/madrasa-managment-software',
-    desc: 'Core Madrasa & Academic Accounting software architecture.'
+    desc: 'Core Madrasa academic management and multi-branch accounting architecture.'
+  },
+  {
+    name: 'Nasrullah-Islamic-Expense-Companion',
+    category: 'saas',
+    lang: 'HTML5 / JS',
+    stars: 1,
+    url: 'https://github.com/Jubayer-AI-Studio/Nasrullah-Islamic-Expense-Companion',
+    desc: 'Islamic expense tracker with category budgeting in Taka, spending alerts, receipt scanning, and Zakat calculator.'
+  },
+  {
+    name: 'AI__automation',
+    category: 'ai',
+    lang: 'Python / HTML',
+    stars: 3,
+    url: 'https://github.com/Jubayer-AI-Studio/AI__automation',
+    desc: 'Unified AI Social Media & Content Automator - 24/7 Telegram Worker, Smart Reels Commenter & Content Pipeline.'
+  },
+  {
+    name: 'Shono-AI-Bangladeshi-Jarvis',
+    category: 'ai',
+    lang: 'HTML / JS',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/Shono-AI-Bangladeshi-Jarvis',
+    desc: 'Bangladeshi dialect-aware Jarvis voice assistant architecture blueprint with interactive cyberpunk HUD.'
+  },
+  {
+    name: 'YouTube-Automation-Bot',
+    category: 'ai',
+    lang: 'Python',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/YouTube-Automation-Bot',
+    desc: 'Autonomous video production engine, dynamic thumbnail card generator & automated YouTube pipeline.'
+  },
+  {
+    name: 'Jubayer-Jarvis-AI-Automation',
+    category: 'ai',
+    lang: 'Python',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/Jubayer-Jarvis-AI-Automation',
+    desc: '100% Hands-Free Desktop AI Assistant with Arc Reactor Orb, Biometric Voice Lock & Dual-Language Automation.'
+  },
+  {
+    name: 'Reels-Video-Automation',
+    category: 'ai',
+    lang: 'Python',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/Reels-Video-Automation',
+    desc: 'Cloud-operated short-form video production engine with GitHub Actions CI/CD and Telegram delivery.'
+  },
+  {
+    name: 'Two-Friends-Driving-Masters-Video-Studio',
+    category: 'ai',
+    lang: 'TypeScript',
+    stars: 1,
+    url: 'https://github.com/Jubayer-AI-Studio/Two-Friends-Driving-Masters-Video-Studio',
+    desc: 'AI Video Generation Studio with Google Veo 3.1 & Gemini 3.7 Flash + TTS automotive animation pipeline.'
   },
   {
     name: 'monisharani333022-eng',
     category: 'ai',
-    lang: 'Markdown/Python',
-    stars: 1,
+    lang: 'Markdown / Python',
+    stars: 2,
     url: 'https://github.com/Jubayer-AI-Studio/monisharani333022-eng',
-    desc: "Jubayer Ahmad's Official GitHub Profile Architecture & Automated Stats Engine."
+    desc: "Jubayer Ahmad's Official GitHub Profile Architecture & Automated Cloud Stats Engine."
+  },
+  {
+    name: 'Shafin-Blade-Fighter-Game',
+    category: 'games',
+    lang: 'JavaScript / Canvas',
+    stars: 3,
+    url: 'https://github.com/Jubayer-AI-Studio/Shafin-Blade-Fighter-Game',
+    desc: 'Cyber anime fighting combat web game built with HTML5 Canvas, Web Audio API & PWA offline support.'
+  },
+  {
+    name: 'Jubayer-Legends-3D-Runner',
+    category: 'games',
+    lang: 'WebGL / 3D',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/Jubayer-Legends-3D-Runner',
+    desc: 'Cinematic 3D endless-runner game featuring police chaser Jubayer through futuristic neon cities and sky flight.'
+  },
+  {
+    name: 'Iron-Strike-2D-Fighter',
+    category: 'games',
+    lang: 'HTML5 / Canvas',
+    stars: 1,
+    url: 'https://github.com/Jubayer-AI-Studio/Iron-Strike-2D-Fighter',
+    desc: 'Arcade 2D fighting game featuring intense martial arts combat, special moves, combos, and diverse arenas.'
+  },
+  {
+    name: 'Dhaka-Open-World-Racing',
+    category: 'games',
+    lang: 'Kotlin / Android',
+    stars: 2,
+    url: 'https://github.com/Jubayer-AI-Studio/Dhaka-Open-World-Racing',
+    desc: 'Dhaka open world racing game featuring realistic vehicle damage, dynamic weather, and 10+ Dhaka drive routes.'
+  },
+  {
+    name: 'Shafin-and-Nafis-Racing-3D',
+    category: 'games',
+    lang: 'Kotlin / Android',
+    stars: 1,
+    url: 'https://github.com/Jubayer-AI-Studio/Shafin-and-Nafis-Racing-3D',
+    desc: 'High-octane Android 3D racing game with smooth touch steering, nitro boosts, and car customization.'
   }
 ];
 
@@ -460,7 +545,7 @@ export default class Modal {
       <div class="repo-card">
         <div class="repo-card-top">
           <span class="repo-lang-badge">${repo.lang}</span>
-          ${repo.liveUrl ? `<span class="repo-live-tag"><span class="pulse-dot"></span> LIVE VERCEL</span>` : ''}
+          ${repo.liveUrl ? `<span class="repo-live-tag"><span class="pulse-dot"></span> ${repo.liveBadge || 'LIVE ON EDGE'}</span>` : ''}
           ${repo.stars > 0 ? `<span class="repo-star-badge">STAR ${repo.stars}</span>` : ''}
         </div>
         <h3 class="repo-title">
@@ -769,7 +854,7 @@ export default class Modal {
           </div>
 
           <div class="modal-footer-bar" style="margin-top: 14px; padding-top: 12px; display:flex; gap:8px; flex-wrap:wrap;">
-            <button class="card-btn-door gold-btn" id="modal-explore-repos-btn" style="font-size: 0.74rem; padding: 8px 14px;">Browse 22 Repositories &nearr;</button>
+            <button class="card-btn-door gold-btn" id="modal-explore-repos-btn" style="font-size: 0.74rem; padding: 8px 14px;">Browse 28 Repositories &nearr;</button>
             <button class="card-btn-close" id="modal-side-close-btn" style="font-size: 0.74rem; padding: 8px 14px;">Close Drawer</button>
           </div>
         `;
@@ -821,14 +906,14 @@ export default class Modal {
           <div class="drawer-header-row">
             <div>
               <div class="modal-badge gold-badge">OFFICIAL GITHUB REPOSITORIES</div>
-              <h2 class="modal-title gold-gradient-text" style="font-size: 1.25rem; margin-bottom: 4px;">GitHub Repositories (22 Projects)</h2>
+              <h2 class="modal-title gold-gradient-text" style="font-size: 1.25rem; margin-bottom: 4px;">GitHub Repositories (28 Projects)</h2>
             </div>
             <!-- Category Filter Bar -->
             <div class="repo-filter-bar" style="margin-bottom: 0;">
-              <button class="repo-filter-btn active" data-category="all">All (22)</button>
-              <button class="repo-filter-btn" data-category="saas">SaaS (8)</button>
-              <button class="repo-filter-btn" data-category="ai">AI (8)</button>
-              <button class="repo-filter-btn" data-category="games">Games (6)</button>
+              <button class="repo-filter-btn active" data-category="all">All (28)</button>
+              <button class="repo-filter-btn" data-category="saas">SaaS & Web (17)</button>
+              <button class="repo-filter-btn" data-category="ai">AI & Automation (6)</button>
+              <button class="repo-filter-btn" data-category="games">3D Games & Engine (5)</button>
             </div>
           </div>
 

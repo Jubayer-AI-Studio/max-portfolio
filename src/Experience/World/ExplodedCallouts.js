@@ -39,7 +39,7 @@ export default class ExplodedCallouts {
         badge: 'CARGO VAULT',
         badgeBg: '#FDE68A',
         badgeText: '#451A03',
-        title: '22+ GitHub Repositories',
+        title: '28+ GitHub Repositories',
         desc: 'NoorHub SaaS • 2D/3D Games • AI Automations • Open-World Racing Engines',
         screenOffset: { x: 210, y: -70 }
       },

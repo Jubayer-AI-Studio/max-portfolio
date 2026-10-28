@@ -344,7 +344,7 @@ export default class StudioScreen {
     // Badges Row
     const badgeY = centerY + 215;
     const badges = [
-      '22+ Repositories',
+      '28+ Repositories',
       'Next.js 15 & React 19',
       'Three.js 3D WebGL',
       'Cloudflare Edge Ready'
