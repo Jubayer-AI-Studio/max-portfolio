@@ -15,23 +15,15 @@ export default class Preloader {
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 45; // Rapid, energetic launch
-    this.displayProgress = 0;
+    this.targetProgress = 100;
+    this.displayProgress = 100;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Ultra-fast entrance: 1.2 second maximum showroom launch guarantee
+    // Sub-second instant launch: showroom opens within 200ms!
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 1200);
-
-    setTimeout(() => {
-      this.targetProgress = 88;
-    }, 350);
-
-    setTimeout(() => {
-      this.targetProgress = 100;
-    }, 750);
+    }, 200);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {
@@ -177,13 +169,15 @@ export default class Preloader {
       this.experience.sounds.playTireScreech();
     }
 
-    setTimeout(() => {
-      if (this.loaderElement) {
-        this.loaderElement.classList.add('hidden');
-      }
-      if (this.experience.sounds) {
-        this.experience.sounds.playWhoosh();
-      }
-    }, 180);
+    if (this.loaderElement) {
+      this.loaderElement.classList.add('hidden');
+      this.loaderElement.style.opacity = '0';
+      this.loaderElement.style.pointerEvents = 'none';
+      setTimeout(() => {
+        if (this.loaderElement && this.loaderElement.parentNode) {
+          this.loaderElement.parentNode.removeChild(this.loaderElement);
+        }
+      }, 250);
+    }
   }
 }

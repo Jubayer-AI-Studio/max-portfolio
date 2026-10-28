@@ -17,22 +17,21 @@ export default class ProjectsScreen {
     this.canvasWidth = 2048;
     this.canvasHeight = 1152;
     this.hoveredIndex = -1;
-    this.lastGlowUpdate = 0;
-    this.glowPhase = 0;
 
-    // All 10 Verified Live Production Deployments Across Cloudflare & Vercel
+    // 10 Verified Production Deployments with Authentic Signature Brand Palettes
     this.projects = [
       {
         id: 'special-agent',
         title: 'Special Agent One',
-        tag: 'AI AUTONOMOUS AGENT',
+        tag: 'AI MISSION CONTROL',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'special-agent-one.vercel.app',
-        desc: 'Autonomous 24/7 client hunter & mission control with terminal reasoning and automated workflow dispatch.',
+        tagline: 'Autonomous AI Client Hunter & 24/7 Career Radar Engine',
+        pills: ['Next.js 15', 'Python AI', 'Cloud Radar'],
         url: 'https://special-agent-one.vercel.app',
-        tech: 'Next.js 15 • Python • Multi-Agent',
-        accentColor: '#10B981'
+        accentGrad: ['#059669', '#10B981', '#34D399'],
+        cardBg: '#081310'
       },
       {
         id: 'rihlah-gadget',
@@ -41,10 +40,11 @@ export default class ProjectsScreen {
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'rihlah-gadget-shop.pages.dev',
-        desc: 'High-speed electronic gadget e-commerce portal with fast edge cart, PWA offline support, and verified billing.',
+        tagline: 'High-speed electronic gadget portal with edge cart & PWA',
+        pills: ['Next.js 15', 'Cloudflare', 'PWA Store'],
         url: 'https://rihlah-gadget-shop.pages.dev',
-        tech: 'Next.js 15 • Cloudflare • Tailwind',
-        accentColor: '#F59E0B'
+        accentGrad: ['#D97706', '#F59E0B', '#FBBF24'],
+        cardBg: '#151006'
       },
       {
         id: 'electronics-importers',
@@ -53,22 +53,24 @@ export default class ProjectsScreen {
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'electronics-importers-bd.vercel.app',
-        desc: 'Enterprise commercial electronics import directory, product search, and verified supplier matchmaking portal.',
+        tagline: 'Industrial wholesale component directory & verified import hub',
+        pills: ['Next.js 15', 'React 19', 'B2B Wholesale'],
         url: 'https://electronics-importers-bd.vercel.app',
-        tech: 'Next.js 15 • React • Cloudflare',
-        accentColor: '#0284C7'
+        accentGrad: ['#1D4ED8', '#0284C7', '#38BDF8'],
+        cardBg: '#060E18'
       },
       {
         id: 'affan-labib',
         title: 'Affan Labib Editorial Blog',
-        tag: 'CONTENT PUBLICATION',
+        tag: 'LITERARY PUBLICATION',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'affan-labib-blog.vercel.app',
-        desc: 'High-performance modern publication with MDX engine, sub-350ms edge caching, and rich literary typography.',
+        tagline: 'High-performance literary publication with MDX & sub-350ms edge',
+        pills: ['Astro v5', 'MDX Engine', 'Tailwind'],
         url: 'https://affan-labib-blog.vercel.app',
-        tech: 'Astro v5 • Cloudflare • Tailwind',
-        accentColor: '#8B5CF6'
+        accentGrad: ['#6D28D9', '#8B5CF6', '#C084FC'],
+        cardBg: '#100A1A'
       },
       {
         id: 'mesk-studio',
@@ -77,34 +79,37 @@ export default class ProjectsScreen {
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'mesk-nine.vercel.app',
-        desc: 'Islamic publishing house & literature catalog with integrated WhatsApp AI customer support bot automation.',
+        tagline: 'Islamic literature platform with automated WhatsApp AI concierge',
+        pills: ['Next.js 15', 'WhatsApp AI', 'TypeScript'],
         url: 'https://mesk-nine.vercel.app',
-        tech: 'Next.js 15 • WhatsApp AI • TypeScript',
-        accentColor: '#D97706'
+        accentGrad: ['#B91C1C', '#E11D48', '#FB7185'],
+        cardBg: '#16080B'
       },
       {
         id: 'ibrahim-profile',
         title: 'Ibrahim Portfolio Showcase',
-        tag: 'AUTHOR & SCHOLAR SHOWCASE',
+        tag: 'SCHOLAR & AUTHOR SHOWCASE',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'ibrahim-jade.vercel.app',
-        desc: 'Personal author and scholar portal with interactive publication reader, client deliverables, and verified matrix.',
+        tagline: 'Interactive author portfolio with publication reader & client matrix',
+        pills: ['React 19', 'Tailwind CSS', 'Fast Edge'],
         url: 'https://ibrahim-jade.vercel.app',
-        tech: 'React 19 • Cloudflare • Tailwind CSS',
-        accentColor: '#3B82F6'
+        accentGrad: ['#1E40AF', '#3B82F6', '#60A5FA'],
+        cardBg: '#070D19'
       },
       {
         id: 'kawsar-profile',
         title: 'Kawsar Ahmad Profile',
-        tag: 'WRITER & TRANSLATOR',
+        tag: 'AUTHOR & TRANSLATOR',
         provider: 'VERCEL',
         badgeText: 'VERCEL LIVE',
         domain: 'kawsar-seven.vercel.app',
-        desc: 'Author, thinker, and literary translator portfolio with dynamic articles, book showcase, and verified contact matrix.',
+        tagline: 'Literary translator portfolio with article engine & book archives',
+        pills: ['Next.js 15', 'Vercel Edge', 'Modern UI'],
         url: 'https://kawsar-seven.vercel.app',
-        tech: 'Next.js 15 • React • Vercel Edge',
-        accentColor: '#06B6D4'
+        accentGrad: ['#0E7490', '#06B6D4', '#67E8F9'],
+        cardBg: '#051114'
       },
       {
         id: 'hasan-app',
@@ -113,10 +118,11 @@ export default class ProjectsScreen {
         provider: 'CLOUDFLARE',
         badgeText: 'CLOUDFLARE EDGE',
         domain: 'hasan-portfolio-avn.pages.dev',
-        desc: 'Modern personal mentorship & life guidance web app featuring interactive modules, articles, and cloud sync.',
+        tagline: 'Personal development & mentorship app with cloud data sync',
+        pills: ['TypeScript', 'Cloudflare Pages', 'PWA Ready'],
         url: 'https://hasan-portfolio-avn.pages.dev',
-        tech: 'TypeScript • Cloudflare Pages • CSS3',
-        accentColor: '#EC4899'
+        accentGrad: ['#BE185D', '#EC4899', '#F472B6'],
+        cardBg: '#15060E'
       },
       {
         id: 'smritir-canvas',
@@ -125,10 +131,11 @@ export default class ProjectsScreen {
         provider: 'CLOUDFLARE',
         badgeText: 'CLOUDFLARE EDGE',
         domain: 'maaz-canvas.pages.dev',
-        desc: 'Literary memoir & writer portfolio portal featuring Bengali typography, book archives, and smooth mobile UX.',
+        tagline: 'Bangla literary memoir & writer portal with rich book showcase',
+        pills: ['HTML5', 'Cloudflare Pages', 'Web Audio'],
         url: 'https://maaz-canvas.pages.dev',
-        tech: 'HTML5 • Cloudflare Pages • Web Audio',
-        accentColor: '#10B981'
+        accentGrad: ['#047857', '#10B981', '#6EE7B7'],
+        cardBg: '#07130D'
       },
       {
         id: 'jubayer-studio',
@@ -137,10 +144,11 @@ export default class ProjectsScreen {
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'jubayer-portfolio.pages.dev',
-        desc: 'Principal engineer showcase featuring full-stack architecture, 3D WebGL physics, and 28+ verified GitHub repositories.',
+        tagline: 'Master engineering showcase featuring 3D WebGL & 28+ GitHub repos',
+        pills: ['Three.js', 'WebGL', 'Cloudflare Edge'],
         url: 'https://jubayer-portfolio.pages.dev',
-        tech: 'Three.js • Cloudflare • Next.js 15',
-        accentColor: '#E5C07B'
+        accentGrad: ['#B45309', '#F59E0B', '#FDE68A'],
+        cardBg: '#140F05'
       }
     ];
 
@@ -190,15 +198,15 @@ export default class ProjectsScreen {
 
   setMesh() {
     const metalMat = new THREE.MeshStandardMaterial({
-      color: 0x1c1917,
-      metalness: 0.92,
-      roughness: 0.22
+      color: 0x14161d,
+      metalness: 0.94,
+      roughness: 0.18
     });
 
     const bezelMat = new THREE.MeshStandardMaterial({
-      color: 0xe5c07b,
-      metalness: 0.88,
-      roughness: 0.22
+      color: 0xf59e0b, // Radiant 24K Royal Gold
+      metalness: 0.90,
+      roughness: 0.20
     });
 
     const baseGeo = new THREE.BoxGeometry(3.6, 0.05, 0.9);
@@ -286,7 +294,7 @@ export default class ProjectsScreen {
 
     const backPlateGeo = new THREE.PlaneGeometry(chassisWidth - 0.01, chassisHeight - 0.01);
     const backPlateMat = new THREE.MeshStandardMaterial({
-      color: 0x110f0e,
+      color: 0x0c0e14,
       metalness: 0.95,
       roughness: 0.2,
       side: THREE.FrontSide
@@ -307,35 +315,34 @@ export default class ProjectsScreen {
     const ctx = this.ctx;
     const w = this.canvasWidth;
     const h = this.canvasHeight;
-    const glowIntensity = 0.5 + Math.sin(this.glowPhase) * 0.5;
 
-    // 1. Hollywood Smoked Obsidian OLED Background
+    // 1. Hollywood Piano Black Obsidian OLED Master Background
     const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-    bgGrad.addColorStop(0, '#06070B');
-    bgGrad.addColorStop(0.5, '#0B0D14');
-    bgGrad.addColorStop(1, '#10131F');
+    bgGrad.addColorStop(0, '#06070A');
+    bgGrad.addColorStop(0.5, '#0A0C13');
+    bgGrad.addColorStop(1, '#0E1018');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, w, h);
 
-    // Warm radial bloom in upper header
-    const radial = ctx.createRadialGradient(w * 0.5, 100, 40, w * 0.5, 180, w * 0.6);
-    radial.addColorStop(0, 'rgba(229, 192, 123, 0.18)');
-    radial.addColorStop(1, 'rgba(229, 192, 123, 0)');
+    // Warm radial amber illumination in upper header
+    const radial = ctx.createRadialGradient(w * 0.5, 95, 30, w * 0.5, 175, w * 0.65);
+    radial.addColorStop(0, 'rgba(245, 158, 11, 0.22)');
+    radial.addColorStop(1, 'rgba(245, 158, 11, 0)');
     ctx.fillStyle = radial;
     ctx.fillRect(0, 0, w, h);
 
-    // Warm Champagne Gold Hairline Frame
-    ctx.strokeStyle = '#E5C07B';
+    // 24K Royal Gold Dual Perimeter Frame
+    ctx.strokeStyle = '#F59E0B';
     ctx.lineWidth = 4;
     ctx.strokeRect(32, 32, w - 64, h - 64);
 
-    ctx.strokeStyle = 'rgba(229, 192, 123, 0.2)';
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.28)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(46, 46, w - 92, h - 92);
 
-    // Corner Architectural Accents
+    // Corner Architectural Insets
     const cornerSize = 36;
-    ctx.fillStyle = '#E5C07B';
+    ctx.fillStyle = '#F59E0B';
     ctx.fillRect(28, 28, cornerSize, 4);
     ctx.fillRect(28, 28, 4, cornerSize);
     ctx.fillRect(w - 28 - cornerSize, 28, cornerSize, 4);
@@ -345,33 +352,34 @@ export default class ProjectsScreen {
     ctx.fillRect(w - 28 - cornerSize, h - 32, cornerSize, 4);
     ctx.fillRect(w - 32, h - 28 - cornerSize, 4, cornerSize);
 
-    // 2. HEADER SECTION (Ultra-Crisp 4K White & Gold Typography)
+    // 2. HEADER SECTION (Elite High-Contrast Editorial Typography)
     ctx.save();
     ctx.textAlign = 'center';
 
     // Top Category Pill
-    ctx.fillStyle = '#E5C07B';
-    ctx.font = '700 22px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('VERIFIED PRODUCTION DEPLOYMENTS (10) • CLOUDFLARE EDGE & VERCEL LIVE', w / 2, 80);
+    ctx.fillStyle = '#F59E0B';
+    ctx.font = '800 21px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('VERIFIED PRODUCTION DEPLOYMENTS (10) • CLOUDFLARE EDGE & VERCEL LIVE', w / 2, 78);
 
     // Main Title
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = '900 46px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.font = '900 48px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.letterSpacing = '0.01em';
     ctx.fillText('Engineered & Deployed by Jubayer Ahmad', w / 2, 134);
 
     // Subtitle instruction
     ctx.fillStyle = '#94A3B8';
-    ctx.font = '500 19px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('All 10 production platforms live simultaneously • Click any project card to launch in a new tab', w / 2, 170);
+    ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('All 10 production platforms live simultaneously • Click any project card to launch in a new tab', w / 2, 168);
 
     ctx.restore();
 
     // Subtle header divider
-    ctx.strokeStyle = 'rgba(229, 192, 123, 0.35)';
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(64, 188);
-    ctx.lineTo(w - 64, 188);
+    ctx.moveTo(64, 186);
+    ctx.lineTo(w - 64, 186);
     ctx.stroke();
 
     // 3. RENDER ALL 10 PROJECT CARDS (2x5 Grid)
@@ -380,7 +388,7 @@ export default class ProjectsScreen {
       if (!rect) return;
 
       const isHovered = this.hoveredIndex === index;
-      this.drawProjectCard(ctx, proj, rect, isHovered, glowIntensity);
+      this.drawProjectCard(ctx, proj, rect, isHovered);
     });
 
     if (this.texture) {
@@ -388,150 +396,178 @@ export default class ProjectsScreen {
     }
   }
 
-  drawProjectCard(ctx, proj, rect, isHovered, glowIntensity) {
+  drawProjectCard(ctx, proj, rect, isHovered) {
     const { x, y, w, h } = rect;
-    const isDual = proj.provider === 'DUAL';
+    const [c1, c2, c3] = proj.accentGrad;
 
     ctx.save();
 
-    // Card Background (Smoked Dark Obsidian Glass with Real-Time Luminous Neon Glow)
+    // 1. Card Base Background
     if (isHovered) {
-      ctx.shadowColor = 'rgba(229, 192, 123, 0.65)';
-      ctx.shadowBlur = 28;
-      ctx.fillStyle = 'rgba(26, 31, 48, 0.98)';
+      ctx.shadowColor = c2;
+      ctx.shadowBlur = 32;
+      ctx.fillStyle = '#161924';
     } else {
-      ctx.shadowColor = isDual 
-        ? `rgba(52, 211, 153, ${0.18 + 0.22 * glowIntensity})` 
-        : `rgba(229, 192, 123, ${0.18 + 0.18 * glowIntensity})`;
-      ctx.shadowBlur = 10 + 10 * glowIntensity;
-      ctx.fillStyle = 'rgba(14, 17, 26, 0.93)';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+      ctx.shadowBlur = 18;
+      ctx.fillStyle = proj.cardBg;
     }
 
     this.roundRect(ctx, x, y, w, h, 14);
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    // Card Glowing Border
+    // 2. Card Glowing Border
     if (isHovered) {
-      ctx.strokeStyle = '#E5C07B';
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = c2;
+      ctx.lineWidth = 3.5;
     } else {
-      ctx.strokeStyle = isDual
-        ? `rgba(52, 211, 153, ${0.3 + 0.25 * glowIntensity})`
-        : `rgba(229, 192, 123, ${0.3 + 0.25 * glowIntensity})`;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
       ctx.lineWidth = 1.6;
     }
     this.roundRect(ctx, x, y, w, h, 14);
     ctx.stroke();
 
-    // Top Glowing Accent Line
-    const topGrad = ctx.createLinearGradient(x + 20, y + 2, x + w - 20, y + 2);
-    if (isDual) {
-      topGrad.addColorStop(0, '#10B981');
-      topGrad.addColorStop(0.5, '#E5C07B');
-      topGrad.addColorStop(1, '#0284C7');
-    } else if (proj.provider === 'CLOUDFLARE') {
-      topGrad.addColorStop(0, '#F59E0B');
-      topGrad.addColorStop(1, '#E5C07B');
-    } else {
-      topGrad.addColorStop(0, '#0284C7');
-      topGrad.addColorStop(1, '#38BDF8');
-    }
-    ctx.fillStyle = topGrad;
-    ctx.fillRect(x + 20, y + 2, w - 40, isHovered ? 4 : 3);
+    // 3. MINI BROWSER HEADER BAR (Window controls + Live Cloud Provider)
+    const browserBarY = y + 14;
+    
+    // Window control dots (Red, Yellow, Green)
+    const dotColors = ['#EF4444', '#F59E0B', '#10B981'];
+    dotColors.forEach((color, i) => {
+      ctx.beginPath();
+      ctx.arc(x + 20 + i * 14, browserBarY + 8, 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    });
 
-    // A. Card Top Metadata (Tag + Live Animated Pulse Badge)
-    ctx.fillStyle = isHovered ? '#FDE68A' : '#F3BA4F';
-    ctx.font = '800 12px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(proj.tag, x + 20, y + 32);
+    // Cloud Provider Pill (Aligned to Right with Zero Collision!)
+    const badgeW = 158;
+    const badgeH = 22;
+    const badgeX = x + w - badgeW - 14;
+    const badgeY = browserBarY - 2;
 
-    // Live Badge Pill on the Right
-    const badgeX = x + w - 20;
-    ctx.textAlign = 'right';
-
-    // Animated Pulsing Emerald Dot
-    const dotPulseRadius = 4 + 1.2 * glowIntensity;
-    ctx.save();
-    ctx.shadowColor = '#34D399';
-    ctx.shadowBlur = 8 + 6 * glowIntensity;
-    ctx.beginPath();
-    const dotX = badgeX - (ctx.measureText(proj.badgeText).width + 16);
-    ctx.arc(dotX, y + 27, dotPulseRadius, 0, Math.PI * 2);
-    ctx.fillStyle = '#10B981';
+    ctx.fillStyle = proj.provider === 'DUAL' 
+      ? 'rgba(16, 185, 129, 0.18)' 
+      : (proj.provider === 'CLOUDFLARE' ? 'rgba(245, 158, 11, 0.18)' : 'rgba(2, 132, 199, 0.18)');
+    this.roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 6);
     ctx.fill();
-    ctx.restore();
 
-    ctx.fillStyle = isDual ? '#34D399' : (proj.provider === 'CLOUDFLARE' ? '#FBBF24' : '#38BDF8');
-    ctx.font = '700 11.5px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(proj.badgeText, badgeX, y + 31);
-    ctx.textAlign = 'left';
-
-    // B. Project Title (Pure Crisp White, WCAG AAA 19:1 Contrast)
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = '800 21px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(proj.title, x + 20, y + 70);
-
-    // C. Live Domain URL (Prominent & Distinctive Branding)
-    ctx.fillStyle = '#38BDF8';
-    ctx.font = '600 12.5px "Plus Jakarta Sans", monospace';
-    ctx.fillText(proj.domain, x + 20, y + 94);
-
-    // D. Tech Stack Pill
-    const techY = y + 114;
-    ctx.fillStyle = 'rgba(229, 192, 123, 0.1)';
-    this.roundRect(ctx, x + 20, techY, w - 40, 26, 6);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(229, 192, 123, 0.3)';
+    ctx.strokeStyle = proj.provider === 'DUAL' 
+      ? 'rgba(16, 185, 129, 0.45)' 
+      : (proj.provider === 'CLOUDFLARE' ? 'rgba(245, 158, 11, 0.45)' : 'rgba(2, 132, 199, 0.45)');
     ctx.lineWidth = 1;
-    this.roundRect(ctx, x + 20, techY, w - 40, 26, 6);
+    this.roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 6);
     ctx.stroke();
 
-    ctx.fillStyle = '#FDE68A';
-    ctx.font = '600 12px "Plus Jakarta Sans", monospace';
-    ctx.fillText(proj.tech, x + 28, techY + 17);
+    // Pulsing Status Dot inside Badge
+    ctx.beginPath();
+    ctx.arc(badgeX + 11, badgeY + badgeH / 2, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#10B981';
+    ctx.fill();
 
-    // E. Description (Clean Multi-Line Wrap)
+    ctx.fillStyle = proj.provider === 'DUAL' ? '#34D399' : (proj.provider === 'CLOUDFLARE' ? '#FBBF24' : '#38BDF8');
+    ctx.font = '700 11px "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(proj.badgeText, badgeX + 20, badgeY + 15);
+
+    // 4. SIGNATURE BRAND STRIPE
+    const stripeGrad = ctx.createLinearGradient(x + 14, y + 42, x + w - 14, y + 42);
+    stripeGrad.addColorStop(0, c1);
+    stripeGrad.addColorStop(0.5, c2);
+    stripeGrad.addColorStop(1, c3);
+    ctx.fillStyle = stripeGrad;
+    ctx.fillRect(x + 14, y + 42, w - 28, isHovered ? 4 : 3);
+
+    // 5. CATEGORY TAG
+    ctx.fillStyle = c2;
+    ctx.font = '800 12.5px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(proj.tag, x + 18, y + 72);
+
+    // 6. MAIN PROJECT TITLE (Pure White, 23px Bold, Ultra-Crisp)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 23px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(proj.title, x + 18, y + 106);
+
+    // 7. OFFICIAL DOMAIN PILL (Prominent, High-Contrast Cyan)
+    const domY = y + 124;
+    const domW = w - 36;
+    ctx.fillStyle = 'rgba(56, 189, 248, 0.08)';
+    this.roundRect(ctx, x + 18, domY, domW, 26, 6);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.28)';
+    ctx.lineWidth = 1;
+    this.roundRect(ctx, x + 18, domY, domW, 26, 6);
+    ctx.stroke();
+
+    ctx.fillStyle = '#38BDF8';
+    ctx.font = '700 12px "Plus Jakarta Sans", monospace';
+    ctx.fillText('🔗 ' + proj.domain, x + 26, domY + 17);
+
+    // 8. TECH PILLS ROW
+    const pillY = y + 162;
+    let currPillX = x + 18;
+    ctx.font = '600 11.5px "Plus Jakarta Sans", monospace';
+
+    proj.pills.forEach((pill) => {
+      const pW = ctx.measureText(pill).width + 18;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      this.roundRect(ctx, currPillX, pillY, pW, 24, 6);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      ctx.lineWidth = 1;
+      this.roundRect(ctx, currPillX, pillY, pW, 24, 6);
+      ctx.stroke();
+
+      ctx.fillStyle = '#E2E8F0';
+      ctx.fillText(pill, currPillX + 9, pillY + 16);
+
+      currPillX += pW + 8;
+    });
+
+    // 9. ONE-LINE PUNCHY TAGLINE (High-contrast, zero clutter)
     ctx.fillStyle = '#CBD5E1';
-    ctx.font = '400 13px "Plus Jakarta Sans", sans-serif';
-    this.wrapText(ctx, proj.desc, x + 20, y + 168, w - 40, 20, 3);
+    ctx.font = '400 13.5px "Plus Jakarta Sans", sans-serif';
+    this.wrapText(ctx, proj.tagline, x + 18, y + 215, w - 36, 20, 2);
 
-    // F. Bottom Action Button
-    const btnY = y + h - 54;
-    const btnH = 40;
-    const btnW = w - 40;
+    // 10. LUXURY ACTION BUTTON
+    const btnY = y + h - 56;
+    const btnH = 42;
+    const btnW = w - 36;
 
     if (isHovered) {
-      const gradBtn = ctx.createLinearGradient(x + 20, btnY, x + 20 + btnW, btnY);
-      gradBtn.addColorStop(0, '#D97706');
-      gradBtn.addColorStop(1, '#E5C07B');
-      ctx.fillStyle = gradBtn;
-      this.roundRect(ctx, x + 20, btnY, btnW, btnH, 8);
+      const btnGrad = ctx.createLinearGradient(x + 18, btnY, x + 18 + btnW, btnY);
+      btnGrad.addColorStop(0, '#D97706');
+      btnGrad.addColorStop(0.5, '#F59E0B');
+      btnGrad.addColorStop(1, '#FDE68A');
+      ctx.fillStyle = btnGrad;
+      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 8);
       ctx.fill();
 
       ctx.fillStyle = '#06070B';
       ctx.font = '800 14px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('LAUNCH APPLICATION ↗', x + 20 + btnW / 2, btnY + 25);
+      ctx.fillText('EXPLORE LIVE SITE ↗', x + 18 + btnW / 2, btnY + 26);
     } else {
-      ctx.fillStyle = 'rgba(229, 192, 123, 0.12)';
-      this.roundRect(ctx, x + 20, btnY, btnW, btnH, 8);
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.12)';
+      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 8);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(229, 192, 123, 0.4)';
-      ctx.lineWidth = 1.2;
-      this.roundRect(ctx, x + 20, btnY, btnW, btnH, 8);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+      ctx.lineWidth = 1.4;
+      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 8);
       ctx.stroke();
 
-      ctx.fillStyle = '#E5C07B';
+      ctx.fillStyle = '#F59E0B';
       ctx.font = '700 13.5px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Launch Live ↗', x + 20 + btnW / 2, btnY + 25);
+      ctx.fillText('Launch Project ↗', x + 18 + btnW / 2, btnY + 26);
     }
 
     ctx.restore();
   }
 
-  wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
+  wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 2) {
     const words = text.split(' ');
     let line = '';
     let currY = y;
@@ -646,11 +682,7 @@ export default class ProjectsScreen {
   }
 
   update(delta, elapsed) {
-    this.glowPhase = elapsed * 3.5;
-    // Real-time breathing luminescence update at smooth ~15fps rate
-    if (elapsed - this.lastGlowUpdate > 0.065) {
-      this.lastGlowUpdate = elapsed;
-      this.draw();
-    }
+    // STATIC ULTRA-SHARP TEXTURE: Zero continuous redrawing!
+    // 100% eliminates any texture jitter, shimmering, or flicker ("ঝিরঝির")!
   }
 }

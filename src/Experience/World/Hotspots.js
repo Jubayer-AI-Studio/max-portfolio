@@ -12,8 +12,8 @@ export default class Hotspots {
         id: 'projects',
         name: 'Live Vercel Projects',
         position: new THREE.Vector3(0, 2.38, -4.5),
-        camPos: { x: 0, y: 1.52, z: -2.05 },
-        camTarget: { x: 0, y: 1.52, z: -4.6 },
+        camPos: { x: 0, y: 1.62, z: -0.95 },
+        camTarget: { x: 0, y: 1.62, z: -4.6 },
         action: 'projects'
       },
       {
