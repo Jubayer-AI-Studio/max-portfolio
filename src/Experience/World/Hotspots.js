@@ -12,7 +12,7 @@ export default class Hotspots {
         id: 'projects',
         name: 'Live Vercel Projects',
         position: new THREE.Vector3(0, 2.38, -4.5),
-        camPos: { x: 0, y: 1.6, z: -1.8 },
+        camPos: { x: 0, y: 1.52, z: -2.05 },
         camTarget: { x: 0, y: 1.52, z: -4.6 },
         action: 'projects'
       },
@@ -20,7 +20,7 @@ export default class Hotspots {
         id: 'driver',
         name: 'About Jubayer',
         position: new THREE.Vector3(-4.2, 2.3, -1.8),
-        camPos: { x: -1.2, y: 1.62, z: 0.2 },
+        camPos: { x: -1.7, y: 1.5, z: 0.2 },
         camTarget: { x: -4.2, y: 1.5, z: -1.8 },
         action: 'signboard'
       },
@@ -28,7 +28,7 @@ export default class Hotspots {
         id: 'social',
         name: 'Social Media',
         position: new THREE.Vector3(3.4, 1.65, -1.2),
-        camPos: { x: 1.2, y: 1.35, z: 0.1 },
+        camPos: { x: 1.45, y: 1.15, z: 0.1 },
         camTarget: { x: 3.4, y: 1.12, z: -1.2 },
         action: 'social'
       },
@@ -123,9 +123,14 @@ export default class Hotspots {
     // Smooth camera transition
     this.experience.camera.transitionTo(point.camPos, point.camTarget);
 
-    // Open Content Modal
+    // If focusing on a 3D billboard, enter pristine focus mode (no overlapping drawers or headers!)
+    // For vehicle parts without a 3D board (hood, dashboard, trunk), open tech stack drawer
     if (this.experience.ui) {
-      this.experience.ui.openModal(point.id);
+      if (['projects', 'driver', 'social'].includes(point.id)) {
+        this.experience.ui.enterFocusMode(point.id);
+      } else {
+        this.experience.ui.openModal(point.id);
+      }
     }
   }
 

@@ -195,6 +195,7 @@ export default class Modal {
     this.explodeBtn = document.getElementById('explode-toggle');
     this.clockEl = document.getElementById('live-clock');
 
+    this.exitBtn = document.getElementById('showroom-exit-btn');
     this.focusBanner = document.getElementById('hud-focus-banner');
     this.focusReturnBtn = document.getElementById('focus-return-btn');
     this.focusTitle = document.getElementById('focus-title');
@@ -228,6 +229,19 @@ export default class Modal {
         this.resetView();
       });
     }
+
+    if (this.exitBtn) {
+      this.exitBtn.addEventListener('click', () => {
+        this.resetView();
+      });
+    }
+
+    // Keyboard ESC key listener to quickly exit focus
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.resetView();
+      }
+    });
 
     if (this.focusReturnBtn) {
       this.focusReturnBtn.addEventListener('click', () => {
@@ -292,6 +306,13 @@ export default class Modal {
           this.resetView();
         } else if (target === 'explode') {
           this.toggleExplodeMode(true);
+        } else if (['projects', 'driver', 'social'].includes(target)) {
+          // If in exploded mode, smoothly exit explode mode when focusing on specific 3D billboard
+          if (this.experience.world && this.experience.world.car && this.experience.world.car.state.allOpen) {
+            this.toggleExplodeMode(false);
+          }
+          this.enterFocusMode(target);
+          this.navigateToTarget(target);
         } else {
           // If in exploded mode, smoothly exit explode mode when focusing on specific single part
           if (this.experience.world && this.experience.world.car && this.experience.world.car.state.allOpen) {
@@ -367,12 +388,28 @@ export default class Modal {
     }
   }
 
+  enterFocusMode(target) {
+    this.closeModal();
+    document.body.classList.remove('signboard-focus', 'social-focus', 'projects-focus', 'exploded-mode');
+    document.body.classList.add('in-focus-mode', `${target}-focus`);
+
+    if (this.navPills) {
+      this.navPills.forEach(p => {
+        p.classList.toggle('active', p.dataset.target === target);
+      });
+    }
+
+    if (this.exitBtn) {
+      this.exitBtn.classList.add('visible');
+    }
+  }
+
   resetView() {
     this.closeModal();
-    document.body.classList.remove('signboard-focus');
-    document.body.classList.remove('social-focus');
-    document.body.classList.remove('projects-focus');
-    document.body.classList.remove('exploded-mode');
+    document.body.classList.remove('in-focus-mode', 'signboard-focus', 'social-focus', 'projects-focus', 'exploded-mode');
+    if (this.exitBtn) {
+      this.exitBtn.classList.remove('visible');
+    }
     if (this.focusBanner) {
       this.focusBanner.classList.remove('active');
     }

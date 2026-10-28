@@ -95,9 +95,9 @@ export default class SocialScreen {
     });
 
     const bezelMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038,
-      metalness: 0.85,
-      roughness: 0.25
+      color: 0xe5c07b,
+      metalness: 0.88,
+      roughness: 0.22
     });
 
     // 1. Sleek Circular Pedestal Base
@@ -212,33 +212,33 @@ export default class SocialScreen {
     const w = this.canvasWidth;
     const h = this.canvasHeight;
 
-    // 1. Organic Warm Linen Parchment Background (Flawless, smooth 4K gradient)
+    // 1. Hollywood Smoked Obsidian OLED Background (Ultra-Luxury Agency Grade)
     const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-    bgGrad.addColorStop(0, '#F8F4EC');
-    bgGrad.addColorStop(0.5, '#EFE4D2');
-    bgGrad.addColorStop(1, '#E4D5BC');
+    bgGrad.addColorStop(0, '#06070B');
+    bgGrad.addColorStop(0.5, '#0B0D14');
+    bgGrad.addColorStop(1, '#10131F');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, w, h);
 
     // Warm radial bloom in upper header
     const radial = ctx.createRadialGradient(w * 0.5, 120, 40, w * 0.5, 200, w * 0.6);
-    radial.addColorStop(0, 'rgba(253, 230, 138, 0.25)');
-    radial.addColorStop(1, 'rgba(253, 230, 138, 0)');
+    radial.addColorStop(0, 'rgba(229, 192, 123, 0.18)');
+    radial.addColorStop(1, 'rgba(229, 192, 123, 0)');
     ctx.fillStyle = radial;
     ctx.fillRect(0, 0, w, h);
 
-    // Warm Amber Bronze Hairline Frame
-    ctx.strokeStyle = '#D4A038';
+    // Warm Champagne Gold Hairline Frame
+    ctx.strokeStyle = '#E5C07B';
     ctx.lineWidth = 6;
     ctx.strokeRect(40, 40, w - 80, h - 80);
 
-    ctx.strokeStyle = 'rgba(120, 83, 30, 0.2)';
+    ctx.strokeStyle = 'rgba(229, 192, 123, 0.25)';
     ctx.lineWidth = 2;
     ctx.strokeRect(56, 56, w - 112, h - 112);
 
     // Corner Architectural Accents
     const cornerSize = 40;
-    ctx.fillStyle = '#D4A038';
+    ctx.fillStyle = '#E5C07B';
     ctx.fillRect(36, 36, cornerSize, 6);
     ctx.fillRect(36, 36, 6, cornerSize);
     ctx.fillRect(w - 36 - cornerSize, 36, cornerSize, 6);
@@ -248,29 +248,29 @@ export default class SocialScreen {
     ctx.fillRect(w - 36 - cornerSize, h - 42, cornerSize, 6);
     ctx.fillRect(w - 42, h - 36 - cornerSize, 6, cornerSize);
 
-    // 2. HEADER SECTION (Ultra-Crisp 4K Editorial Typography)
+    // 2. HEADER SECTION (Ultra-Crisp 4K White & Gold Typography)
     ctx.save();
     ctx.textAlign = 'center';
 
     // Top Category Pill
-    ctx.fillStyle = '#9A3412';
+    ctx.fillStyle = '#E5C07B';
     ctx.font = '700 32px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('OFFICIAL SOCIAL CHANNELS', w / 2, 115);
+    ctx.fillText('OFFICIAL VERIFIED CHANNELS', w / 2, 115);
 
     // Main Title
-    ctx.fillStyle = '#0A0908';
+    ctx.fillStyle = '#FFFFFF';
     ctx.font = '800 64px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.fillText('Connect with Jubayer', w / 2, 195);
 
     // Subtitle instruction
-    ctx.fillStyle = '#78531E';
+    ctx.fillStyle = '#94A3B8';
     ctx.font = '500 28px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('Click any official channel below to visit', w / 2, 248);
+    ctx.fillText('Direct links to verified media platforms • Click any card to launch', w / 2, 248);
 
     ctx.restore();
 
     // Divider Line
-    ctx.strokeStyle = 'rgba(212, 160, 56, 0.45)';
+    ctx.strokeStyle = 'rgba(229, 192, 123, 0.35)';
     ctx.lineWidth = 2.5;
     ctx.beginPath();
     ctx.moveTo(100, 275);
@@ -293,15 +293,15 @@ export default class SocialScreen {
 
     ctx.save();
 
-    // Card Background
+    // Card Background (Smoked Dark Obsidian Glass)
     if (isHovered) {
-      ctx.shadowColor = 'rgba(212, 160, 56, 0.45)';
+      ctx.shadowColor = 'rgba(229, 192, 123, 0.45)';
       ctx.shadowBlur = 36;
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = 'rgba(26, 31, 48, 0.98)';
     } else {
-      ctx.shadowColor = 'rgba(10, 9, 8, 0.08)';
-      ctx.shadowBlur = 16;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
+      ctx.shadowBlur = 20;
+      ctx.fillStyle = 'rgba(16, 19, 29, 0.92)';
     }
 
     this.roundRect(ctx, x, y, w, h, 24);
@@ -310,17 +310,17 @@ export default class SocialScreen {
 
     // Card Border
     if (isHovered) {
-      ctx.strokeStyle = '#D4A038';
+      ctx.strokeStyle = '#E5C07B';
       ctx.lineWidth = 5;
     } else {
-      ctx.strokeStyle = 'rgba(212, 160, 56, 0.4)';
+      ctx.strokeStyle = 'rgba(229, 192, 123, 0.3)';
       ctx.lineWidth = 2.5;
     }
     this.roundRect(ctx, x, y, w, h, 24);
     ctx.stroke();
 
     // Top Accent Line
-    ctx.fillStyle = isHovered ? '#D4A038' : 'rgba(212, 160, 56, 0.5)';
+    ctx.fillStyle = isHovered ? '#E5C07B' : 'rgba(229, 192, 123, 0.5)';
     ctx.fillRect(x + 36, y + 4, w - 72, 5);
 
     // DRAW AUTHENTIC OFFICIAL ICON (Left Side)
@@ -381,10 +381,14 @@ export default class SocialScreen {
       ctx.font = 'bold 76px "Plus Jakarta Sans", sans-serif';
       ctx.fillText('f', iconX + iconSize / 2 - 16, iconY + iconSize - 24);
     } else if (card.id === 'tiktok') {
-      // TikTok Black Squircle with Cyan & Magenta Note
+      // TikTok Dark Squircle with Cyan & Magenta Note
       this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 28);
-      ctx.fillStyle = '#000000';
+      ctx.fillStyle = '#0F172A';
       ctx.fill();
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 2;
+      this.roundRect(ctx, iconX, iconY, iconSize, iconSize, 28);
+      ctx.stroke();
 
       // Note Glyph
       const nx = iconX + iconSize / 2 - 10;
@@ -418,18 +422,18 @@ export default class SocialScreen {
     // TEXT METADATA (Right of Icon)
     const textX = iconX + (card.id === 'youtube' ? iconSize + 50 : iconSize + 36);
 
-    // Title
-    ctx.fillStyle = '#0A0908';
+    // Title (Crisp White)
+    ctx.fillStyle = '#FFFFFF';
     ctx.font = '800 44px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.fillText(card.name, textX, y + 84);
 
     // Handle
-    ctx.fillStyle = card.id === 'youtube' ? '#B91C1C' : card.id === 'instagram' ? '#BE185D' : card.id === 'facebook' ? '#1D4ED8' : '#374151';
+    ctx.fillStyle = card.id === 'youtube' ? '#F87171' : card.id === 'instagram' ? '#F472B6' : card.id === 'facebook' ? '#60A5FA' : '#38BDF8';
     ctx.font = '700 30px "Plus Jakarta Sans", monospace';
     ctx.fillText(card.handle, textX, y + 136);
 
     // Brief Subtitle
-    ctx.fillStyle = '#6B7280';
+    ctx.fillStyle = '#94A3B8';
     ctx.font = '400 26px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(card.desc, textX, y + 180);
 
@@ -440,28 +444,28 @@ export default class SocialScreen {
 
     if (isHovered) {
       const gradBtn = ctx.createLinearGradient(x + 36, btnY, x + 36 + btnW, btnY);
-      gradBtn.addColorStop(0, '#B45309');
-      gradBtn.addColorStop(1, '#D4A038');
+      gradBtn.addColorStop(0, '#D97706');
+      gradBtn.addColorStop(1, '#E5C07B');
       ctx.fillStyle = gradBtn;
       this.roundRect(ctx, x + 36, btnY, btnW, btnH, 12);
       ctx.fill();
 
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '700 28px "Outfit", sans-serif';
+      ctx.fillStyle = '#06070B';
+      ctx.font = '800 28px "Outfit", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(card.actionText.toUpperCase(), x + 36 + btnW / 2, btnY + 44);
     } else {
-      ctx.fillStyle = '#F4EDE2';
+      ctx.fillStyle = 'rgba(229, 192, 123, 0.12)';
       this.roundRect(ctx, x + 36, btnY, btnW, btnH, 12);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(212, 160, 56, 0.45)';
+      ctx.strokeStyle = 'rgba(229, 192, 123, 0.4)';
       ctx.lineWidth = 2;
       this.roundRect(ctx, x + 36, btnY, btnW, btnH, 12);
       ctx.stroke();
 
-      ctx.fillStyle = '#0A0908';
-      ctx.font = '600 26px "Outfit", sans-serif';
+      ctx.fillStyle = '#E5C07B';
+      ctx.font = '700 26px "Outfit", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(card.actionText, x + 36 + btnW / 2, btnY + 44);
     }

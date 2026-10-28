@@ -288,33 +288,33 @@ export default class ProjectsScreen {
     const w = this.canvasWidth;
     const h = this.canvasHeight;
 
-    // 1. Organic Warm Linen Parchment Background (Matching StudioScreen & Showroom)
+    // 1. Hollywood Smoked Obsidian OLED Background (Ultra-Luxury Agency Grade)
     const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-    bgGrad.addColorStop(0, '#F8F4EC');
-    bgGrad.addColorStop(0.5, '#EFE4D2');
-    bgGrad.addColorStop(1, '#E4D5BC');
+    bgGrad.addColorStop(0, '#06070B');
+    bgGrad.addColorStop(0.5, '#0B0D14');
+    bgGrad.addColorStop(1, '#10131F');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, w, h);
 
-    // Subtle warm bloom in upper header
+    // Subtle warm amber bloom in upper header
     const radial = ctx.createRadialGradient(w * 0.5, 100, 40, w * 0.5, 180, w * 0.6);
-    radial.addColorStop(0, 'rgba(253, 230, 138, 0.22)');
-    radial.addColorStop(1, 'rgba(253, 230, 138, 0)');
+    radial.addColorStop(0, 'rgba(229, 192, 123, 0.18)');
+    radial.addColorStop(1, 'rgba(229, 192, 123, 0)');
     ctx.fillStyle = radial;
     ctx.fillRect(0, 0, w, h);
 
-    // Warm Amber Bronze Hairline Frame
-    ctx.strokeStyle = '#D4A038';
+    // Warm Champagne Gold Hairline Frame
+    ctx.strokeStyle = '#E5C07B';
     ctx.lineWidth = 4;
     ctx.strokeRect(32, 32, w - 64, h - 64);
 
-    ctx.strokeStyle = 'rgba(120, 83, 30, 0.2)';
+    ctx.strokeStyle = 'rgba(229, 192, 123, 0.2)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(46, 46, w - 92, h - 92);
 
     // Corner Architectural Accents
-    const cornerSize = 32;
-    ctx.fillStyle = '#D4A038';
+    const cornerSize = 36;
+    ctx.fillStyle = '#E5C07B';
     ctx.fillRect(28, 28, cornerSize, 4);
     ctx.fillRect(28, 28, 4, cornerSize);
     ctx.fillRect(w - 28 - cornerSize, 28, cornerSize, 4);
@@ -324,29 +324,29 @@ export default class ProjectsScreen {
     ctx.fillRect(w - 28 - cornerSize, h - 32, cornerSize, 4);
     ctx.fillRect(w - 32, h - 28 - cornerSize, 4, cornerSize);
 
-    // 2. HEADER SECTION (Compact, elegant, high legibility)
+    // 2. HEADER SECTION (Ultra-Crisp 4K White & Gold Typography)
     ctx.save();
     ctx.textAlign = 'center';
 
     // Top Category Pill
-    ctx.fillStyle = '#9A3412';
+    ctx.fillStyle = '#E5C07B';
     ctx.font = '700 24px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.fillText('FEATURED PRODUCTION DEPLOYMENTS (8) • VERIFIED LIVE PLATFORMS', w / 2, 85);
 
     // Main Title
-    ctx.fillStyle = '#0A0908';
-    ctx.font = '800 48px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '900 48px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.fillText('Engineered & Deployed by Jubayer Ahmad', w / 2, 142);
 
     // Subtitle instruction
-    ctx.fillStyle = '#78531E';
+    ctx.fillStyle = '#94A3B8';
     ctx.font = '500 20px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('All 8 live applications active simultaneously • Click any project card to launch directly in a new tab', w / 2, 178);
+    ctx.fillText('All 8 live applications active simultaneously • Direct click any card to launch in a new tab', w / 2, 178);
 
     ctx.restore();
 
     // Subtle header divider
-    ctx.strokeStyle = 'rgba(212, 160, 56, 0.4)';
+    ctx.strokeStyle = 'rgba(229, 192, 123, 0.35)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(70, 192);
@@ -372,15 +372,15 @@ export default class ProjectsScreen {
 
     ctx.save();
 
-    // Card Background
+    // Card Background (Smoked Dark Obsidian Glass)
     if (isHovered) {
-      ctx.shadowColor = 'rgba(212, 160, 56, 0.45)';
+      ctx.shadowColor = 'rgba(229, 192, 123, 0.45)';
       ctx.shadowBlur = 24;
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = 'rgba(26, 31, 48, 0.98)';
     } else {
-      ctx.shadowColor = 'rgba(10, 9, 8, 0.08)';
-      ctx.shadowBlur = 12;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+      ctx.shadowBlur = 14;
+      ctx.fillStyle = 'rgba(16, 19, 29, 0.92)';
     }
 
     this.roundRect(ctx, x, y, w, h, 14);
@@ -389,23 +389,23 @@ export default class ProjectsScreen {
 
     // Card Border
     if (isHovered) {
-      ctx.strokeStyle = '#D4A038';
+      ctx.strokeStyle = '#E5C07B';
       ctx.lineWidth = 3.5;
     } else {
-      ctx.strokeStyle = 'rgba(212, 160, 56, 0.35)';
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(229, 192, 123, 0.28)';
+      ctx.lineWidth = 1.6;
     }
     this.roundRect(ctx, x, y, w, h, 14);
     ctx.stroke();
 
-    // Subtle Top Accent Highlight Line on Card
-    ctx.fillStyle = isHovered ? '#D4A038' : 'rgba(212, 160, 56, 0.4)';
+    // Top Accent Highlight Line on Card
+    ctx.fillStyle = isHovered ? '#E5C07B' : 'rgba(229, 192, 123, 0.5)';
     ctx.fillRect(x + 24, y + 2, w - 48, 3);
 
     // A. Card Top Metadata (Category Tag & Live Pulse Badge)
     // Tag pill
-    ctx.fillStyle = isHovered ? '#78350F' : '#9A3412';
-    ctx.font = '700 13px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = isHovered ? '#FDE68A' : '#F3BA4F';
+    ctx.font = '800 14px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.fillText(proj.tag, x + 24, y + 36);
 
     // Live Badge (Emerald Dot + LIVE text)
@@ -417,34 +417,34 @@ export default class ProjectsScreen {
     ctx.fillStyle = '#10B981';
     ctx.fill();
 
-    ctx.fillStyle = '#065F46';
+    ctx.fillStyle = '#34D399';
     ctx.font = '700 13px "Plus Jakarta Sans", sans-serif';
     ctx.fillText('LIVE ON VERCEL', badgeX, y + 36);
     ctx.textAlign = 'left';
 
-    // B. Project Title
-    ctx.fillStyle = '#0A0908';
-    ctx.font = '800 24px "Outfit", "Plus Jakarta Sans", sans-serif';
+    // B. Project Title (Pure Crisp White, High Contrast)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 25px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.fillText(proj.title, x + 24, y + 78);
 
     // C. Tech Stack Badge Pill
     const techY = y + 104;
-    ctx.fillStyle = '#FDF6E2';
+    ctx.fillStyle = 'rgba(229, 192, 123, 0.12)';
     this.roundRect(ctx, x + 24, techY, w - 48, 28, 6);
     ctx.fill();
-    ctx.strokeStyle = 'rgba(212, 160, 56, 0.4)';
+    ctx.strokeStyle = 'rgba(229, 192, 123, 0.35)';
     ctx.lineWidth = 1;
     this.roundRect(ctx, x + 24, techY, w - 48, 28, 6);
     ctx.stroke();
 
-    ctx.fillStyle = '#854D0E';
+    ctx.fillStyle = '#FDE68A';
     ctx.font = '600 13px "Plus Jakarta Sans", monospace';
     ctx.fillText(proj.tech, x + 34, techY + 19);
 
-    // D. Description (Multi-line)
-    ctx.fillStyle = '#4B463D';
-    ctx.font = '400 15px "Plus Jakarta Sans", sans-serif';
-    this.wrapText(ctx, proj.desc, x + 24, y + 165, w - 48, 22, 3);
+    // D. Description (Multi-line, High-Legibility Platinum)
+    ctx.fillStyle = '#E2E8F0';
+    ctx.font = '400 15.5px "Plus Jakarta Sans", sans-serif';
+    this.wrapText(ctx, proj.desc, x + 24, y + 165, w - 48, 23, 3);
 
     // E. Bottom Action Button
     const btnY = y + h - 58;
@@ -453,28 +453,28 @@ export default class ProjectsScreen {
 
     if (isHovered) {
       const gradBtn = ctx.createLinearGradient(x + 24, btnY, x + 24 + btnW, btnY);
-      gradBtn.addColorStop(0, '#B45309');
-      gradBtn.addColorStop(1, '#D4A038');
+      gradBtn.addColorStop(0, '#D97706');
+      gradBtn.addColorStop(1, '#E5C07B');
       ctx.fillStyle = gradBtn;
       this.roundRect(ctx, x + 24, btnY, btnW, btnH, 8);
       ctx.fill();
 
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '700 15px "Outfit", sans-serif';
+      ctx.fillStyle = '#06070B';
+      ctx.font = '800 15px "Outfit", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('LAUNCH APPLICATION ↗', x + 24 + btnW / 2, btnY + 26);
     } else {
-      ctx.fillStyle = '#F4EDE2';
+      ctx.fillStyle = 'rgba(229, 192, 123, 0.12)';
       this.roundRect(ctx, x + 24, btnY, btnW, btnH, 8);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(212, 160, 56, 0.45)';
+      ctx.strokeStyle = 'rgba(229, 192, 123, 0.4)';
       ctx.lineWidth = 1.2;
       this.roundRect(ctx, x + 24, btnY, btnW, btnH, 8);
       ctx.stroke();
 
-      ctx.fillStyle = '#0A0908';
-      ctx.font = '600 14px "Outfit", sans-serif';
+      ctx.fillStyle = '#E5C07B';
+      ctx.font = '700 14px "Outfit", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('Launch Project ↗', x + 24 + btnW / 2, btnY + 26);
     }

@@ -191,14 +191,15 @@
     </div>
   </header>
 
-  <!-- Floating Minimal HUD Focus Pill (Shows when looking at 3D Signboard or Car Part) -->
-  <div class="hud-focus-banner" id="hud-focus-banner">
-    <div class="hud-focus-pill">
-      <span class="focus-dot"></span>
-      <span class="focus-title" id="focus-title">VIP Signboard • Jubayer Ahmad</span>
-      <button class="focus-return-btn" id="focus-return-btn">Back to Car Overview</button>
-    </div>
-  </div>
+  <!-- Ultra-Sleek Top-Left Showroom Return Pill (Zero Overlaps, Zero Collisions) -->
+  <button class="showroom-exit-btn" id="showroom-exit-btn" title="Back to Car Overview (ESC)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    <span class="exit-btn-text">Back to Showroom</span>
+    <kbd class="exit-kbd">ESC</kbd>
+  </button>
 
   <!-- HUD: Bottom Navigation Bar -->
   <nav class="hud-nav">

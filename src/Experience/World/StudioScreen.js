@@ -61,9 +61,9 @@ export default class StudioScreen {
     });
 
     const ochreRingMat = new THREE.MeshStandardMaterial({
-      color: 0xd4a038, // Warm Amber Gold
-      metalness: 0.85,
-      roughness: 0.28
+      color: 0xe5c07b,
+      metalness: 0.88,
+      roughness: 0.22
     });
 
     // 1. Showroom pedestal base on the floor
@@ -211,35 +211,34 @@ export default class StudioScreen {
     const w = this.canvasWidth;
     const h = this.canvasHeight;
 
-    // 1. Organic Luxury Color Grading (Exact Palette from nasifwrites.com):
-    // Warm Linen Ivory Parchment Gradient (from #F8F4EC via #EFE4D2 to #E4D5BC)
+    // 1. Hollywood Smoked Obsidian OLED Background (Ultra-Luxury Agency Grade)
     const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-    bgGrad.addColorStop(0, '#F8F4EC');
-    bgGrad.addColorStop(0.5, '#EFE4D2');
-    bgGrad.addColorStop(1, '#E4D5BC');
+    bgGrad.addColorStop(0, '#06070B');
+    bgGrad.addColorStop(0.5, '#0B0D14');
+    bgGrad.addColorStop(1, '#10131F');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, w, h);
 
-    // Warm radial luminous bloom in upper center (matching nasifwrites.com radial glow)
+    // Warm radial luminous bloom in upper center
     const radial = ctx.createRadialGradient(w * 0.5, h * 0.2, 50, w * 0.5, h * 0.4, w * 0.6);
-    radial.addColorStop(0, 'rgba(253, 230, 138, 0.18)'); // Amber-200 glow
-    radial.addColorStop(1, 'rgba(253, 230, 138, 0)');
+    radial.addColorStop(0, 'rgba(229, 192, 123, 0.2)');
+    radial.addColorStop(1, 'rgba(229, 192, 123, 0)');
     ctx.fillStyle = radial;
     ctx.fillRect(0, 0, w, h);
 
-    // Subtle luxury border: Warm Amber Bronze hairline
-    ctx.strokeStyle = '#D4A038';
+    // Warm Champagne Gold Hairline Frame
+    ctx.strokeStyle = '#E5C07B';
     ctx.lineWidth = 4;
     ctx.strokeRect(32, 32, w - 64, h - 64);
 
     // Inner subtle hairline
-    ctx.strokeStyle = 'rgba(120, 83, 30, 0.2)';
+    ctx.strokeStyle = 'rgba(229, 192, 123, 0.25)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(46, 46, w - 92, h - 92);
 
-    // 4 Corner Architectural Accents in Warm Ochre Brass (#D4A038)
+    // 4 Corner Architectural Accents in Champagne Gold
     const cornerSize = 32;
-    ctx.fillStyle = '#D4A038';
+    ctx.fillStyle = '#E5C07B';
     ctx.fillRect(28, 28, cornerSize, 4);
     ctx.fillRect(28, 28, 4, cornerSize);
     ctx.fillRect(w - 28 - cornerSize, 28, cornerSize, 4);
@@ -249,27 +248,31 @@ export default class StudioScreen {
     ctx.fillRect(w - 28 - cornerSize, h - 32, cornerSize, 4);
     ctx.fillRect(w - 32, h - 28 - cornerSize, 4, cornerSize);
 
-    // 2. LEFT SIDE: Jubayer's Full Natural Photo in Crisp Pure White Frame
-    // Generously proportioned with museum margins
+    // 2. LEFT SIDE: Jubayer's Full Natural Photo in Crisp Pure White & Gold Frame
     const photoX = 140;
     const photoY = 120;
     const photoW = 660;
     const photoH = 912;
 
-    // Pure Solid White Frame (#FFFFFF) with editorial soft drop-shadow
+    // Solid Frame with subtle drop shadow
     ctx.save();
-    ctx.shadowColor = 'rgba(12, 10, 9, 0.18)';
-    ctx.shadowBlur = 32;
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+    ctx.shadowBlur = 36;
     ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 12;
-    ctx.fillStyle = '#FFFFFF';
+    ctx.shadowOffsetY = 14;
+    ctx.fillStyle = '#10131F';
     ctx.fillRect(photoX - 14, photoY - 14, photoW + 28, photoH + 28);
     ctx.restore();
 
-    // Solid crisp white border line
-    ctx.strokeStyle = '#FFFFFF';
-    ctx.lineWidth = 4;
+    // Champagne Gold Frame Border
+    ctx.strokeStyle = '#E5C07B';
+    ctx.lineWidth = 3;
     ctx.strokeRect(photoX - 14, photoY - 14, photoW + 28, photoH + 28);
+
+    // Inner Crisp White Border
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(photoX - 4, photoY - 4, photoW + 8, photoH + 8);
 
     if (this.imageLoaded && this.profileImg) {
       // 100% natural, untouched photo (Zero filters, Zero shimmers)
@@ -292,49 +295,93 @@ export default class StudioScreen {
         drawW = photoW;
         drawH = photoW / imgRatio;
         drawX = photoX;
-        drawY = photoY + (photoH - drawH) * 0.18; // Perfectly centered on face and torso
+        drawY = photoY + (photoH - drawH) * 0.18; // Centered on face and torso
       }
 
       ctx.drawImage(img, drawX, drawY, drawW, drawH);
       ctx.restore();
     } else {
-      ctx.fillStyle = '#E8DFD0';
+      ctx.fillStyle = '#161B26';
       ctx.fillRect(photoX, photoY, photoW, photoH);
-      ctx.fillStyle = '#78716C';
+      ctx.fillStyle = '#94A3B8';
       ctx.font = '600 32px "Plus Jakarta Sans", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('LOADING PORTRAIT...', photoX + photoW / 2, photoY + photoH / 2);
     }
 
-    // 3. RIGHT SIDE: Clean 3 Lines of English Identity
-    // Color graded identically to the upper author section of nasifwrites.com
+    // 3. RIGHT SIDE: Clean English Identity & Tech Stacks
     const textStartX = 890;
     const centerY = h * 0.5;
 
-    // Line 1: Jubayer Ahmad
-    // Color: Rich Deep Charcoal Obsidian (#0A0908) — maximum visual authority & contrast
-    ctx.fillStyle = '#0A0908';
-    ctx.font = '800 96px "Outfit", "Plus Jakarta Sans", sans-serif';
+    // Top Category Tag
+    ctx.fillStyle = '#E5C07B';
+    ctx.font = '700 24px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'left';
+    ctx.fillText('LEAD ENGINEER & ARCHITECT', textStartX, centerY - 145);
+
+    // Line 1: Jubayer Ahmad (Pure Crisp White, High Contrast 19:1)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '900 96px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.letterSpacing = '0.01em';
-    ctx.fillText('Jubayer Ahmad', textStartX, centerY - 80);
+    ctx.fillText('Jubayer Ahmad', textStartX, centerY - 45);
 
-    // Warm Ochre Gold Divider Line (#D4A038)
-    ctx.fillStyle = '#D4A038';
-    ctx.fillRect(textStartX, centerY - 10, 560, 4);
+    // Champagne Gold Divider Line (#E5C07B)
+    ctx.fillStyle = '#E5C07B';
+    ctx.fillRect(textStartX, centerY + 2, 640, 4);
 
-    // Line 2: Full Stack Developer
-    // Color: Deep Burnt Ochre Amber (#9A3412) — High contrast, luxurious editorial warmth
-    ctx.fillStyle = '#9A3412';
-    ctx.font = '700 64px "Outfit", "Plus Jakarta Sans", sans-serif';
+    // Line 2: Full Stack Developer (Warm Luminous Amber)
+    ctx.fillStyle = '#F3BA4F';
+    ctx.font = '800 58px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.letterSpacing = '0.02em';
-    ctx.fillText('Full Stack Developer', textStartX, centerY + 65);
+    ctx.fillText('Full Stack Developer', textStartX, centerY + 78);
 
-    // Line 3: AI Content Creator
-    // Color: Deep Emerald Forest (#064E3B) — Deep organic pine green, high contrast on parchment
-    ctx.fillStyle = '#064E3B';
-    ctx.font = '700 64px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.letterSpacing = '0.02em';
-    ctx.fillText('AI Content Creator', textStartX, centerY + 175);
+    // Line 3: AI Content Creator & Agent Systems (Emerald Mint)
+    ctx.fillStyle = '#34D399';
+    ctx.font = '700 46px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.letterSpacing = '0.01em';
+    ctx.fillText('AI Content Creator & Systems Architect', textStartX, centerY + 148);
+
+    // Badges Row
+    const badgeY = centerY + 215;
+    const badges = [
+      '22+ Repositories',
+      'Next.js 15 & React 19',
+      'Three.js 3D WebGL',
+      'Cloudflare Edge Ready'
+    ];
+
+    let currentBadgeX = textStartX;
+    ctx.font = '600 22px "Plus Jakarta Sans", monospace';
+
+    badges.forEach((b) => {
+      const bWidth = ctx.measureText(b).width + 36;
+      ctx.fillStyle = 'rgba(229, 192, 123, 0.12)';
+      this.roundRect(ctx, currentBadgeX, badgeY, bWidth, 42, 8);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(229, 192, 123, 0.35)';
+      ctx.lineWidth = 1.5;
+      this.roundRect(ctx, currentBadgeX, badgeY, bWidth, 42, 8);
+      ctx.stroke();
+
+      ctx.fillStyle = '#FDE68A';
+      ctx.fillText(b, currentBadgeX + 18, badgeY + 28);
+
+      currentBadgeX += bWidth + 18;
+    });
+  }
+
+  roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
   }
 }
