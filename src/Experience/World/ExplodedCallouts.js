@@ -60,123 +60,28 @@ export default class ExplodedCallouts {
   }
 
   setupDOM() {
+    // Intrusive blocking card boxes permanently removed to guarantee pristine, unobstructed 3D vehicle view
     this.container = document.createElement('div');
     this.container.className = 'exploded-callouts-container';
     this.container.style.display = 'none';
-
-    // SVG canvas for connector tether lines
-    this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    this.svg.setAttribute('class', 'exploded-lines-svg');
-    this.container.appendChild(this.svg);
-
-    this.cards.forEach((item) => {
-      // Beacon DOM
-      const beacon = document.createElement('div');
-      beacon.className = 'exploded-beacon';
-      beacon.innerHTML = `<span class="beacon-pulse"></span><span class="beacon-core"></span>`;
-      this.container.appendChild(beacon);
-      item.beaconEl = beacon;
-
-      // Card DOM
-      const card = document.createElement('div');
-      card.className = 'exploded-card';
-      card.dataset.target = item.targetId;
-      card.innerHTML = `
-        <div class="exploded-card-badge" style="background:${item.badgeBg}; color:${item.badgeText};">${item.badge}</div>
-        <div class="exploded-card-title">${item.title}</div>
-        <div class="exploded-card-desc">${item.desc}</div>
-        <div class="exploded-card-action"><span>Explore Details &nearr;</span></div>
-      `;
-
-      card.addEventListener('click', () => {
-        if (this.experience.ui) {
-          this.experience.ui.openModal(item.targetId);
-          this.experience.ui.navigateToTarget(item.targetId);
-        }
-      });
-
-      this.container.appendChild(card);
-      item.cardEl = card;
-
-      // Line element in SVG
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('class', 'exploded-tether-line');
-      this.svg.appendChild(line);
-      item.lineEl = line;
-    });
-
     document.body.appendChild(this.container);
   }
 
   show() {
-    this.visible = true;
-    this.container.style.display = 'block';
-    this.container.classList.add('active');
-    this.update();
+    this.visible = false;
+    this.container.style.display = 'none';
   }
 
   hide() {
     this.visible = false;
-    this.container.classList.remove('active');
-    setTimeout(() => {
-      if (!this.visible) {
-        this.container.style.display = 'none';
-      }
-    }, 400);
+    this.container.style.display = 'none';
   }
 
   toggle() {
-    if (this.visible) {
-      this.hide();
-    } else {
-      this.show();
-    }
-    return this.visible;
+    return false;
   }
 
   update() {
-    if (!this.visible) return;
-
-    const w = this.sizes.width;
-    const h = this.sizes.height;
-
-    this.cards.forEach((item) => {
-      const pos = item.anchor.clone();
-      pos.project(this.camera);
-
-      // Check if behind camera
-      if (pos.z > 1) {
-        item.beaconEl.style.display = 'none';
-        item.cardEl.style.display = 'none';
-        item.lineEl.setAttribute('visibility', 'hidden');
-        return;
-      }
-
-      item.beaconEl.style.display = 'block';
-      item.cardEl.style.display = 'block';
-      item.lineEl.setAttribute('visibility', 'visible');
-
-      const anchorX = (pos.x * 0.5 + 0.5) * w;
-      const anchorY = (-pos.y * 0.5 + 0.5) * h;
-
-      item.beaconEl.style.left = `${anchorX}px`;
-      item.beaconEl.style.top = `${anchorY}px`;
-
-      const cardX = anchorX + item.screenOffset.x;
-      const cardY = anchorY + item.screenOffset.y;
-
-      // Keep cards comfortably on-screen
-      const clampedX = Math.max(140, Math.min(w - 140, cardX));
-      const clampedY = Math.max(120, Math.min(h - 100, cardY));
-
-      item.cardEl.style.left = `${clampedX}px`;
-      item.cardEl.style.top = `${clampedY}px`;
-
-      // Update tether line from beacon to card edge
-      item.lineEl.setAttribute('x1', anchorX);
-      item.lineEl.setAttribute('y1', anchorY);
-      item.lineEl.setAttribute('x2', clampedX);
-      item.lineEl.setAttribute('y2', clampedY);
-    });
+    // Zero clutter
   }
 }

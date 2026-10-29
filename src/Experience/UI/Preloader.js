@@ -15,15 +15,22 @@ export default class Preloader {
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 15;
-    this.displayProgress = 0;
+    this.targetProgress = 40;
+    this.displayProgress = 15;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Strict 3.2s fallback guarantee (guarantees entry within 3s while ensuring car is loaded)
+    // Guaranteed sub-2s fast entry: preloader never blocks for more than 1.8 seconds!
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 3200);
+    }, 1800);
+
+    // Show Quick Launch button after 800ms so user can bypass instantly if they wish
+    setTimeout(() => {
+      if (!this.finished && this.quickBtn) {
+        this.quickBtn.style.display = 'inline-flex';
+      }
+    }, 800);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {
@@ -66,9 +73,8 @@ export default class Preloader {
 
     const currentLoaded = this.items.car.loaded;
     const currentTotal = this.totalBytes || 5234628;
-    // Map network download to 15% - 94%
     const rawRatio = Math.min(currentLoaded / currentTotal, 1);
-    this.targetProgress = Math.max(this.targetProgress, Math.round(15 + rawRatio * 79));
+    this.targetProgress = Math.max(this.targetProgress, Math.round(35 + rawRatio * 62));
 
     // Play engine rev as speed passes 50%
     if (this.displayProgress > 45 && !this.soundPlayed) {
@@ -84,23 +90,17 @@ export default class Preloader {
 
     if (this.items.car.ready) {
       this.targetProgress = 100;
-      const checkAndFinish = () => {
-        if (this.displayProgress >= 95) {
-          setTimeout(() => this.finish(), 60);
-        } else {
-          setTimeout(checkAndFinish, 20);
-        }
-      };
-      checkAndFinish();
+      setTimeout(() => this.finish(), 80);
     }
   }
 
   animateLoop() {
     if (this.finished) return;
 
-    // Smooth snappy lerp progress towards target
+    // Smooth continuous progress guarantee: always moves towards 100%
+    this.targetProgress = Math.min(this.targetProgress + 0.8, 100);
     const diff = this.targetProgress - this.displayProgress;
-    const step = Math.max(diff * 0.55, 3.8);
+    const step = Math.max(diff * 0.4, 2.5);
     this.displayProgress = Math.min(this.displayProgress + step, this.targetProgress);
 
     const progInt = Math.min(Math.round(this.displayProgress), 100);
@@ -118,11 +118,11 @@ export default class Preloader {
 
     // Update Gear
     if (this.gearElement) {
-      if (progInt < 15) this.gearElement.textContent = '1';
-      else if (progInt < 35) this.gearElement.textContent = '2';
-      else if (progInt < 55) this.gearElement.textContent = '3';
-      else if (progInt < 75) this.gearElement.textContent = '4';
-      else if (progInt < 90) this.gearElement.textContent = '5';
+      if (progInt < 20) this.gearElement.textContent = '1';
+      else if (progInt < 40) this.gearElement.textContent = '2';
+      else if (progInt < 60) this.gearElement.textContent = '3';
+      else if (progInt < 80) this.gearElement.textContent = '4';
+      else if (progInt < 95) this.gearElement.textContent = '5';
       else if (progInt < 99) this.gearElement.textContent = '6';
       else this.gearElement.textContent = 'MAX';
     }
@@ -135,17 +135,22 @@ export default class Preloader {
 
     // Dynamic High-Energy Automotive Telemetry Status
     if (this.statusElement) {
-      if (progInt < 25) {
+      if (progInt < 30) {
         this.statusElement.textContent = `Igniting AMG V8 Biturbo Engine... ${progInt}%`;
-      } else if (progInt < 50) {
+      } else if (progInt < 60) {
         this.statusElement.textContent = `Calibrating 60 FPS Mobile GPU Shaders... ${progInt}%`;
-      } else if (progInt < 75) {
+      } else if (progInt < 90) {
         this.statusElement.textContent = `Accelerating Telemetry (${speed} KM/H)...`;
-      } else if (progInt < 95) {
+      } else if (progInt < 99) {
         this.statusElement.textContent = `Engaging Aerodynamics & Launch Control... ${progInt}%`;
       } else {
         this.statusElement.textContent = `Launch Control Ready • Welcome, Jubayer Ahmad`;
       }
+    }
+
+    if (progInt >= 100) {
+      this.finish();
+      return;
     }
 
     requestAnimationFrame(() => this.animateLoop());
@@ -155,20 +160,8 @@ export default class Preloader {
     if (this.finished) return;
     this.finished = true;
     clearTimeout(this.fallbackTimer);
-    clearTimeout(this.quickLaunchTimer);
 
-    this.displayProgress = 100;
-    if (this.barElement) this.barElement.style.width = '100%';
-    if (this.speedElement) this.speedElement.textContent = '260';
-    if (this.gearElement) this.gearElement.textContent = 'MAX';
-    if (this.statusElement) {
-      this.statusElement.textContent = 'Studio Online • Welcome, Jubayer Ahmad';
-    }
-
-    if (this.experience.sounds) {
-      this.experience.sounds.playTireScreech();
-    }
-
+    // Guaranteed instant dismissal
     if (this.loaderElement) {
       this.loaderElement.classList.add('hidden');
       this.loaderElement.style.opacity = '0';
@@ -178,6 +171,22 @@ export default class Preloader {
           this.loaderElement.parentNode.removeChild(this.loaderElement);
         }
       }, 250);
+    }
+
+    this.displayProgress = 100;
+    if (this.barElement) this.barElement.style.width = '100%';
+    if (this.speedElement) this.speedElement.textContent = '260';
+    if (this.gearElement) this.gearElement.textContent = 'MAX';
+    if (this.statusElement) {
+      this.statusElement.textContent = 'Studio Online • Welcome, Jubayer Ahmad';
+    }
+
+    try {
+      if (this.experience.sounds) {
+        this.experience.sounds.playTireScreech();
+      }
+    } catch (e) {
+      console.warn('Audio non-blocking', e);
     }
   }
 }
