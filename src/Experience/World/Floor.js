@@ -9,13 +9,13 @@ export default class Floor {
   }
 
   setFloor() {
-    // 1. Luxury Penthouse Architectural Showroom Floor (Polished Italian Crema Marfil / Obsidian Slabs)
+    // 1. Serene Light Luxury Penthouse Floor (Polished Italian Crema Marfil / Light Botticino Slabs)
     const baseGeo = new THREE.PlaneGeometry(80, 80);
     const baseMat = new THREE.MeshStandardMaterial({
-      color: 0x141210, // Warm architectural deep stone / charcoal bronze
-      roughness: 0.38, // Soft satin architectural reflection (zero tin foil glare)
-      metalness: 0.04, // Authentic dielectric stone / terrazzo
-      envMapIntensity: 0.5
+      color: 0xe6e0d4, // Soft, serene warm Italian Crema Marfil limestone
+      roughness: 0.36, // Soft satin architectural reflection (completely eye-friendly, zero glare)
+      metalness: 0.03, // Authentic dielectric stone / terrazzo
+      envMapIntensity: 0.4
     });
     this.baseMesh = new THREE.Mesh(baseGeo, baseMat);
     this.baseMesh.rotation.x = -Math.PI / 2;

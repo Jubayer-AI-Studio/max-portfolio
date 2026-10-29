@@ -20,6 +20,7 @@ export default class StudioScreen {
     this.loadImage();
     this.setMesh();
     this.setLighting();
+    this.bindEvents();
   }
 
   setupCanvas() {
@@ -377,5 +378,49 @@ export default class StudioScreen {
     ctx.lineTo(x, y + r);
     ctx.quadraticCurveTo(x, y, x + r, y);
     ctx.closePath();
+  }
+
+  bindEvents() {
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2();
+
+    const onPointerMove = (e) => {
+      this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      if (!this.screenMesh) return;
+
+      this.raycaster.setFromCamera(this.mouse, this.experience.camera.instance);
+      const intersects = this.raycaster.intersectObject(this.screenMesh);
+
+      if (intersects.length > 0 && !document.body.classList.contains('signboard-focus')) {
+        document.body.style.cursor = 'pointer';
+      }
+    };
+
+    const onPointerDown = (e) => {
+      this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      if (!this.screenMesh) return;
+
+      this.raycaster.setFromCamera(this.mouse, this.experience.camera.instance);
+      const intersects = this.raycaster.intersectObject(this.screenMesh);
+
+      if (intersects.length > 0) {
+        const isFocused = document.body.classList.contains('signboard-focus');
+        if (!isFocused) {
+          const hotspotPoint = this.experience.world.hotspots?.points.find(p => p.id === 'driver');
+          if (hotspotPoint) {
+            this.experience.world.hotspots.onHotspotClick(hotspotPoint);
+          } else if (this.experience.ui) {
+            this.experience.ui.enterFocusMode('driver');
+          }
+        }
+      }
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerdown', onPointerDown);
   }
 }

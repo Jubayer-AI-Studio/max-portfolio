@@ -36,7 +36,7 @@ export default class ProjectsScreen {
       {
         id: 'rihlah-gadget',
         title: 'Rihlah Gadget Shop',
-        tag: 'E-COMMERCE PWA STORE',
+        tag: 'E-COMMERCE STORE',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'rihlah-gadget-shop.pages.dev',
@@ -49,7 +49,7 @@ export default class ProjectsScreen {
       {
         id: 'electronics-importers',
         title: 'Electronics Importers BD',
-        tag: 'B2B COMMERCIAL PORTAL',
+        tag: 'B2B WHOLESALE HUB',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'electronics-importers-bd.vercel.app',
@@ -62,7 +62,7 @@ export default class ProjectsScreen {
       {
         id: 'affan-labib',
         title: 'Affan Labib Editorial Blog',
-        tag: 'LITERARY PUBLICATION',
+        tag: 'LITERARY JOURNAL',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'affan-labib-blog.vercel.app',
@@ -75,7 +75,7 @@ export default class ProjectsScreen {
       {
         id: 'mesk-studio',
         title: 'Mesk Creative Studio',
-        tag: 'PUBLISHING & AI BOT',
+        tag: 'CREATIVE STUDIO AI',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'mesk-nine.vercel.app',
@@ -88,7 +88,7 @@ export default class ProjectsScreen {
       {
         id: 'ibrahim-profile',
         title: 'Ibrahim Portfolio Showcase',
-        tag: 'SCHOLAR & AUTHOR SHOWCASE',
+        tag: 'SCHOLAR & AUTHOR',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'ibrahim-jade.vercel.app',
@@ -127,7 +127,7 @@ export default class ProjectsScreen {
       {
         id: 'smritir-canvas',
         title: 'Smritir Canvas (Maaz)',
-        tag: 'LITERARY PORTFOLIO',
+        tag: 'LITERARY MEMOIR',
         provider: 'CLOUDFLARE',
         badgeText: 'CLOUDFLARE EDGE',
         domain: 'maaz-canvas.pages.dev',
@@ -140,7 +140,7 @@ export default class ProjectsScreen {
       {
         id: 'jubayer-studio',
         title: 'Jubayer Ahmad VIP Studio',
-        tag: 'EXECUTIVE VIP PORTFOLIO',
+        tag: 'EXECUTIVE VIP STUDIO',
         provider: 'DUAL',
         badgeText: 'CLOUDFLARE + VERCEL',
         domain: 'jubayer-portfolio.pages.dev',
@@ -402,7 +402,7 @@ export default class ProjectsScreen {
 
     ctx.save();
 
-    // 1. Card Base Background (Pure White Porcelain with Soft Editorial Shadow)
+    // 1. Card Base Background (Pure White Porcelain with Soft Warm Shadow)
     if (isHovered) {
       ctx.shadowColor = 'rgba(212, 160, 56, 0.45)';
       ctx.shadowBlur = 28;
@@ -410,14 +410,14 @@ export default class ProjectsScreen {
     } else {
       ctx.shadowColor = 'rgba(10, 9, 8, 0.08)';
       ctx.shadowBlur = 16;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
     }
 
     this.roundRect(ctx, x, y, w, h, 14);
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    // 2. Card Fine Amber Gold Border
+    // 2. Card Fine 24K Gold Border
     if (isHovered) {
       ctx.strokeStyle = '#D4A038';
       ctx.lineWidth = 3.5;
@@ -428,23 +428,26 @@ export default class ProjectsScreen {
     this.roundRect(ctx, x, y, w, h, 14);
     ctx.stroke();
 
-    // 3. MINI BROWSER HEADER BAR (Window controls + Cloud Provider)
-    const browserBarY = y + 14;
-    
-    // Window control dots
-    const dotColors = ['#EF4444', '#F59E0B', '#10B981'];
-    dotColors.forEach((color, i) => {
-      ctx.beginPath();
-      ctx.arc(x + 20 + i * 14, browserBarY + 8, 4.2, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-    });
+    // 3. Signature Brand Stripe (Top Jewel Line)
+    const stripeGrad = ctx.createLinearGradient(x + 16, y + 3, x + w - 16, y + 3);
+    stripeGrad.addColorStop(0, c1);
+    stripeGrad.addColorStop(0.5, c2);
+    stripeGrad.addColorStop(1, c3);
+    ctx.fillStyle = stripeGrad;
+    ctx.fillRect(x + 16, y + 3, w - 32, isHovered ? 4.5 : 3.5);
 
-    // Cloud Provider Pill on Right (Zero text collision!)
-    const badgeW = 158;
+    // 4. TOP ROW: Category Label (Left) + Cloud Badge (Right)
+    const topRowY = y + 36;
+    ctx.fillStyle = proj.tagColor || '#9A3412';
+    ctx.font = '800 12px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(proj.tag, x + 20, topRowY);
+
+    // Clean Live Cloud Pill on Right (compact, perfectly proportioned)
+    const badgeW = 144;
     const badgeH = 22;
-    const badgeX = x + w - badgeW - 14;
-    const badgeY = browserBarY - 2;
+    const badgeX = x + w - badgeW - 16;
+    const badgeY = topRowY - 16;
 
     const isDual = proj.provider === 'DUAL';
     const isCloudflare = proj.provider === 'CLOUDFLARE';
@@ -458,142 +461,94 @@ export default class ProjectsScreen {
     this.roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 6);
     ctx.stroke();
 
-    // Pulsing Status Dot inside Badge
+    // Status Dot inside Badge
     ctx.beginPath();
     ctx.arc(badgeX + 11, badgeY + badgeH / 2, 3.5, 0, Math.PI * 2);
     ctx.fillStyle = isDual ? '#10B981' : (isCloudflare ? '#F59E0B' : '#2563EB');
     ctx.fill();
 
     ctx.fillStyle = isDual ? '#047857' : (isCloudflare ? '#9A3412' : '#1D4ED8');
-    ctx.font = '700 11px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(proj.badgeText, badgeX + 20, badgeY + 15);
+    ctx.font = '700 10.5px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(proj.badgeText, badgeX + 19, badgeY + 15);
 
-    // 4. SIGNATURE BRAND STRIPE
-    const stripeGrad = ctx.createLinearGradient(x + 14, y + 42, x + w - 14, y + 42);
-    stripeGrad.addColorStop(0, c1);
-    stripeGrad.addColorStop(0.5, c2);
-    stripeGrad.addColorStop(1, c3);
-    ctx.fillStyle = stripeGrad;
-    ctx.fillRect(x + 14, y + 42, w - 28, isHovered ? 4 : 3);
-
-    // 5. CATEGORY TAG
-    ctx.fillStyle = proj.tagColor || '#9A3412';
-    ctx.font = '800 12.5px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(proj.tag, x + 18, y + 72);
-
-    // 6. MAIN PROJECT TITLE (Deep Charcoal Obsidian, Ultra-Crisp)
+    // 5. MAIN PROJECT TITLE (Large, Bold, High-Contrast Obsidian Charcoal with Dynamic Auto-Fitting)
     ctx.fillStyle = '#0A0908';
-    ctx.font = '800 23px "Outfit", "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(proj.title, x + 18, y + 106);
+    let titleFontSize = 23;
+    ctx.font = `900 ${titleFontSize}px "Outfit", "Plus Jakarta Sans", sans-serif`;
+    while (ctx.measureText(proj.title).width > (w - 44) && titleFontSize > 17) {
+      titleFontSize -= 1;
+      ctx.font = `900 ${titleFontSize}px "Outfit", "Plus Jakarta Sans", sans-serif`;
+    }
+    ctx.fillText(proj.title, x + 20, y + 82);
 
-    // 7. OFFICIAL DOMAIN PILL (Electric Sapphire on Soft Cyan Tint)
-    const domY = y + 124;
-    const domW = w - 36;
+    // 6. OFFICIAL DOMAIN PILL (Electric Sapphire on Soft Cyan Tint with Auto-Fitting)
+    const domY = y + 104;
+    const domW = w - 40;
     ctx.fillStyle = '#F0F9FF';
-    this.roundRect(ctx, x + 18, domY, domW, 26, 6);
+    this.roundRect(ctx, x + 20, domY, domW, 30, 6);
     ctx.fill();
+
     ctx.strokeStyle = '#BAE6FD';
     ctx.lineWidth = 1;
-    this.roundRect(ctx, x + 18, domY, domW, 26, 6);
+    this.roundRect(ctx, x + 20, domY, domW, 30, 6);
     ctx.stroke();
 
     ctx.fillStyle = '#0284C7';
-    ctx.font = '700 12px "Plus Jakarta Sans", monospace';
-    ctx.fillText('🔗 ' + proj.domain, x + 26, domY + 17);
+    let domFontSize = 12.5;
+    const domText = '🔗 ' + proj.domain;
+    ctx.font = `700 ${domFontSize}px "Plus Jakarta Sans", monospace`;
+    while (ctx.measureText(domText).width > (domW - 24) && domFontSize > 9.5) {
+      domFontSize -= 0.5;
+      ctx.font = `700 ${domFontSize}px "Plus Jakarta Sans", monospace`;
+    }
+    ctx.fillText(domText, x + 28, domY + 20);
 
-    // 8. TECH PILLS ROW
-    const pillY = y + 162;
-    let currPillX = x + 18;
-    ctx.font = '600 11.5px "Plus Jakarta Sans", monospace';
-
-    proj.pills.forEach((pill) => {
-      const pW = ctx.measureText(pill).width + 18;
-      ctx.fillStyle = '#F8F4EC';
-      this.roundRect(ctx, currPillX, pillY, pW, 24, 6);
-      ctx.fill();
-
-      ctx.strokeStyle = 'rgba(212, 160, 56, 0.3)';
-      ctx.lineWidth = 1;
-      this.roundRect(ctx, currPillX, pillY, pW, 24, 6);
-      ctx.stroke();
-
-      ctx.fillStyle = '#475569';
-      ctx.fillText(pill, currPillX + 9, pillY + 16);
-
-      currPillX += pW + 8;
-    });
-
-    // 9. ONE-LINE PUNCHY TAGLINE (Slate 600, Clean Editorial Typography)
+    // 7. KEY PURPOSE / TECH STACK HIGHLIGHT (Clean, Crisp, Zero Clutter)
+    const techHighlight = proj.pills.join('  •  ');
     ctx.fillStyle = '#475569';
-    ctx.font = '400 13.5px "Plus Jakarta Sans", sans-serif';
-    this.wrapText(ctx, proj.tagline, x + 18, y + 215, w - 36, 20, 2);
+    let techFontSize = 12.5;
+    ctx.font = `600 ${techFontSize}px "Plus Jakarta Sans", sans-serif`;
+    while (ctx.measureText(techHighlight).width > (w - 44) && techFontSize > 10) {
+      techFontSize -= 0.5;
+      ctx.font = `600 ${techFontSize}px "Plus Jakarta Sans", sans-serif`;
+    }
+    ctx.fillText(techHighlight, x + 20, y + 162);
 
-    // 10. LUXURY ACTION BUTTON
+    // 8. LUXURY ACTION BUTTON
     const btnY = y + h - 56;
     const btnH = 42;
-    const btnW = w - 36;
+    const btnW = w - 40;
 
     if (isHovered) {
-      const btnGrad = ctx.createLinearGradient(x + 18, btnY, x + 18 + btnW, btnY);
+      const btnGrad = ctx.createLinearGradient(x + 20, btnY, x + 20 + btnW, btnY);
       btnGrad.addColorStop(0, '#B45309');
       btnGrad.addColorStop(0.5, '#D4A038');
       btnGrad.addColorStop(1, '#FDE68A');
       ctx.fillStyle = btnGrad;
-      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 8);
+      this.roundRect(ctx, x + 20, btnY, btnW, btnH, 8);
       ctx.fill();
 
       ctx.fillStyle = '#0A0908';
       ctx.font = '800 14px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('EXPLORE LIVE SITE ↗', x + 18 + btnW / 2, btnY + 26);
+      ctx.fillText('EXPLORE LIVE PLATFORM ↗', x + 20 + btnW / 2, btnY + 26);
     } else {
       ctx.fillStyle = '#F8F4EC';
-      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 8);
+      this.roundRect(ctx, x + 20, btnY, btnW, btnH, 8);
       ctx.fill();
 
       ctx.strokeStyle = '#D4A038';
       ctx.lineWidth = 1.4;
-      this.roundRect(ctx, x + 18, btnY, btnW, btnH, 8);
+      this.roundRect(ctx, x + 20, btnY, btnW, btnH, 8);
       ctx.stroke();
 
-      ctx.fillStyle = '#78531E';
+      ctx.fillStyle = '#9A3412';
       ctx.font = '700 13.5px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Launch Project ↗', x + 18 + btnW / 2, btnY + 26);
+      ctx.fillText('Visit Live Site ↗', x + 20 + btnW / 2, btnY + 26);
     }
 
     ctx.restore();
-  }
-
-  wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 2) {
-    const words = text.split(' ');
-    let line = '';
-    let currY = y;
-    let linesDrawn = 0;
-
-    for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + ' ';
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && n > 0) {
-        ctx.fillText(line, x, currY);
-        line = words[n] + ' ';
-        currY += lineHeight;
-        linesDrawn++;
-        if (linesDrawn >= maxLines - 1) {
-          const remaining = words.slice(n).join(' ');
-          let truncated = remaining;
-          while (ctx.measureText(truncated + '...').width > maxWidth && truncated.length > 0) {
-            truncated = truncated.slice(0, -1);
-          }
-          ctx.fillText(truncated + '...', x, currY);
-          return;
-        }
-      } else {
-        line = testLine;
-      }
-    }
-    ctx.fillText(line, x, currY);
   }
 
   roundRect(ctx, x, y, w, h, r) {
@@ -620,6 +575,19 @@ export default class ProjectsScreen {
       this.raycaster.setFromCamera(this.mouse, this.camera);
       const intersects = this.raycaster.intersectObject(this.screenMesh);
 
+      // If NOT in focus mode, cursor over board is simply an invite to zoom in
+      const isFocused = document.body.classList.contains('projects-focus');
+      if (!isFocused) {
+        const groupIntersects = this.raycaster.intersectObjects(this.group.children, true);
+        document.body.style.cursor = groupIntersects.length > 0 ? 'pointer' : 'default';
+        if (this.hoveredIndex !== -1) {
+          this.hoveredIndex = -1;
+          this.draw();
+        }
+        return;
+      }
+
+      // IN focus mode: Highlight individual project cards on hover
       if (intersects.length > 0 && intersects[0].uv) {
         const uv = intersects[0].uv;
         const canvasX = uv.x * this.canvasWidth;
@@ -654,8 +622,25 @@ export default class ProjectsScreen {
       if (!this.screenMesh) return;
 
       this.raycaster.setFromCamera(this.mouse, this.camera);
-      const intersects = this.raycaster.intersectObject(this.screenMesh);
 
+      // STEP 1: If NOT yet focused, clicking anywhere on the board/frame zooms camera to the board first!
+      const isFocused = document.body.classList.contains('projects-focus');
+      if (!isFocused) {
+        const groupIntersects = this.raycaster.intersectObjects(this.group.children, true);
+        if (groupIntersects.length > 0) {
+          const hotspotPoint = this.experience.world.hotspots?.points.find(p => p.id === 'projects');
+          if (hotspotPoint) {
+            this.experience.world.hotspots.onHotspotClick(hotspotPoint);
+          } else if (this.experience.ui) {
+            this.experience.ui.enterFocusMode('projects');
+          }
+          return; // Strictly stop here! Never launch external URL from afar!
+        }
+        return;
+      }
+
+      // STEP 2: When ALREADY in focus mode, clicking a card opens that project's live URL!
+      const intersects = this.raycaster.intersectObject(this.screenMesh);
       if (intersects.length > 0 && intersects[0].uv) {
         const uv = intersects[0].uv;
         const canvasX = uv.x * this.canvasWidth;

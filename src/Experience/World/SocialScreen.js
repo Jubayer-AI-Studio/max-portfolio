@@ -491,6 +491,18 @@ export default class SocialScreen {
       this.raycaster.setFromCamera(this.mouse, this.camera);
       const intersects = this.raycaster.intersectObject(this.screenMesh);
 
+      // If NOT in focus mode, cursor over board is an invite to zoom in
+      const isFocused = document.body.classList.contains('social-focus');
+      if (!isFocused) {
+        document.body.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
+        if (this.hoveredIndex !== -1) {
+          this.hoveredIndex = -1;
+          this.draw();
+        }
+        return;
+      }
+
+      // IN focus mode: Highlight individual social cards
       if (intersects.length > 0 && intersects[0].uv) {
         const uv = intersects[0].uv;
         const canvasX = uv.x * this.canvasWidth;
@@ -528,6 +540,19 @@ export default class SocialScreen {
       const intersects = this.raycaster.intersectObject(this.screenMesh);
 
       if (intersects.length > 0 && intersects[0].uv) {
+        // STEP 1: If NOT in focus mode, zoom in to Social Media board first!
+        const isFocused = document.body.classList.contains('social-focus');
+        if (!isFocused) {
+          const hotspotPoint = this.experience.world.hotspots?.points.find(p => p.id === 'social');
+          if (hotspotPoint) {
+            this.experience.world.hotspots.onHotspotClick(hotspotPoint);
+          } else if (this.experience.ui) {
+            this.experience.ui.enterFocusMode('social');
+          }
+          return;
+        }
+
+        // STEP 2: In focus mode, launch clicked social channel!
         const uv = intersects[0].uv;
         const canvasX = uv.x * this.canvasWidth;
         const canvasY = (1 - uv.y) * this.canvasHeight;

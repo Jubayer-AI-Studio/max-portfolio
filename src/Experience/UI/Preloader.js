@@ -15,15 +15,15 @@ export default class Preloader {
     };
 
     this.totalBytes = this.items.car.total;
-    this.targetProgress = 90;
-    this.displayProgress = 20;
+    this.targetProgress = 15;
+    this.displayProgress = 0;
     this.soundPlayed = false;
     this.finished = false;
 
-    // Instant <1s showroom launch guarantee (dismisses preloader within 350ms)
+    // Strict 3.2s fallback guarantee (guarantees entry within 3s while ensuring car is loaded)
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 350);
+    }, 3200);
 
     // Bind interactive Rev Sound button
     if (this.revBtn) {
@@ -85,10 +85,10 @@ export default class Preloader {
     if (this.items.car.ready) {
       this.targetProgress = 100;
       const checkAndFinish = () => {
-        if (this.displayProgress >= 98) {
-          setTimeout(() => this.finish(), 80);
+        if (this.displayProgress >= 95) {
+          setTimeout(() => this.finish(), 60);
         } else {
-          setTimeout(checkAndFinish, 30);
+          setTimeout(checkAndFinish, 20);
         }
       };
       checkAndFinish();
