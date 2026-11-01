@@ -10,110 +10,84 @@ export default class Preloader {
     this.revBtn = document.getElementById('loader-rev-btn');
     this.quickBtn = document.getElementById('loader-quick-launch');
 
-    this.items = {
-      car: { loaded: 0, total: 5234628, ready: false }
-    };
-
-    this.totalBytes = this.items.car.total;
-    this.targetProgress = 40;
-    this.displayProgress = 15;
-    this.soundPlayed = false;
+    this.carReady = false;
     this.finished = false;
+    this.startTime = performance.now();
+    this.currentProgress = 0;
 
-    // Guaranteed sub-2s fast entry: preloader never blocks for more than 1.8 seconds!
+    // Hard fallback: never let user wait more than 2.8s under ANY network condition
     this.fallbackTimer = setTimeout(() => {
       this.finish();
-    }, 1800);
+    }, 2800);
 
-    // Show Quick Launch button after 800ms so user can bypass instantly if they wish
-    setTimeout(() => {
-      if (!this.finished && this.quickBtn) {
-        this.quickBtn.style.display = 'inline-flex';
-      }
-    }, 800);
-
-    // Bind interactive Rev Sound button
-    if (this.revBtn) {
-      this.revBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.tryPlayAudio(true);
-      });
-    }
-
+    // Show Quick Launch button immediately so user can bypass instantly if they wish
     if (this.quickBtn) {
+      this.quickBtn.style.display = 'inline-flex';
       this.quickBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         this.finish();
       });
     }
 
-    // Window gesture listeners for Web Audio API unlock
-    window.addEventListener('click', () => this.tryPlayAudio(), { once: true });
-    window.addEventListener('touchstart', () => this.tryPlayAudio(), { once: true });
+    // Direct click/tap anywhere on loader enters instantly!
+    if (this.loaderElement) {
+      this.loaderElement.addEventListener('click', () => {
+        this.finish();
+      }, { once: true });
+    }
+
+    if (this.revBtn) {
+      this.revBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.finish();
+      });
+    }
 
     // Start Smooth Display Animation Loop
     this.animateLoop();
   }
 
-  tryPlayAudio(force = false) {
-    if ((!this.soundPlayed || force) && this.experience.sounds) {
-      this.soundPlayed = true;
-      this.experience.sounds.playEngineRev();
-    }
-  }
-
   onProgress(itemKey, loaded, total) {
-    if (this.items[itemKey]) {
-      this.items[itemKey].loaded = loaded;
-      if (total && total > 0) {
-        this.items[itemKey].total = total;
-        this.totalBytes = total;
+    if (total && total > 0) {
+      const netProg = Math.min(95, (loaded / total) * 95);
+      if (netProg > this.currentProgress) {
+        this.currentProgress = netProg;
       }
-    }
-
-    const currentLoaded = this.items.car.loaded;
-    const currentTotal = this.totalBytes || 5234628;
-    const rawRatio = Math.min(currentLoaded / currentTotal, 1);
-    this.targetProgress = Math.max(this.targetProgress, Math.round(35 + rawRatio * 62));
-
-    // Play engine rev as speed passes 50%
-    if (this.displayProgress > 45 && !this.soundPlayed) {
-      this.tryPlayAudio();
     }
   }
 
   onItemLoaded(itemKey) {
-    if (this.items[itemKey]) {
-      this.items[itemKey].ready = true;
-      this.items[itemKey].loaded = this.items[itemKey].total;
-    }
-
-    if (this.items.car.ready) {
-      this.targetProgress = 100;
-      setTimeout(() => this.finish(), 80);
+    if (itemKey === 'car') {
+      this.carReady = true;
+      this.finish();
     }
   }
 
   animateLoop() {
     if (this.finished) return;
 
-    // Smooth continuous progress guarantee: always moves towards 100%
-    this.targetProgress = Math.min(this.targetProgress + 0.8, 100);
-    const diff = this.targetProgress - this.displayProgress;
-    const step = Math.max(diff * 0.4, 2.5);
-    this.displayProgress = Math.min(this.displayProgress + step, this.targetProgress);
+    const elapsed = performance.now() - this.startTime;
 
-    const progInt = Math.min(Math.round(this.displayProgress), 100);
+    // Baseline progressive acceleration reaching 95% by 1.8s
+    const timeProg = Math.min(95, (elapsed / 1800) * 95);
+    this.currentProgress = Math.max(timeProg, this.currentProgress);
+
+    if (elapsed >= 2800) {
+      this.finish();
+      return;
+    }
+
+    const progInt = Math.round(this.currentProgress);
 
     // Update Progress Bar
     if (this.barElement) {
-      this.barElement.style.width = `${this.displayProgress}%`;
+      this.barElement.style.width = `${this.currentProgress}%`;
     }
 
     // Update Live Speedometer (0 to 260 KM/H)
-    const speed = Math.round((this.displayProgress / 100) * 260);
+    const speedKmh = Math.round((this.currentProgress / 100) * 260);
     if (this.speedElement) {
-      this.speedElement.textContent = String(speed).padStart(3, '0');
+      this.speedElement.textContent = String(speedKmh).padStart(3, '0');
     }
 
     // Update Gear
@@ -129,7 +103,7 @@ export default class Preloader {
 
     // Update RPM (1.2K to 7.8K)
     if (this.rpmElement) {
-      const rpm = (1.2 + (this.displayProgress / 100) * 6.6).toFixed(1);
+      const rpm = (1.2 + (this.currentProgress / 100) * 6.6).toFixed(1);
       this.rpmElement.textContent = `${rpm}K`;
     }
 
@@ -137,20 +111,13 @@ export default class Preloader {
     if (this.statusElement) {
       if (progInt < 30) {
         this.statusElement.textContent = `Igniting AMG V8 Biturbo Engine... ${progInt}%`;
-      } else if (progInt < 60) {
-        this.statusElement.textContent = `Calibrating 60 FPS Mobile GPU Shaders... ${progInt}%`;
-      } else if (progInt < 90) {
-        this.statusElement.textContent = `Accelerating Telemetry (${speed} KM/H)...`;
+      } else if (progInt < 70) {
+        this.statusElement.textContent = `Accelerating Telemetry (${speedKmh} KM/H)...`;
       } else if (progInt < 99) {
         this.statusElement.textContent = `Engaging Aerodynamics & Launch Control... ${progInt}%`;
       } else {
         this.statusElement.textContent = `Launch Control Ready • Welcome, Jubayer Ahmad`;
       }
-    }
-
-    if (progInt >= 100) {
-      this.finish();
-      return;
     }
 
     requestAnimationFrame(() => this.animateLoop());
@@ -161,7 +128,13 @@ export default class Preloader {
     this.finished = true;
     clearTimeout(this.fallbackTimer);
 
-    // Guaranteed instant dismissal
+    if (this.barElement) this.barElement.style.width = '100%';
+    if (this.speedElement) this.speedElement.textContent = '260';
+    if (this.gearElement) this.gearElement.textContent = 'MAX';
+    if (this.statusElement) {
+      this.statusElement.textContent = 'Studio Online • Welcome, Jubayer Ahmad';
+    }
+
     if (this.loaderElement) {
       this.loaderElement.classList.add('hidden');
       this.loaderElement.style.opacity = '0';
@@ -170,15 +143,7 @@ export default class Preloader {
         if (this.loaderElement && this.loaderElement.parentNode) {
           this.loaderElement.parentNode.removeChild(this.loaderElement);
         }
-      }, 250);
-    }
-
-    this.displayProgress = 100;
-    if (this.barElement) this.barElement.style.width = '100%';
-    if (this.speedElement) this.speedElement.textContent = '260';
-    if (this.gearElement) this.gearElement.textContent = 'MAX';
-    if (this.statusElement) {
-      this.statusElement.textContent = 'Studio Online • Welcome, Jubayer Ahmad';
+      }, 350);
     }
 
     try {
@@ -186,7 +151,7 @@ export default class Preloader {
         this.experience.sounds.playTireScreech();
       }
     } catch (e) {
-      console.warn('Audio non-blocking', e);
+      // Non-blocking
     }
   }
 }
