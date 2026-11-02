@@ -7,46 +7,52 @@ export default class Hotspots {
     this.camera = this.experience.camera.instance;
     this.sizes = this.experience.sizes;
 
+    // Optimized Hotspot Targets with razor-sharp camera framing
     this.points = [
       {
         id: 'projects',
         name: 'Live Projects (10)',
         position: new THREE.Vector3(0, 2.38, -4.5),
-        camPos: { x: 0, y: 1.62, z: -0.95 },
+        camPos: { x: 0, y: 1.62, z: -1.5 }, // Perfectly frames the entire 10-project billboard with full margins
         camTarget: { x: 0, y: 1.62, z: -4.6 },
-        action: 'projects'
+        action: 'projects',
+        isCarPart: false
       },
       {
         id: 'driver',
         name: 'About Jubayer',
         position: new THREE.Vector3(-4.2, 2.3, -1.8),
-        camPos: { x: -1.7, y: 1.5, z: 0.2 },
+        camPos: { x: -2.4, y: 1.5, z: -0.5 }, // Crisp, close framing for portrait & profile
         camTarget: { x: -4.2, y: 1.5, z: -1.8 },
-        action: 'signboard'
+        action: 'signboard',
+        isCarPart: false
       },
       {
         id: 'social',
         name: 'Social Media',
         position: new THREE.Vector3(3.4, 1.65, -1.2),
-        camPos: { x: 1.45, y: 1.15, z: 0.1 },
+        camPos: { x: 1.9, y: 1.15, z: -0.15 }, // Crisp, close framing for 4 social cards
         camTarget: { x: 3.4, y: 1.12, z: -1.2 },
-        action: 'social'
+        action: 'social',
+        isCarPart: false
       },
       {
         id: 'hood',
-        name: 'Full-Stack Core',
+        name: 'Full-Stack Engine',
         position: new THREE.Vector3(0, 0.95, 1.45),
         camPos: { x: 1.2, y: 1.6, z: 2.8 },
         camTarget: { x: 0, y: 0.85, z: 1.1 },
-        action: 'hood'
+        action: 'hood',
+        isCarPart: true
       },
       {
         id: 'dashboard',
-        name: 'AI & Content Stack',
+        name: 'AI & Cockpit Stack',
         position: new THREE.Vector3(-0.5, 1.05, 0.1),
         camPos: { x: -1.6, y: 1.35, z: 0.8 },
         camTarget: { x: -0.2, y: 0.9, z: 0.1 },
-        action: 'dashboard'
+        action: 'dashboard',
+        isCarPart: true
       },
       {
         id: 'trunk',
@@ -54,7 +60,8 @@ export default class Hotspots {
         position: new THREE.Vector3(0, 0.95, -1.45),
         camPos: { x: -1.0, y: 1.6, z: -2.8 },
         camTarget: { x: 0, y: 0.8, z: -1.1 },
-        action: 'trunk'
+        action: 'trunk',
+        isCarPart: true
       }
     ];
 
@@ -67,18 +74,23 @@ export default class Hotspots {
 
   createElements() {
     this.points.forEach((point) => {
+      // Only car parts get interactive subtle beacons; boards in 3D are self-contained and clean!
+      if (!point.isCarPart) return;
+
       const pin = document.createElement('div');
-      pin.className = 'hotspot-pin';
+      pin.className = 'hotspot-pin minimal-beacon';
       pin.dataset.id = point.id;
+      pin.setAttribute('title', point.name);
 
       pin.innerHTML = `
         <div class="hotspot-inner">
           <span class="hotspot-beacon"></span>
-          <span>${point.name}</span>
+          <span class="hotspot-label">${point.name}</span>
         </div>
       `;
 
-      pin.addEventListener('click', () => {
+      pin.addEventListener('click', (e) => {
+        e.stopPropagation();
         this.onHotspotClick(point);
       });
 
@@ -120,11 +132,11 @@ export default class Hotspots {
       }
     }
 
-    // Smooth camera transition
+    // Smooth camera transition to target
     this.experience.camera.transitionTo(point.camPos, point.camTarget);
 
-    // If focusing on a 3D billboard, enter pristine focus mode (no overlapping drawers or headers!)
-    // For vehicle parts without a 3D board (hood, dashboard, trunk), open tech stack drawer
+    // If focusing on a 3D billboard, enter pristine focus mode
+    // For vehicle parts (hood, dashboard, trunk), open tech stack drawer
     if (this.experience.ui) {
       if (['projects', 'driver', 'social'].includes(point.id)) {
         this.experience.ui.enterFocusMode(point.id);

@@ -38,11 +38,20 @@ html, body {
   overflow: hidden !important;
   overflow-x: hidden !important;
   overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   background-color: var(--bg-deep);
   color: var(--text-main);
   font-family: var(--font-main);
   user-select: none;
   -webkit-font-smoothing: antialiased;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* 3D WebGL Canvas */
@@ -479,19 +488,19 @@ html, body {
 
 .brand-minimal .brand-title {
   font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 0.94rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
   color: #0A0908;
   line-height: 1.2;
 }
 
 .brand-minimal .brand-sub {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.10em;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
   color: #9A3412;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 /* ===============================
@@ -504,7 +513,7 @@ html, body {
   background: linear-gradient(135deg, rgba(248, 244, 236, 0.95) 0%, rgba(239, 228, 210, 0.92) 100%);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  padding: 4px 16px 5px;
+  padding: 5px 18px 6px;
   border-radius: 12px;
   border: 1.5px solid rgba(212, 160, 56, 0.45);
   box-shadow: 0 8px 22px rgba(12, 10, 9, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
@@ -513,8 +522,8 @@ html, body {
 
 .hud-big-clock {
   font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 800;
+  font-size: 1.22rem;
+  font-weight: 850;
   letter-spacing: 0.05em;
   color: #0A0908;
   text-shadow: none;
@@ -525,11 +534,11 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.56rem;
-  font-weight: 700;
-  letter-spacing: 0.10em;
+  font-size: 0.70rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
   color: #9A3412;
-  margin-top: 1px;
+  margin-top: 2px;
   text-transform: uppercase;
 }
 
@@ -729,32 +738,34 @@ body.in-focus-mode .hotspots-container {
 =============================== */
 .hud-nav {
   position: fixed;
-  bottom: 24px;
+  bottom: 20px;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 50;
   display: flex;
   justify-content: center;
+  align-items: center;
   pointer-events: none;
   padding: 0 16px;
 }
 
 .nav-container {
   pointer-events: auto;
-  background: linear-gradient(135deg, rgba(248, 244, 236, 0.94) 0%, rgba(239, 228, 210, 0.90) 100%);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1.5px solid rgba(212, 160, 56, 0.45);
-  padding: 4px;
-  border-radius: 99px;
+  background: linear-gradient(135deg, rgba(254, 252, 248, 0.96) 0%, rgba(246, 240, 230, 0.94) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1.5px solid rgba(212, 160, 56, 0.55);
+  padding: 6px 12px;
+  border-radius: 9999px;
   display: flex;
-  gap: 4px;
-  box-shadow: 0 16px 40px rgba(12, 10, 9, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
-  max-width: 96vw;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+  flex-wrap: wrap; /* Guarantees all items are 100% visible on all screen sizes, never cut off */
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 16px 45px rgba(12, 10, 9, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  max-width: 98vw;
+  width: auto;
+  overflow: visible !important; /* Zero cutoff, zero scrollbar */
 }
 
 .nav-container::-webkit-scrollbar {
@@ -765,26 +776,26 @@ body.in-focus-mode .hotspots-container {
 
 .nav-pill {
   background: transparent;
-  border: none;
-  color: #57534E;
+  border: 1px solid transparent;
+  color: #1C1917; /* Deep charcoal for sharp contrast */
   font-family: var(--font-display);
-  font-size: 0.73rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 8px 14px;
-  border-radius: 99px;
+  font-size: 0.82rem; /* Clearly legible */
+  font-weight: 750;
+  letter-spacing: 0.03em;
+  padding: 8px 16px;
+  border-radius: 9999px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
 .nav-pill .dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #A8A29E;
   transition: all 0.2s ease;
@@ -792,19 +803,20 @@ body.in-focus-mode .hotspots-container {
 
 .nav-pill:hover {
   color: #0A0908;
-  background: rgba(212, 160, 56, 0.15);
+  background: rgba(212, 160, 56, 0.18);
+  border-color: rgba(212, 160, 56, 0.4);
 }
 
 .nav-pill.active {
   color: #FFFFFF;
   background: #0A0908;
-  border: 1px solid #D4A038;
-  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.35);
+  border-color: #D4A038;
+  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.45);
 }
 
 .nav-pill.active .dot {
   background: #D4A038;
-  box-shadow: 0 0 8px #D4A038;
+  box-shadow: 0 0 10px #D4A038;
 }
 
 /* ===============================
@@ -1427,7 +1439,7 @@ body.projects-focus .hotspots-container {
 
 .hotspot-pin {
   position: absolute;
-  z-index: 5;
+  z-index: 15;
   cursor: pointer;
   transform: translate(-50%, -50%);
   pointer-events: auto;
@@ -1437,28 +1449,28 @@ body.projects-focus .hotspots-container {
 .hotspot-inner {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background: linear-gradient(135deg, rgba(248, 244, 236, 0.96) 0%, rgba(239, 228, 210, 0.92) 100%);
+  gap: 0;
+  background: rgba(12, 10, 9, 0.90);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(212, 160, 56, 0.55);
-  padding: 5px 12px 5px 8px;
-  border-radius: 999px;
-  box-shadow: 0 6px 20px rgba(12, 10, 9, 0.22);
-  color: #0A0908;
-  font-size: 0.72rem;
-  font-weight: 700;
+  border: 1.5px solid #D4A038;
+  padding: 5px;
+  border-radius: 9999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(212, 160, 56, 0.35);
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 750;
   letter-spacing: 0.04em;
   white-space: nowrap;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hotspot-beacon {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #D4A038;
-  box-shadow: 0 0 8px #D4A038;
+  box-shadow: 0 0 10px #D4A038;
   flex-shrink: 0;
   position: relative;
 }
@@ -1466,10 +1478,19 @@ body.projects-focus .hotspots-container {
 .hotspot-beacon::after {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: -5px;
   border-radius: 50%;
   border: 1.5px solid #D4A038;
   animation: beacon-pulse 2s infinite ease-out;
+}
+
+.hotspot-label {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-4px);
 }
 
 @keyframes beacon-pulse {
@@ -1478,10 +1499,18 @@ body.projects-focus .hotspots-container {
 }
 
 .hotspot-pin:hover .hotspot-inner {
-  background: #FFFFFF;
-  border-color: #D4A038;
-  box-shadow: 0 8px 24px rgba(212, 160, 56, 0.35);
-  transform: scale(1.06);
+  padding: 5px 12px 5px 8px;
+  gap: 7px;
+  background: #0A0908;
+  border-color: #FBBF24;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.5), 0 0 20px rgba(251, 191, 36, 0.5);
+  transform: scale(1.1);
+}
+
+.hotspot-pin:hover .hotspot-label {
+  max-width: 220px;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Responsive adjustments */
@@ -1544,22 +1573,23 @@ body.projects-focus .hotspots-container {
   }
   .hud-nav {
     bottom: 12px;
-    padding: 0 10px;
+    padding: 0 8px;
   }
   .nav-container {
     max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    justify-content: flex-start;
-    padding: 5px 8px;
+    overflow: visible !important;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 6px 8px;
+    gap: 4px;
   }
   .nav-container::-webkit-scrollbar {
-    display: none;
+    display: none !important;
   }
   .nav-pill {
-    padding: 8px 13px;
-    font-size: 0.72rem;
+    padding: 6px 11px;
+    font-size: 0.74rem;
+    font-weight: 750;
     flex-shrink: 0;
   }
   .hud-focus-banner {

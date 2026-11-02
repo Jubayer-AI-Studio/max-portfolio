@@ -439,15 +439,15 @@ export default class ProjectsScreen {
     // 4. TOP ROW: Category Label (Left) + Cloud Badge (Right)
     const topRowY = y + 36;
     ctx.fillStyle = proj.tagColor || '#9A3412';
-    ctx.font = '800 12px "Outfit", "Plus Jakarta Sans", sans-serif';
+    ctx.font = '800 13px "Outfit", "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText(proj.tag, x + 20, topRowY);
 
-    // Clean Live Cloud Pill on Right (compact, perfectly proportioned)
-    const badgeW = 144;
-    const badgeH = 22;
+    // Clean Live Cloud Pill on Right (crisp, high contrast)
+    const badgeW = 150;
+    const badgeH = 24;
     const badgeX = x + w - badgeW - 16;
-    const badgeY = topRowY - 16;
+    const badgeY = topRowY - 17;
 
     const isDual = proj.provider === 'DUAL';
     const isCloudflare = proj.provider === 'CLOUDFLARE';
@@ -456,61 +456,61 @@ export default class ProjectsScreen {
     this.roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 6);
     ctx.fill();
 
-    ctx.strokeStyle = isDual ? '#A7F3D0' : (isCloudflare ? '#FDE68A' : '#BFDBFE');
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = isDual ? '#059669' : (isCloudflare ? '#D97706' : '#2563EB');
+    ctx.lineWidth = 1.2;
     this.roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 6);
     ctx.stroke();
 
     // Status Dot inside Badge
     ctx.beginPath();
-    ctx.arc(badgeX + 11, badgeY + badgeH / 2, 3.5, 0, Math.PI * 2);
+    ctx.arc(badgeX + 12, badgeY + badgeH / 2, 4, 0, Math.PI * 2);
     ctx.fillStyle = isDual ? '#10B981' : (isCloudflare ? '#F59E0B' : '#2563EB');
     ctx.fill();
 
     ctx.fillStyle = isDual ? '#047857' : (isCloudflare ? '#9A3412' : '#1D4ED8');
-    ctx.font = '700 10.5px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(proj.badgeText, badgeX + 19, badgeY + 15);
+    ctx.font = '800 11.5px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(proj.badgeText, badgeX + 22, badgeY + 16.5);
 
-    // 5. MAIN PROJECT TITLE (Large, Bold, High-Contrast Obsidian Charcoal with Dynamic Auto-Fitting)
+    // 5. MAIN PROJECT TITLE (Large, Bold, High-Contrast Obsidian Charcoal)
     ctx.fillStyle = '#0A0908';
-    let titleFontSize = 23;
+    let titleFontSize = 25;
     ctx.font = `900 ${titleFontSize}px "Outfit", "Plus Jakarta Sans", sans-serif`;
-    while (ctx.measureText(proj.title).width > (w - 44) && titleFontSize > 17) {
+    while (ctx.measureText(proj.title).width > (w - 44) && titleFontSize > 18) {
       titleFontSize -= 1;
       ctx.font = `900 ${titleFontSize}px "Outfit", "Plus Jakarta Sans", sans-serif`;
     }
     ctx.fillText(proj.title, x + 20, y + 82);
 
-    // 6. OFFICIAL DOMAIN PILL (Electric Sapphire on Soft Cyan Tint with Auto-Fitting)
-    const domY = y + 104;
+    // 6. OFFICIAL DOMAIN PILL (Electric Sapphire on Clean Cyan Tint)
+    const domY = y + 102;
     const domW = w - 40;
     ctx.fillStyle = '#F0F9FF';
-    this.roundRect(ctx, x + 20, domY, domW, 30, 6);
+    this.roundRect(ctx, x + 20, domY, domW, 32, 6);
     ctx.fill();
 
-    ctx.strokeStyle = '#BAE6FD';
-    ctx.lineWidth = 1;
-    this.roundRect(ctx, x + 20, domY, domW, 30, 6);
+    ctx.strokeStyle = '#38BDF8';
+    ctx.lineWidth = 1.2;
+    this.roundRect(ctx, x + 20, domY, domW, 32, 6);
     ctx.stroke();
 
     ctx.fillStyle = '#0284C7';
-    let domFontSize = 12.5;
-    const domText = '🔗 ' + proj.domain;
-    ctx.font = `700 ${domFontSize}px "Plus Jakarta Sans", monospace`;
-    while (ctx.measureText(domText).width > (domW - 24) && domFontSize > 9.5) {
+    let domFontSize = 14;
+    const domText = 'LIVE: ' + proj.domain;
+    ctx.font = `800 ${domFontSize}px "Plus Jakarta Sans", monospace`;
+    while (ctx.measureText(domText).width > (domW - 24) && domFontSize > 10.5) {
       domFontSize -= 0.5;
-      ctx.font = `700 ${domFontSize}px "Plus Jakarta Sans", monospace`;
+      ctx.font = `800 ${domFontSize}px "Plus Jakarta Sans", monospace`;
     }
-    ctx.fillText(domText, x + 28, domY + 20);
+    ctx.fillText(domText, x + 28, domY + 21);
 
-    // 7. KEY PURPOSE / TECH STACK HIGHLIGHT (Clean, Crisp, Zero Clutter)
+    // 7. KEY PURPOSE / TECH STACK HIGHLIGHT (Deep Charcoal, Sharp Contrast)
     const techHighlight = proj.pills.join('  •  ');
-    ctx.fillStyle = '#475569';
-    let techFontSize = 12.5;
-    ctx.font = `600 ${techFontSize}px "Plus Jakarta Sans", sans-serif`;
-    while (ctx.measureText(techHighlight).width > (w - 44) && techFontSize > 10) {
+    ctx.fillStyle = '#1E293B';
+    let techFontSize = 13.5;
+    ctx.font = `700 ${techFontSize}px "Plus Jakarta Sans", sans-serif`;
+    while (ctx.measureText(techHighlight).width > (w - 44) && techFontSize > 11) {
       techFontSize -= 0.5;
-      ctx.font = `600 ${techFontSize}px "Plus Jakarta Sans", sans-serif`;
+      ctx.font = `700 ${techFontSize}px "Plus Jakarta Sans", sans-serif`;
     }
     ctx.fillText(techHighlight, x + 20, y + 162);
 
@@ -538,14 +538,14 @@ export default class ProjectsScreen {
       ctx.fill();
 
       ctx.strokeStyle = '#D4A038';
-      ctx.lineWidth = 1.4;
+      ctx.lineWidth = 1.6;
       this.roundRect(ctx, x + 20, btnY, btnW, btnH, 8);
       ctx.stroke();
 
       ctx.fillStyle = '#9A3412';
-      ctx.font = '700 13.5px "Outfit", sans-serif';
+      ctx.font = '800 14px "Outfit", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Visit Live Site ↗', x + 20 + btnW / 2, btnY + 26);
+      ctx.fillText('VISIT LIVE SITE ↗', x + 20 + btnW / 2, btnY + 26);
     }
 
     ctx.restore();
